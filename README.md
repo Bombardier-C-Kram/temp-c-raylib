@@ -1,4 +1,4 @@
-# Temp-c-raylib
+# Temp-c-raylib for Dyalog ⎕NA
 Temp-c-raylib is for temporary raylib changes to be able to use ⎕NA with less issues in Dyalog APL.
 
 # Compile
