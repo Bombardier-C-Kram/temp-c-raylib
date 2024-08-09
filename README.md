@@ -7,9 +7,8 @@ Then every time you compile after that, you just run `./compile.sh`.
 
 ## To fix ninja not found error
 ```
-rm -rf .cache
-mkdir build
 cd build
+rm -rf .cache
 cmake -DCMAKE_C_COMPILER=clang ..
 cd ../build
 ```
