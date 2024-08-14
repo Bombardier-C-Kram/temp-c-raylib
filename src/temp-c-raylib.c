@@ -3,6 +3,8 @@
 #include "rlgl.h"
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
+#define PHYSAC_IMPLEMENTATION
+#include "physac.h"
 void WindowShouldCloseRetPtr(bool *ret){*ret=WindowShouldClose();}                               // Check if application should close (KEY_ESCAPE pressed or windows close icon clicked)
 void IsWindowReadyRetPtr(bool *ret){*ret=IsWindowReady();}                                   // Check if window has been initialized successfully
 void IsWindowFullscreenRetPtr(bool *ret){*ret=IsWindowFullscreen();}                              // Check if window is currently fullscreen

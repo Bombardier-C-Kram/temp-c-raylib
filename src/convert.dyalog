@@ -66,6 +66,8 @@ includes ,←⊂ '#include "raymath.h"'
 includes ,←⊂ '#include "rlgl.h"'
 includes ,←⊂ '#define RAYGUI_IMPLEMENTATION'
 includes ,←⊂ '#include "raygui.h"'
+includes ,←⊂ '#define PHYSAC_IMPLEMENTATION'
+includes ,←⊂ '#include "physac.h"'
 
 functionsStart ← ⍬
 functionsStart ,←⊂ '#if defined(__cplusplus)'
@@ -79,13 +81,16 @@ functionsEnd ,←⊂ '#endif'
 
 (rl rm rlgl) ← (⊃⍤⎕NGET 1,⍨⊂)¨ '../build/_deps/raylib-build/raylib/include/'∘,¨'raylib.h' 'raymath.h' 'rlgl.h'
 rgui         ← (⊃⍤⎕NGET 1,⍨⊂) 'raygui.h'
+physac       ← (⊃⍤⎕NGET 1,⍨⊂) 'physac.h'
 
+physacFuncs  ←   physac {⍵CI¨⍺/⍨⍵≡¨10↑¨⍺} ⊂'PHYSACDEF '
 rayguiFuncs  ←     rgui {⍵CI¨⍺/⍨⍵≡¨10↑¨⍺} ⊂'RAYGUIAPI '
 raylibFuncs  ←       rl {⍵CI¨⍺/⍨⍵≡¨ 6↑¨⍺} ⊂'RLAPI '
 raymathFuncs ← ';',⍨¨rm {⍵CI¨⍺/⍨⍵≡¨ 6↑¨⍺} ⊂'RMAPI '
 
 ⍝           /¯¯¯fixes bug in rl 5.0¯¯¯¯\
-rlglFuncs ← (rlgl/⍨~∨\functionsEnd⍷rlgl) {⍵CI¨⍺/⍨⍵≡¨6↑¨⍺} ⊂'RLAPI '
+rlglFuncs   ← (  rlgl/⍨~∨\functionsEnd⍷  rlgl) {⍵CI¨⍺/⍨⍵≡¨ 6↑¨⍺} ⊂'RLAPI '
+physacFuncs ← (physac/⍨~∨\functionsEnd⍷physac) {⍵CI¨⍺/⍨⍵≡¨10↑¨⍺} ⊂'PHYSACDEF '
 
 
 
