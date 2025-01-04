@@ -1,5 +1,5 @@
 # Temp-c-raylib for Dyalog ⎕NA
-Temp-c-raylib is for temporary raylib changes to be able to use ⎕NA with less issues in Dyalog APL.
+Temp-c-raylib is for temporary raylib changes to be able to use ⎕NA with less issues in Dyalog APL. Currently only targets raylib 5.0.
 
 # Compile
 First time you want to compile you need run `./init.sh` to set cmake up.
