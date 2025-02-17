@@ -83,12 +83,45 @@ functionsEnd ,←⊂ '#endif'
 rgui         ← (⊃⍤⎕NGET 1,⍨⊂) 'raygui.h'
 physac       ← (⊃⍤⎕NGET 1,⍨⊂) 'physac.h'
 
+
+⍝ Get list of structs
+vec ← 'Vector2' 'Vector3' 'Vector4' 'Matrix' 'Color' 'Rectangle' 'Image' 'Texture' 'RenderTexture' 'NPatchInfo' 'GlyphInfo' 'Font' 'Camera3D' 'Camera2D' 'Mesh' 'Shader' 'MaterialMap' 'Material' 'Transform' 'BoneInfo' 'Model' 'ModelAnimation' 'Ray' 'RayCollision' 'BoundingBox' 'Wave' 'rAudioBuffer' 'rAudioProcessor' 'AudioStream' 'Sound' 'Music' 'VrDeviceInfo' 'VrStereoConfig' 'FilePathList' 'AutomationEvent' 'AutomationEventList'
+nl ← ⎕UCS 10
+SP ← 'typedef struct ' ⍝ Struct prefix
+I ← {⍺←⊢⋄⍺ ⍺⍺⍣¯1⊢⍵}
+
+structsAndMore ← rl ⊆⍨ +\(' {'∘≡¨¯2↑¨rl) ∧ SP∘≡¨(≢SP)∘↑¨rl
+names ← ,∘' {'I¨ SP∘,I¨ ⊃¨structsAndMore
+
+structs ← structsAndMore {⍺/⍨⌽∨\⌽⍵∘≡¨⍺}¨ '} '∘,¨names,¨';'
+
+
+⍝ redefine new structs with __attribute__((packed))
+
+
+
+⍝ Use new structs for args in and 
+
+
+⍝ Sizeofs
+
+sizeofCode ←,⊂'char *structNames[] = {','};',⍨ ⊃,/'"'∘,¨,∘'",'¨names
+sizeofCode,← ⊂'int structSizes[] = {','};',⍨ ⊃,/'sizeof('∘,¨,∘'),'¨names
+sizeofCode,← ⊂'int StructCount() {return ',';}',⍨⍕≢names
+sizeofCode,← ⊂''
+sizeofCode,← ⊂'int GetStructSize(int index) {return structSizes[index];}'
+sizeofCode,← ⊂'void GetStructName(char *retName, int strlen, int index) {'
+sizeofCode,← ⊂'  for (int i=0;i<strlen;i++) {'
+sizeofCode,← ⊂'    retName[i] = structNames[index][i];'
+sizeofCode,← ⊂'  }'
+sizeofCode,← ⊂'}'
+
 physacFuncs  ←   physac {⍵CI¨⍺/⍨⍵≡¨10↑¨⍺} ⊂'PHYSACDEF '
 rayguiFuncs  ←     rgui {⍵CI¨⍺/⍨⍵≡¨10↑¨⍺} ⊂'RAYGUIAPI '
 raylibFuncs  ←       rl {⍵CI¨⍺/⍨⍵≡¨ 6↑¨⍺} ⊂'RLAPI '
 raymathFuncs ← ';',⍨¨rm {⍵CI¨⍺/⍨⍵≡¨ 6↑¨⍺} ⊂'RMAPI '
 
-⍝           /¯¯¯fixes bug in rl 5.0¯¯¯¯\
+⍝             /¯¯¯¯fixes bug in rl 5.0¯¯¯¯¯¯¯\
 rlglFuncs   ← (  rlgl/⍨~∨\functionsEnd⍷  rlgl) {⍵CI¨⍺/⍨⍵≡¨ 6↑¨⍺} ⊂'RLAPI '
 physacFuncs ← (physac/⍨~∨\functionsEnd⍷physac) {⍵CI¨⍺/⍨⍵≡¨10↑¨⍺} ⊂'PHYSACDEF '
 
@@ -96,4 +129,4 @@ physacFuncs ← (physac/⍨~∨\functionsEnd⍷physac) {⍵CI¨⍺/⍨⍵≡¨10
 
 declorations ← ⊃,/(raylibFuncs raymathFuncs rlglFuncs rayguiFuncs)
 fixed ← {⍵/⍨0≠≢¨⍵} fixDecleration¨ {⍵/⍨∧/3∨/'.'≠↑⍵} declorations
-'temp-c-raylib.c'1⎕NPUT⍨⊂includes, fixed
+'temp-c-raylib.c'1⎕NPUT⍨⊂includes, sizeofCode,fixed

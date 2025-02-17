@@ -5,6 +5,16 @@
 #include "raygui.h"
 #define PHYSAC_IMPLEMENTATION
 #include "physac.h"
+char *structNames[] = {"Vector2","Vector3","Vector4","Matrix","Color","Rectangle","Image","Texture","RenderTexture","NPatchInfo","GlyphInfo","Font","Camera3D","Camera2D","Mesh","Shader","MaterialMap","Material","Transform","BoneInfo","Model","ModelAnimation","Ray","RayCollision","BoundingBox","Wave","AudioStream","Sound","Music","VrDeviceInfo","VrStereoConfig","FilePathList","AutomationEvent","AutomationEventList",};
+int structSizes[] = {sizeof(Vector2),sizeof(Vector3),sizeof(Vector4),sizeof(Matrix),sizeof(Color),sizeof(Rectangle),sizeof(Image),sizeof(Texture),sizeof(RenderTexture),sizeof(NPatchInfo),sizeof(GlyphInfo),sizeof(Font),sizeof(Camera3D),sizeof(Camera2D),sizeof(Mesh),sizeof(Shader),sizeof(MaterialMap),sizeof(Material),sizeof(Transform),sizeof(BoneInfo),sizeof(Model),sizeof(ModelAnimation),sizeof(Ray),sizeof(RayCollision),sizeof(BoundingBox),sizeof(Wave),sizeof(AudioStream),sizeof(Sound),sizeof(Music),sizeof(VrDeviceInfo),sizeof(VrStereoConfig),sizeof(FilePathList),sizeof(AutomationEvent),sizeof(AutomationEventList),};
+int StructCount() {return 34;}
+
+int GetStructSize(int index) {return structSizes[index];}
+void GetStructName(char *retName, int strlen, int index) {
+  for (int i=0;i<strlen;i++) {
+    retName[i] = structNames[index][i];
+  }
+}
 void WindowShouldCloseRetPtr(bool *ret){*ret=WindowShouldClose();}                               // Check if application should close (KEY_ESCAPE pressed or windows close icon clicked)
 void IsWindowReadyRetPtr(bool *ret){*ret=IsWindowReady();}                                   // Check if window has been initialized successfully
 void IsWindowFullscreenRetPtr(bool *ret){*ret=IsWindowFullscreen();}                              // Check if window is currently fullscreen
