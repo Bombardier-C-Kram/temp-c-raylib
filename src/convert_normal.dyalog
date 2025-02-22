@@ -128,5 +128,5 @@ physacFuncs ← (physac/⍨~∨\functionsEnd⍷physac) {⍵CI¨⍺/⍨⍵≡¨10
 
 
 declorations ← ⊃,/(raylibFuncs raymathFuncs rlglFuncs rayguiFuncs)
-fixed ← {⍵/⍨0≠≢¨⍵} fixDecleration¨ {⍵/⍨∧/3∨/'.'≠↑⍵} declorations
+fixed ← {⍵/⍨0≠≢¨⍵} fixDecleration¨ {⍵/⍨∧/3∨/'.'≠↑(⊃¨⍸¨'//'∘⍷¨⍵)↑¨⍵} declorations
 'temp-c-raylib.c'1⎕NPUT⍨⊂includes, sizeofCode,fixed
