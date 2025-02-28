@@ -85,9 +85,18 @@ functionsEnd ,←⊂ '#if defined(__cplusplus)'
 functionsEnd ,←⊂ ,'}'
 functionsEnd ,←⊂ '#endif'
 
-(rl rm rlgl) ← (⊃⍤⎕NGET 1,⍨⊂)¨ '../build/_deps/raylib-build/raylib/include/'∘,¨'raylib.h' 'raymath.h' 'rlgl.h'
-rgui         ← (⊃⍤⎕NGET 1,⍨⊂) 'raygui.h'
-physac       ← (⊃⍤⎕NGET 1,⍨⊂) 'physac.h'
+filterMacros ← {
+  b←'#if defined(GRAPHICS_API_OPENGL_11)'∘≡¨⍵
+  e←'#endif'∘≡¨⍵
+  k←0
+  depth ← e{⍺:k⊢←0 ⋄ ⍵:k⊢←1 ⋄ k}¨b
+  _←Assert 1≥depth
+  ⍵/⍨~depth
+}
+
+(rl rm rlgl) ← filterMacros¨ (⊃⍤⎕NGET 1,⍨⊂)¨ '../build/_deps/raylib-build/raylib/include/'∘,¨'raylib.h' 'raymath.h' 'rlgl.h'
+rgui         ← filterMacros  (⊃⍤⎕NGET 1,⍨⊂) 'raygui.h'
+physac       ← filterMacros  (⊃⍤⎕NGET 1,⍨⊂) 'physac.h'
 
 
 ⍝ Get list of structs
