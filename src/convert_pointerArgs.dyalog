@@ -90,7 +90,6 @@ filterMacros ← {
   e←'#endif'∘≡¨⍵
   k←0
   depth ← e{⍺:k⊢←0 ⋄ ⍵:k⊢←1 ⋄ k}¨b
-  _←Assert 1≥depth
   ⍵/⍨~depth
 }
 
