@@ -20,9 +20,6 @@ It would be a function that has one arg for return-value and one for pointer to 
 Return ReturnerFunc(Color);
 void ReturnerFuncNew(NewReturn *ret, NewColor *color) {*ret=(NewReturn)ReturnerFunc((Color)*color);}
 
-## Compile by linking raylib as static lib instead of recompiling
-Link static lib in c code to avoid having to build raylib.
-
 ## Avoid structs padding via front-facing packed structs
 ```
 struct __attribute__((packed)) NewColor {
