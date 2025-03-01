@@ -20,36 +20,36 @@ void CloseWindowRetPtr(){CloseWindow();}                                     // 
 void WindowShouldCloseRetPtr(bool *ret){*ret=WindowShouldClose();}                               // Check if application should close (KEY_ESCAPE pressed or windows close icon clicked)
 void IsWindowReadyRetPtr(bool *ret){*ret=IsWindowReady();}                                   // Check if window has been initialized successfully
 void IsWindowFullscreenRetPtr(bool *ret){*ret=IsWindowFullscreen();}                              // Check if window is currently fullscreen
-void IsWindowHiddenRetPtr(bool *ret){*ret=IsWindowHidden();}                                  // Check if window is currently hidden (only PLATFORM_DESKTOP)
-void IsWindowMinimizedRetPtr(bool *ret){*ret=IsWindowMinimized();}                               // Check if window is currently minimized (only PLATFORM_DESKTOP)
-void IsWindowMaximizedRetPtr(bool *ret){*ret=IsWindowMaximized();}                               // Check if window is currently maximized (only PLATFORM_DESKTOP)
-void IsWindowFocusedRetPtr(bool *ret){*ret=IsWindowFocused();}                                 // Check if window is currently focused (only PLATFORM_DESKTOP)
+void IsWindowHiddenRetPtr(bool *ret){*ret=IsWindowHidden();}                                  // Check if window is currently hidden
+void IsWindowMinimizedRetPtr(bool *ret){*ret=IsWindowMinimized();}                               // Check if window is currently minimized
+void IsWindowMaximizedRetPtr(bool *ret){*ret=IsWindowMaximized();}                               // Check if window is currently maximized
+void IsWindowFocusedRetPtr(bool *ret){*ret=IsWindowFocused();}                                 // Check if window is currently focused
 void IsWindowResizedRetPtr(bool *ret){*ret=IsWindowResized();}                                 // Check if window has been resized last frame
 void IsWindowStateRetPtr(bool *ret, unsigned int *flag){*ret=IsWindowState(*flag);}                      // Check if one specific window flag is enabled
-void SetWindowStateRetPtr(unsigned int *flags){SetWindowState(*flags);}                    // Set window configuration state using flags (only PLATFORM_DESKTOP)
+void SetWindowStateRetPtr(unsigned int *flags){SetWindowState(*flags);}                    // Set window configuration state using flags
 void ClearWindowStateRetPtr(unsigned int *flags){ClearWindowState(*flags);}                  // Clear window configuration state flags
-void ToggleFullscreenRetPtr(){ToggleFullscreen();}                                // Toggle window state: fullscreen/windowed (only PLATFORM_DESKTOP)
-void ToggleBorderlessWindowedRetPtr(){ToggleBorderlessWindowed();}                        // Toggle window state: borderless windowed (only PLATFORM_DESKTOP)
-void MaximizeWindowRetPtr(){MaximizeWindow();}                                  // Set window state: maximized, if resizable (only PLATFORM_DESKTOP)
-void MinimizeWindowRetPtr(){MinimizeWindow();}                                  // Set window state: minimized, if resizable (only PLATFORM_DESKTOP)
-void RestoreWindowRetPtr(){RestoreWindow();}                                   // Set window state: not minimized/maximized (only PLATFORM_DESKTOP)
-void SetWindowIconRetPtr(Image *image){SetWindowIcon(*image);}                            // Set icon for window (single image, RGBA 32bit, only PLATFORM_DESKTOP)
-void SetWindowIconsRetPtr(Image *images,  int *count){SetWindowIcons(images, *count);}              // Set icon for window (multiple images, RGBA 32bit, only PLATFORM_DESKTOP)
-void SetWindowTitleRetPtr(const char *title){SetWindowTitle(title);}                     // Set title for window (only PLATFORM_DESKTOP and PLATFORM_WEB)
-void SetWindowPositionRetPtr(int *x,  int *y){SetWindowPosition(*x, *y);}                       // Set window position on screen (only PLATFORM_DESKTOP)
+void ToggleFullscreenRetPtr(){ToggleFullscreen();}                                // Toggle window state: fullscreen/windowed, resizes monitor to match window resolution
+void ToggleBorderlessWindowedRetPtr(){ToggleBorderlessWindowed();}                        // Toggle window state: borderless windowed, resizes window to match monitor resolution
+void MaximizeWindowRetPtr(){MaximizeWindow();}                                  // Set window state: maximized, if resizable
+void MinimizeWindowRetPtr(){MinimizeWindow();}                                  // Set window state: minimized, if resizable
+void RestoreWindowRetPtr(){RestoreWindow();}                                   // Set window state: not minimized/maximized
+void SetWindowIconRetPtr(Image *image){SetWindowIcon(*image);}                            // Set icon for window (single image, RGBA 32bit)
+void SetWindowIconsRetPtr(Image *images,  int *count){SetWindowIcons(images, *count);}              // Set icon for window (multiple images, RGBA 32bit)
+void SetWindowTitleRetPtr(const char *title){SetWindowTitle(title);}                     // Set title for window
+void SetWindowPositionRetPtr(int *x,  int *y){SetWindowPosition(*x, *y);}                       // Set window position on screen
 void SetWindowMonitorRetPtr(int *monitor){SetWindowMonitor(*monitor);}                         // Set monitor for the current window
 void SetWindowMinSizeRetPtr(int *width,  int *height){SetWindowMinSize(*width, *height);}               // Set window minimum dimensions (for FLAG_WINDOW_RESIZABLE)
 void SetWindowMaxSizeRetPtr(int *width,  int *height){SetWindowMaxSize(*width, *height);}               // Set window maximum dimensions (for FLAG_WINDOW_RESIZABLE)
 void SetWindowSizeRetPtr(int *width,  int *height){SetWindowSize(*width, *height);}                  // Set window dimensions
-void SetWindowOpacityRetPtr(float *opacity){SetWindowOpacity(*opacity);}                       // Set window opacity [0.0f..1.0f] (only PLATFORM_DESKTOP)
-void SetWindowFocusedRetPtr(){SetWindowFocused();}                                // Set window focused (only PLATFORM_DESKTOP)
+void SetWindowOpacityRetPtr(float *opacity){SetWindowOpacity(*opacity);}                       // Set window opacity [0.0f..1.0f]
+void SetWindowFocusedRetPtr(){SetWindowFocused();}                                // Set window focused
 void GetWindowHandleRetPtr(void **ret){*ret=GetWindowHandle();}                                // Get native window handle
 void GetScreenWidthRetPtr(int *ret){*ret=GetScreenWidth();}                                   // Get current screen width
 void GetScreenHeightRetPtr(int *ret){*ret=GetScreenHeight();}                                  // Get current screen height
 void GetRenderWidthRetPtr(int *ret){*ret=GetRenderWidth();}                                   // Get current render width (it considers HiDPI)
 void GetRenderHeightRetPtr(int *ret){*ret=GetRenderHeight();}                                  // Get current render height (it considers HiDPI)
 void GetMonitorCountRetPtr(int *ret){*ret=GetMonitorCount();}                                  // Get number of connected monitors
-void GetCurrentMonitorRetPtr(int *ret){*ret=GetCurrentMonitor();}                                // Get current connected monitor
+void GetCurrentMonitorRetPtr(int *ret){*ret=GetCurrentMonitor();}                                // Get current monitor where window is placed
 void GetMonitorPositionRetPtr(Vector2 *ret, int *monitor){*ret=GetMonitorPosition(*monitor);}                    // Get specified monitor position
 void GetMonitorWidthRetPtr(int *ret, int *monitor){*ret=GetMonitorWidth(*monitor);}                           // Get specified monitor width (current video mode used by monitor)
 void GetMonitorHeightRetPtr(int *ret, int *monitor){*ret=GetMonitorHeight(*monitor);}                          // Get specified monitor height (current video mode used by monitor)
@@ -61,6 +61,7 @@ void GetWindowScaleDPIRetPtr(Vector2 *ret){*ret=GetWindowScaleDPI();}           
 void GetMonitorNameRetPtr(const char **ret, int *monitor){*ret=GetMonitorName(*monitor);}                    // Get the human-readable, UTF-8 encoded name of the specified monitor
 void SetClipboardTextRetPtr(const char *text){SetClipboardText(text);}                    // Set clipboard text content
 void GetClipboardTextRetPtr(const char **ret){*ret=GetClipboardText();}                         // Get clipboard text content
+void GetClipboardImageRetPtr(Image *ret){*ret=GetClipboardImage();}                              // Get clipboard image content
 void EnableEventWaitingRetPtr(){EnableEventWaiting();}                              // Enable waiting for events on EndDrawing(), no automatic event polling
 void DisableEventWaitingRetPtr(){DisableEventWaiting();}                             // Disable waiting for events on EndDrawing(), automatic events polling
 void ShowCursorRetPtr(){ShowCursor();}                                      // Shows cursor
@@ -90,7 +91,7 @@ void LoadVrStereoConfigRetPtr(VrStereoConfig *ret, VrDeviceInfo *device){*ret=Lo
 void UnloadVrStereoConfigRetPtr(VrStereoConfig *config){UnloadVrStereoConfig(*config);}           // Unload VR stereo config
 void LoadShaderRetPtr(Shader *ret, const char *vsFileName,  const char *fsFileName){*ret=LoadShader(vsFileName, fsFileName);}   // Load shader from files and bind default locations
 void LoadShaderFromMemoryRetPtr(Shader *ret, const char *vsCode,  const char *fsCode){*ret=LoadShaderFromMemory(vsCode, fsCode);} // Load shader from code strings and bind default locations
-void IsShaderReadyRetPtr(bool *ret, Shader *shader){*ret=IsShaderReady(*shader);}                                   // Check if a shader is ready
+void IsShaderValidRetPtr(bool *ret, Shader *shader){*ret=IsShaderValid(*shader);}                                   // Check if a shader is valid (loaded on GPU)
 void GetShaderLocationRetPtr(int *ret, Shader *shader,  const char *uniformName){*ret=GetShaderLocation(*shader, uniformName);}       // Get shader uniform location
 void GetShaderLocationAttribRetPtr(int *ret, Shader *shader,  const char *attribName){*ret=GetShaderLocationAttrib(*shader, attribName);}  // Get shader attribute location
 void SetShaderValueRetPtr(Shader *shader,  int *locIndex,  const void *value,  int *uniformType){SetShaderValue(*shader, *locIndex, value, *uniformType);}               // Set shader uniform value
@@ -98,13 +99,14 @@ void SetShaderValueVRetPtr(Shader *shader,  int *locIndex,  const void *value,  
 void SetShaderValueMatrixRetPtr(Shader *shader,  int *locIndex,  Matrix *mat){SetShaderValueMatrix(*shader, *locIndex, *mat);}         // Set shader uniform value (matrix 4x4)
 void SetShaderValueTextureRetPtr(Shader *shader,  int *locIndex,  Texture2D *texture){SetShaderValueTexture(*shader, *locIndex, *texture);} // Set shader uniform value for texture (sampler2d)
 void UnloadShaderRetPtr(Shader *shader){UnloadShader(*shader);}                                    // Unload shader from GPU memory (VRAM)
-void GetMouseRayRetPtr(Ray *ret, Vector2 *mousePosition,  Camera *camera){*ret=GetMouseRay(*mousePosition, *camera);}      // Get a ray trace from mouse position
-void GetCameraMatrixRetPtr(Matrix *ret, Camera *camera){*ret=GetCameraMatrix(*camera);}                      // Get camera transform matrix (view matrix)
-void GetCameraMatrix2DRetPtr(Matrix *ret, Camera2D *camera){*ret=GetCameraMatrix2D(*camera);}                  // Get camera 2d transform matrix
-void GetWorldToScreenRetPtr(Vector2 *ret, Vector3 *position,  Camera *camera){*ret=GetWorldToScreen(*position, *camera);}  // Get the screen space position for a 3d world space position
-void GetScreenToWorld2DRetPtr(Vector2 *ret, Vector2 *position,  Camera2D *camera){*ret=GetScreenToWorld2D(*position, *camera);} // Get the world space position for a 2d camera screen space position
+void GetScreenToWorldRayRetPtr(Ray *ret, Vector2 *position,  Camera *camera){*ret=GetScreenToWorldRay(*position, *camera);}         // Get a ray trace from screen position (i.e mouse)
+void GetScreenToWorldRayExRetPtr(Ray *ret, Vector2 *position,  Camera *camera,  int *width,  int *height){*ret=GetScreenToWorldRayEx(*position, *camera, *width, *height);} // Get a ray trace from screen position (i.e mouse) in a viewport
+void GetWorldToScreenRetPtr(Vector2 *ret, Vector3 *position,  Camera *camera){*ret=GetWorldToScreen(*position, *camera);}        // Get the screen space position for a 3d world space position
 void GetWorldToScreenExRetPtr(Vector2 *ret, Vector3 *position,  Camera *camera,  int *width,  int *height){*ret=GetWorldToScreenEx(*position, *camera, *width, *height);} // Get size position for a 3d world space position
-void GetWorldToScreen2DRetPtr(Vector2 *ret, Vector2 *position,  Camera2D *camera){*ret=GetWorldToScreen2D(*position, *camera);} // Get the screen space position for a 2d camera world space position
+void GetWorldToScreen2DRetPtr(Vector2 *ret, Vector2 *position,  Camera2D *camera){*ret=GetWorldToScreen2D(*position, *camera);}    // Get the screen space position for a 2d camera world space position
+void GetScreenToWorld2DRetPtr(Vector2 *ret, Vector2 *position,  Camera2D *camera){*ret=GetScreenToWorld2D(*position, *camera);}    // Get the world space position for a 2d camera screen space position
+void GetCameraMatrixRetPtr(Matrix *ret, Camera *camera){*ret=GetCameraMatrix(*camera);}                            // Get camera transform matrix (view matrix)
+void GetCameraMatrix2DRetPtr(Matrix *ret, Camera2D *camera){*ret=GetCameraMatrix2D(*camera);}                        // Get camera 2d transform matrix
 void SetTargetFPSRetPtr(int *fps){SetTargetFPS(*fps);}                                 // Set target FPS (maximum)
 void GetFrameTimeRetPtr(float *ret){*ret=GetFrameTime();}                                   // Get time in seconds for last frame drawn (delta time)
 void GetTimeRetPtr(double *ret){*ret=GetTime();}                                       // Get elapsed time in seconds since InitWindow()
@@ -146,10 +148,12 @@ void GetDirectoryPathRetPtr(const char **ret, const char *filePath){*ret=GetDire
 void GetPrevDirectoryPathRetPtr(const char **ret, const char *dirPath){*ret=GetPrevDirectoryPath(dirPath);}      // Get previous directory path for a given path (uses static string)
 void GetWorkingDirectoryRetPtr(const char **ret){*ret=GetWorkingDirectory();}                      // Get current working directory (uses static string)
 void GetApplicationDirectoryRetPtr(const char **ret){*ret=GetApplicationDirectory();}                  // Get the directory of the running application (uses static string)
+void MakeDirectoryRetPtr(int *ret, const char *dirPath){*ret=MakeDirectory(dirPath);}                     // Create directories (including full path requested), returns 0 on success
 void ChangeDirectoryRetPtr(bool *ret, const char *dir){*ret=ChangeDirectory(dir);}                      // Change working directory, return true on success
 void IsPathFileRetPtr(bool *ret, const char *path){*ret=IsPathFile(path);}                          // Check if a given path is a file or a directory
+void IsFileNameValidRetPtr(bool *ret, const char *fileName){*ret=IsFileNameValid(fileName);}                 // Check if fileName is valid for the platform/OS
 void LoadDirectoryFilesRetPtr(FilePathList *ret, const char *dirPath){*ret=LoadDirectoryFiles(dirPath);}       // Load directory filepaths
-void LoadDirectoryFilesExRetPtr(FilePathList *ret, const char *basePath,  const char *filter,  bool *scanSubdirs){*ret=LoadDirectoryFilesEx(basePath, filter, *scanSubdirs);} // Load directory filepaths with extension filtering and recursive directory scan
+void LoadDirectoryFilesExRetPtr(FilePathList *ret, const char *basePath,  const char *filter,  bool *scanSubdirs){*ret=LoadDirectoryFilesEx(basePath, filter, *scanSubdirs);} // Load directory filepaths with extension filtering and recursive directory scan. Use 'DIR' in the filter string to include directories in the result
 void UnloadDirectoryFilesRetPtr(FilePathList *files){UnloadDirectoryFiles(*files);}              // Unload filepaths
 void IsFileDroppedRetPtr(bool *ret){*ret=IsFileDropped();}                                   // Check if a file has been dropped into window
 void LoadDroppedFilesRetPtr(FilePathList *ret){*ret=LoadDroppedFiles();}                        // Load dropped filepaths
@@ -159,8 +163,11 @@ void CompressDataRetPtr(unsigned char **ret, const unsigned char *data,  int *da
 void DecompressDataRetPtr(unsigned char **ret, const unsigned char *compData,  int *compDataSize,  int *dataSize){*ret=DecompressData(compData, *compDataSize, dataSize);}  // Decompress data (DEFLATE algorithm), memory must be MemFree()
 void EncodeDataBase64RetPtr(char **ret, const unsigned char *data,  int *dataSize,  int *outputSize){*ret=EncodeDataBase64(data, *dataSize, outputSize);}               // Encode data to Base64 string, memory must be MemFree()
 void DecodeDataBase64RetPtr(unsigned char **ret, const unsigned char *data,  int *outputSize){*ret=DecodeDataBase64(data, outputSize);}                    // Decode Base64 string data, memory must be MemFree()
+void ComputeCRC32RetPtr(unsigned int *ret, unsigned char *data,  int *dataSize){*ret=ComputeCRC32(data, *dataSize);}     // Compute CRC32 hash code
+void ComputeMD5RetPtr(unsigned int **ret, unsigned char *data,  int *dataSize){*ret=ComputeMD5(data, *dataSize);}      // Compute MD5 hash code, returns static int[4] (16 bytes)
+void ComputeSHA1RetPtr(unsigned int **ret, unsigned char *data,  int *dataSize){*ret=ComputeSHA1(data, *dataSize);}      // Compute SHA1 hash code, returns static int[5] (20 bytes)
 void LoadAutomationEventListRetPtr(AutomationEventList *ret, const char *fileName){*ret=LoadAutomationEventList(fileName);}                // Load automation events list from file, NULL for empty list, capacity = MAX_AUTOMATION_EVENTS
-void UnloadAutomationEventListRetPtr(AutomationEventList *list){UnloadAutomationEventList(list);}                        // Unload automation events list from file
+void UnloadAutomationEventListRetPtr(AutomationEventList *list){UnloadAutomationEventList(*list);}                         // Unload automation events list from file
 void ExportAutomationEventListRetPtr(bool *ret, AutomationEventList *list,  const char *fileName){*ret=ExportAutomationEventList(*list, fileName);}   // Export automation events list as text file
 void SetAutomationEventListRetPtr(AutomationEventList *list){SetAutomationEventList(list);}                           // Set automation event list to record to
 void SetAutomationEventBaseFrameRetPtr(int *frame){SetAutomationEventBaseFrame(*frame);}                                      // Set automation event internal base frame to start recording
@@ -168,23 +175,24 @@ void StartAutomationEventRecordingRetPtr(){StartAutomationEventRecording();}    
 void StopAutomationEventRecordingRetPtr(){StopAutomationEventRecording();}                                          // Stop recording automation events
 void PlayAutomationEventRetPtr(AutomationEvent *event){PlayAutomationEvent(*event);}                                  // Play a recorded automation event
 void IsKeyPressedRetPtr(bool *ret, int *key){*ret=IsKeyPressed(*key);}                             // Check if a key has been pressed once
-void IsKeyPressedRepeatRetPtr(bool *ret, int *key){*ret=IsKeyPressedRepeat(*key);}                       // Check if a key has been pressed again (Only PLATFORM_DESKTOP)
+void IsKeyPressedRepeatRetPtr(bool *ret, int *key){*ret=IsKeyPressedRepeat(*key);}                       // Check if a key has been pressed again
 void IsKeyDownRetPtr(bool *ret, int *key){*ret=IsKeyDown(*key);}                                // Check if a key is being pressed
 void IsKeyReleasedRetPtr(bool *ret, int *key){*ret=IsKeyReleased(*key);}                            // Check if a key has been released once
 void IsKeyUpRetPtr(bool *ret, int *key){*ret=IsKeyUp(*key);}                                  // Check if a key is NOT being pressed
 void GetKeyPressedRetPtr(int *ret){*ret=GetKeyPressed();}                                // Get key pressed (keycode), call it multiple times for keys queued, returns 0 when the queue is empty
 void GetCharPressedRetPtr(int *ret){*ret=GetCharPressed();}                               // Get char pressed (unicode), call it multiple times for chars queued, returns 0 when the queue is empty
 void SetExitKeyRetPtr(int *key){SetExitKey(*key);}                               // Set a custom key to exit program (default is ESC)
-void IsGamepadAvailableRetPtr(bool *ret, int *gamepad){*ret=IsGamepadAvailable(*gamepad);}                   // Check if a gamepad is available
-void GetGamepadNameRetPtr(const char **ret, int *gamepad){*ret=GetGamepadName(*gamepad);}                // Get gamepad internal name id
-void IsGamepadButtonPressedRetPtr(bool *ret, int *gamepad,  int *button){*ret=IsGamepadButtonPressed(*gamepad, *button);}   // Check if a gamepad button has been pressed once
-void IsGamepadButtonDownRetPtr(bool *ret, int *gamepad,  int *button){*ret=IsGamepadButtonDown(*gamepad, *button);}      // Check if a gamepad button is being pressed
-void IsGamepadButtonReleasedRetPtr(bool *ret, int *gamepad,  int *button){*ret=IsGamepadButtonReleased(*gamepad, *button);}  // Check if a gamepad button has been released once
-void IsGamepadButtonUpRetPtr(bool *ret, int *gamepad,  int *button){*ret=IsGamepadButtonUp(*gamepad, *button);}        // Check if a gamepad button is NOT being pressed
-void GetGamepadButtonPressedRetPtr(int *ret){*ret=GetGamepadButtonPressed();}                      // Get the last gamepad button pressed
-void GetGamepadAxisCountRetPtr(int *ret, int *gamepad){*ret=GetGamepadAxisCount(*gamepad);}                   // Get gamepad axis count for a gamepad
-void GetGamepadAxisMovementRetPtr(float *ret, int *gamepad,  int *axis){*ret=GetGamepadAxisMovement(*gamepad, *axis);}    // Get axis movement value for a gamepad axis
-void SetGamepadMappingsRetPtr(int *ret, const char *mappings){*ret=SetGamepadMappings(mappings);}           // Set internal gamepad mappings (SDL_GameControllerDB)
+void IsGamepadAvailableRetPtr(bool *ret, int *gamepad){*ret=IsGamepadAvailable(*gamepad);}                                        // Check if a gamepad is available
+void GetGamepadNameRetPtr(const char **ret, int *gamepad){*ret=GetGamepadName(*gamepad);}                                     // Get gamepad internal name id
+void IsGamepadButtonPressedRetPtr(bool *ret, int *gamepad,  int *button){*ret=IsGamepadButtonPressed(*gamepad, *button);}                        // Check if a gamepad button has been pressed once
+void IsGamepadButtonDownRetPtr(bool *ret, int *gamepad,  int *button){*ret=IsGamepadButtonDown(*gamepad, *button);}                           // Check if a gamepad button is being pressed
+void IsGamepadButtonReleasedRetPtr(bool *ret, int *gamepad,  int *button){*ret=IsGamepadButtonReleased(*gamepad, *button);}                       // Check if a gamepad button has been released once
+void IsGamepadButtonUpRetPtr(bool *ret, int *gamepad,  int *button){*ret=IsGamepadButtonUp(*gamepad, *button);}                             // Check if a gamepad button is NOT being pressed
+void GetGamepadButtonPressedRetPtr(int *ret){*ret=GetGamepadButtonPressed();}                                           // Get the last gamepad button pressed
+void GetGamepadAxisCountRetPtr(int *ret, int *gamepad){*ret=GetGamepadAxisCount(*gamepad);}                                        // Get gamepad axis count for a gamepad
+void GetGamepadAxisMovementRetPtr(float *ret, int *gamepad,  int *axis){*ret=GetGamepadAxisMovement(*gamepad, *axis);}                         // Get axis movement value for a gamepad axis
+void SetGamepadMappingsRetPtr(int *ret, const char *mappings){*ret=SetGamepadMappings(mappings);}                                // Set internal gamepad mappings (SDL_GameControllerDB)
+void SetGamepadVibrationRetPtr(int *gamepad,  float *leftMotor,  float *rightMotor,  float *duration){SetGamepadVibration(*gamepad, *leftMotor, *rightMotor, *duration);} // Set gamepad vibration for both motors (duration in seconds)
 void IsMouseButtonPressedRetPtr(bool *ret, int *button){*ret=IsMouseButtonPressed(*button);}                  // Check if a mouse button has been pressed once
 void IsMouseButtonDownRetPtr(bool *ret, int *button){*ret=IsMouseButtonDown(*button);}                     // Check if a mouse button is being pressed
 void IsMouseButtonReleasedRetPtr(bool *ret, int *button){*ret=IsMouseButtonReleased(*button);}                 // Check if a mouse button has been released once
@@ -207,7 +215,7 @@ void GetTouchPointCountRetPtr(int *ret){*ret=GetTouchPointCount();}             
 void SetGesturesEnabledRetPtr(unsigned int *flags){SetGesturesEnabled(*flags);}      // Enable a set of gestures using flags
 void IsGestureDetectedRetPtr(bool *ret, unsigned int *gesture){*ret=IsGestureDetected(*gesture);}     // Check if a gesture have been detected
 void GetGestureDetectedRetPtr(int *ret){*ret=GetGestureDetected();}                     // Get latest detected gesture
-void GetGestureHoldDurationRetPtr(float *ret){*ret=GetGestureHoldDuration();}               // Get gesture hold time in milliseconds
+void GetGestureHoldDurationRetPtr(float *ret){*ret=GetGestureHoldDuration();}               // Get gesture hold time in seconds
 void GetGestureDragVectorRetPtr(Vector2 *ret){*ret=GetGestureDragVector();}               // Get gesture drag vector
 void GetGestureDragAngleRetPtr(float *ret){*ret=GetGestureDragAngle();}                  // Get gesture drag angle
 void GetGesturePinchVectorRetPtr(Vector2 *ret){*ret=GetGesturePinchVector();}              // Get gesture pinch delta
@@ -215,17 +223,19 @@ void GetGesturePinchAngleRetPtr(float *ret){*ret=GetGesturePinchAngle();}       
 void UpdateCameraRetPtr(Camera *camera,  int *mode){UpdateCamera(camera, *mode);}      // Update camera position for selected mode
 void UpdateCameraProRetPtr(Camera *camera,  Vector3 *movement,  Vector3 *rotation,  float *zoom){UpdateCameraPro(camera, *movement, *rotation, *zoom);} // Update camera movement/rotation
 void SetShapesTextureRetPtr(Texture2D *texture,  Rectangle *source){SetShapesTexture(*texture, *source);}       // Set texture and rectangle to be used on shapes drawing
-void DrawPixelRetPtr(int *posX,  int *posY,  Color *color){DrawPixel(*posX, *posY, *color);}                                                   // Draw a pixel
-void DrawPixelVRetPtr(Vector2 *position,  Color *color){DrawPixelV(*position, *color);}                                                    // Draw a pixel (Vector version)
+void GetShapesTextureRetPtr(Texture2D *ret){*ret=GetShapesTexture();}                                 // Get texture that is used for shapes drawing
+void GetShapesTextureRectangleRetPtr(Rectangle *ret){*ret=GetShapesTextureRectangle();}                        // Get texture source rectangle that is used for shapes drawing
+void DrawPixelRetPtr(int *posX,  int *posY,  Color *color){DrawPixel(*posX, *posY, *color);}                                                   // Draw a pixel using geometry [Can be slow, use with care]
+void DrawPixelVRetPtr(Vector2 *position,  Color *color){DrawPixelV(*position, *color);}                                                    // Draw a pixel using geometry (Vector version) [Can be slow, use with care]
 void DrawLineRetPtr(int *startPosX,  int *startPosY,  int *endPosX,  int *endPosY,  Color *color){DrawLine(*startPosX, *startPosY, *endPosX, *endPosY, *color);}                // Draw a line
 void DrawLineVRetPtr(Vector2 *startPos,  Vector2 *endPos,  Color *color){DrawLineV(*startPos, *endPos, *color);}                                     // Draw a line (using gl lines)
 void DrawLineExRetPtr(Vector2 *startPos,  Vector2 *endPos,  float *thick,  Color *color){DrawLineEx(*startPos, *endPos, *thick, *color);}                       // Draw a line (using triangles/quads)
-void DrawLineStripRetPtr(Vector2 *points,  int *pointCount,  Color *color){DrawLineStrip(points, *pointCount, *color);}                                  // Draw lines sequence (using gl lines)
+void DrawLineStripRetPtr(const Vector2 *points,  int *pointCount,  Color *color){DrawLineStrip(points, *pointCount, *color);}                            // Draw lines sequence (using gl lines)
 void DrawLineBezierRetPtr(Vector2 *startPos,  Vector2 *endPos,  float *thick,  Color *color){DrawLineBezier(*startPos, *endPos, *thick, *color);}                   // Draw line segment cubic-bezier in-out interpolation
 void DrawCircleRetPtr(int *centerX,  int *centerY,  float *radius,  Color *color){DrawCircle(*centerX, *centerY, *radius, *color);}                              // Draw a color-filled circle
 void DrawCircleSectorRetPtr(Vector2 *center,  float *radius,  float *startAngle,  float *endAngle,  int *segments,  Color *color){DrawCircleSector(*center, *radius, *startAngle, *endAngle, *segments, *color);}      // Draw a piece of a circle
 void DrawCircleSectorLinesRetPtr(Vector2 *center,  float *radius,  float *startAngle,  float *endAngle,  int *segments,  Color *color){DrawCircleSectorLines(*center, *radius, *startAngle, *endAngle, *segments, *color);} // Draw circle sector outline
-void DrawCircleGradientRetPtr(int *centerX,  int *centerY,  float *radius,  Color *color1,  Color *color2){DrawCircleGradient(*centerX, *centerY, *radius, *color1, *color2);}       // Draw a gradient-filled circle
+void DrawCircleGradientRetPtr(int *centerX,  int *centerY,  float *radius,  Color *inner,  Color *outer){DrawCircleGradient(*centerX, *centerY, *radius, *inner, *outer);}         // Draw a gradient-filled circle
 void DrawCircleVRetPtr(Vector2 *center,  float *radius,  Color *color){DrawCircleV(*center, *radius, *color);}                                       // Draw a color-filled circle (Vector version)
 void DrawCircleLinesRetPtr(int *centerX,  int *centerY,  float *radius,  Color *color){DrawCircleLines(*centerX, *centerY, *radius, *color);}                         // Draw circle outline
 void DrawCircleLinesVRetPtr(Vector2 *center,  float *radius,  Color *color){DrawCircleLinesV(*center, *radius, *color);}                                  // Draw circle outline (Vector version)
@@ -237,25 +247,26 @@ void DrawRectangleRetPtr(int *posX,  int *posY,  int *width,  int *height,  Colo
 void DrawRectangleVRetPtr(Vector2 *position,  Vector2 *size,  Color *color){DrawRectangleV(*position, *size, *color);}                                  // Draw a color-filled rectangle (Vector version)
 void DrawRectangleRecRetPtr(Rectangle *rec,  Color *color){DrawRectangleRec(*rec, *color);}                                                 // Draw a color-filled rectangle
 void DrawRectangleProRetPtr(Rectangle *rec,  Vector2 *origin,  float *rotation,  Color *color){DrawRectanglePro(*rec, *origin, *rotation, *color);}                 // Draw a color-filled rectangle with pro parameters
-void DrawRectangleGradientVRetPtr(int *posX,  int *posY,  int *width,  int *height,  Color *color1,  Color *color2){DrawRectangleGradientV(*posX, *posY, *width, *height, *color1, *color2);}// Draw a vertical-gradient-filled rectangle
-void DrawRectangleGradientHRetPtr(int *posX,  int *posY,  int *width,  int *height,  Color *color1,  Color *color2){DrawRectangleGradientH(*posX, *posY, *width, *height, *color1, *color2);}// Draw a horizontal-gradient-filled rectangle
-void DrawRectangleGradientExRetPtr(Rectangle *rec,  Color *col1,  Color *col2,  Color *col3,  Color *col4){DrawRectangleGradientEx(*rec, *col1, *col2, *col3, *col4);}       // Draw a gradient-filled rectangle with custom vertex colors
+void DrawRectangleGradientVRetPtr(int *posX,  int *posY,  int *width,  int *height,  Color *top,  Color *bottom){DrawRectangleGradientV(*posX, *posY, *width, *height, *top, *bottom);}   // Draw a vertical-gradient-filled rectangle
+void DrawRectangleGradientHRetPtr(int *posX,  int *posY,  int *width,  int *height,  Color *left,  Color *right){DrawRectangleGradientH(*posX, *posY, *width, *height, *left, *right);}   // Draw a horizontal-gradient-filled rectangle
+void DrawRectangleGradientExRetPtr(Rectangle *rec,  Color *topLeft,  Color *bottomLeft,  Color *topRight,  Color *bottomRight){DrawRectangleGradientEx(*rec, *topLeft, *bottomLeft, *topRight, *bottomRight);} // Draw a gradient-filled rectangle with custom vertex colors
 void DrawRectangleLinesRetPtr(int *posX,  int *posY,  int *width,  int *height,  Color *color){DrawRectangleLines(*posX, *posY, *width, *height, *color);}                   // Draw rectangle outline
 void DrawRectangleLinesExRetPtr(Rectangle *rec,  float *lineThick,  Color *color){DrawRectangleLinesEx(*rec, *lineThick, *color);}                            // Draw rectangle outline with extended parameters
 void DrawRectangleRoundedRetPtr(Rectangle *rec,  float *roundness,  int *segments,  Color *color){DrawRectangleRounded(*rec, *roundness, *segments, *color);}              // Draw rectangle with rounded edges
-void DrawRectangleRoundedLinesRetPtr(Rectangle *rec,  float *roundness,  int *segments,  float *lineThick,  Color *color){DrawRectangleRoundedLines(*rec, *roundness, *segments, *lineThick, *color);} // Draw rectangle with rounded edges outline
+void DrawRectangleRoundedLinesRetPtr(Rectangle *rec,  float *roundness,  int *segments,  Color *color){DrawRectangleRoundedLines(*rec, *roundness, *segments, *color);}         // Draw rectangle lines with rounded edges
+void DrawRectangleRoundedLinesExRetPtr(Rectangle *rec,  float *roundness,  int *segments,  float *lineThick,  Color *color){DrawRectangleRoundedLinesEx(*rec, *roundness, *segments, *lineThick, *color);} // Draw rectangle with rounded edges outline
 void DrawTriangleRetPtr(Vector2 *v1,  Vector2 *v2,  Vector2 *v3,  Color *color){DrawTriangle(*v1, *v2, *v3, *color);}                                // Draw a color-filled triangle (vertex in counter-clockwise order!)
 void DrawTriangleLinesRetPtr(Vector2 *v1,  Vector2 *v2,  Vector2 *v3,  Color *color){DrawTriangleLines(*v1, *v2, *v3, *color);}                           // Draw triangle outline (vertex in counter-clockwise order!)
-void DrawTriangleFanRetPtr(Vector2 *points,  int *pointCount,  Color *color){DrawTriangleFan(points, *pointCount, *color);}                                // Draw a triangle fan defined by points (first vertex is the center)
-void DrawTriangleStripRetPtr(Vector2 *points,  int *pointCount,  Color *color){DrawTriangleStrip(points, *pointCount, *color);}                              // Draw a triangle strip defined by points
+void DrawTriangleFanRetPtr(const Vector2 *points,  int *pointCount,  Color *color){DrawTriangleFan(points, *pointCount, *color);}                          // Draw a triangle fan defined by points (first vertex is the center)
+void DrawTriangleStripRetPtr(const Vector2 *points,  int *pointCount,  Color *color){DrawTriangleStrip(points, *pointCount, *color);}                        // Draw a triangle strip defined by points
 void DrawPolyRetPtr(Vector2 *center,  int *sides,  float *radius,  float *rotation,  Color *color){DrawPoly(*center, *sides, *radius, *rotation, *color);}               // Draw a regular polygon (Vector version)
 void DrawPolyLinesRetPtr(Vector2 *center,  int *sides,  float *radius,  float *rotation,  Color *color){DrawPolyLines(*center, *sides, *radius, *rotation, *color);}          // Draw a polygon outline of n sides
 void DrawPolyLinesExRetPtr(Vector2 *center,  int *sides,  float *radius,  float *rotation,  float *lineThick,  Color *color){DrawPolyLinesEx(*center, *sides, *radius, *rotation, *lineThick, *color);} // Draw a polygon outline of n sides with extended parameters
-void DrawSplineLinearRetPtr(Vector2 *points,  int *pointCount,  float *thick,  Color *color){DrawSplineLinear(points, *pointCount, *thick, *color);}                  // Draw spline: Linear, minimum 2 points
-void DrawSplineBasisRetPtr(Vector2 *points,  int *pointCount,  float *thick,  Color *color){DrawSplineBasis(points, *pointCount, *thick, *color);}                   // Draw spline: B-Spline, minimum 4 points
-void DrawSplineCatmullRomRetPtr(Vector2 *points,  int *pointCount,  float *thick,  Color *color){DrawSplineCatmullRom(points, *pointCount, *thick, *color);}              // Draw spline: Catmull-Rom, minimum 4 points
-void DrawSplineBezierQuadraticRetPtr(Vector2 *points,  int *pointCount,  float *thick,  Color *color){DrawSplineBezierQuadratic(points, *pointCount, *thick, *color);}         // Draw spline: Quadratic Bezier, minimum 3 points (1 control point): [p1, c2, p3, c4...]
-void DrawSplineBezierCubicRetPtr(Vector2 *points,  int *pointCount,  float *thick,  Color *color){DrawSplineBezierCubic(points, *pointCount, *thick, *color);}             // Draw spline: Cubic Bezier, minimum 4 points (2 control points): [p1, c2, c3, p4, c5, c6...]
+void DrawSplineLinearRetPtr(const Vector2 *points,  int *pointCount,  float *thick,  Color *color){DrawSplineLinear(points, *pointCount, *thick, *color);}                  // Draw spline: Linear, minimum 2 points
+void DrawSplineBasisRetPtr(const Vector2 *points,  int *pointCount,  float *thick,  Color *color){DrawSplineBasis(points, *pointCount, *thick, *color);}                   // Draw spline: B-Spline, minimum 4 points
+void DrawSplineCatmullRomRetPtr(const Vector2 *points,  int *pointCount,  float *thick,  Color *color){DrawSplineCatmullRom(points, *pointCount, *thick, *color);}              // Draw spline: Catmull-Rom, minimum 4 points
+void DrawSplineBezierQuadraticRetPtr(const Vector2 *points,  int *pointCount,  float *thick,  Color *color){DrawSplineBezierQuadratic(points, *pointCount, *thick, *color);}         // Draw spline: Quadratic Bezier, minimum 3 points (1 control point): [p1, c2, p3, c4...]
+void DrawSplineBezierCubicRetPtr(const Vector2 *points,  int *pointCount,  float *thick,  Color *color){DrawSplineBezierCubic(points, *pointCount, *thick, *color);}             // Draw spline: Cubic Bezier, minimum 4 points (2 control points): [p1, c2, c3, p4, c5, c6...]
 void DrawSplineSegmentLinearRetPtr(Vector2 *p1,  Vector2 *p2,  float *thick,  Color *color){DrawSplineSegmentLinear(*p1, *p2, *thick, *color);}                    // Draw spline segment: Linear, 2 points
 void DrawSplineSegmentBasisRetPtr(Vector2 *p1,  Vector2 *p2,  Vector2 *p3,  Vector2 *p4,  float *thick,  Color *color){DrawSplineSegmentBasis(*p1, *p2, *p3, *p4, *thick, *color);} // Draw spline segment: B-Spline, 4 points
 void DrawSplineSegmentCatmullRomRetPtr(Vector2 *p1,  Vector2 *p2,  Vector2 *p3,  Vector2 *p4,  float *thick,  Color *color){DrawSplineSegmentCatmullRom(*p1, *p2, *p3, *p4, *thick, *color);} // Draw spline segment: Catmull-Rom, 4 points
@@ -269,21 +280,22 @@ void GetSplinePointBezierCubicRetPtr(Vector2 *ret, Vector2 *p1,  Vector2 *c2,  V
 void CheckCollisionRecsRetPtr(bool *ret, Rectangle *rec1,  Rectangle *rec2){*ret=CheckCollisionRecs(*rec1, *rec2);}                                           // Check collision between two rectangles
 void CheckCollisionCirclesRetPtr(bool *ret, Vector2 *center1,  float *radius1,  Vector2 *center2,  float *radius2){*ret=CheckCollisionCircles(*center1, *radius1, *center2, *radius2);}        // Check collision between two circles
 void CheckCollisionCircleRecRetPtr(bool *ret, Vector2 *center,  float *radius,  Rectangle *rec){*ret=CheckCollisionCircleRec(*center, *radius, *rec);}                         // Check collision between circle and rectangle
+void CheckCollisionCircleLineRetPtr(bool *ret, Vector2 *center,  float *radius,  Vector2 *p1,  Vector2 *p2){*ret=CheckCollisionCircleLine(*center, *radius, *p1, *p2);}               // Check if circle collides with a line created betweeen two points [p1] and [p2]
 void CheckCollisionPointRecRetPtr(bool *ret, Vector2 *point,  Rectangle *rec){*ret=CheckCollisionPointRec(*point, *rec);}                                         // Check if point is inside rectangle
 void CheckCollisionPointCircleRetPtr(bool *ret, Vector2 *point,  Vector2 *center,  float *radius){*ret=CheckCollisionPointCircle(*point, *center, *radius);}                       // Check if point is inside circle
 void CheckCollisionPointTriangleRetPtr(bool *ret, Vector2 *point,  Vector2 *p1,  Vector2 *p2,  Vector2 *p3){*ret=CheckCollisionPointTriangle(*point, *p1, *p2, *p3);}               // Check if point is inside a triangle
-void CheckCollisionPointPolyRetPtr(bool *ret, Vector2 *point,  Vector2 *points,  int *pointCount){*ret=CheckCollisionPointPoly(*point, points, *pointCount);}                      // Check if point is within a polygon described by array of vertices
-void CheckCollisionLinesRetPtr(bool *ret, Vector2 *startPos1,  Vector2 *endPos1,  Vector2 *startPos2,  Vector2 *endPos2,  Vector2 *collisionPoint){*ret=CheckCollisionLines(*startPos1, *endPos1, *startPos2, *endPos2, collisionPoint);} // Check the collision between two lines defined by two points each, returns collision point by reference
 void CheckCollisionPointLineRetPtr(bool *ret, Vector2 *point,  Vector2 *p1,  Vector2 *p2,  int *threshold){*ret=CheckCollisionPointLine(*point, *p1, *p2, *threshold);}                // Check if point belongs to line created between two points [p1] and [p2] with defined margin in pixels [threshold]
+void CheckCollisionPointPolyRetPtr(bool *ret, Vector2 *point,  const Vector2 *points,  int *pointCount){*ret=CheckCollisionPointPoly(*point, points, *pointCount);}                // Check if point is within a polygon described by array of vertices
+void CheckCollisionLinesRetPtr(bool *ret, Vector2 *startPos1,  Vector2 *endPos1,  Vector2 *startPos2,  Vector2 *endPos2,  Vector2 *collisionPoint){*ret=CheckCollisionLines(*startPos1, *endPos1, *startPos2, *endPos2, collisionPoint);} // Check the collision between two lines defined by two points each, returns collision point by reference
 void GetCollisionRecRetPtr(Rectangle *ret, Rectangle *rec1,  Rectangle *rec2){*ret=GetCollisionRec(*rec1, *rec2);}                                         // Get collision rectangle for two rectangles collision
 void LoadImageRetPtr(Image *ret, const char *fileName){*ret=LoadImage(fileName);}                                                             // Load image from file into CPU memory (RAM)
 void LoadImageRawRetPtr(Image *ret, const char *fileName,  int *width,  int *height,  int *format,  int *headerSize){*ret=LoadImageRaw(fileName, *width, *height, *format, *headerSize);}       // Load image from RAW file data
-void LoadImageSvgRetPtr(Image *ret, const char *fileNameOrString,  int *width,  int *height){*ret=LoadImageSvg(fileNameOrString, *width, *height);}                           // Load image from SVG file data or string with specified size
 void LoadImageAnimRetPtr(Image *ret, const char *fileName,  int *frames){*ret=LoadImageAnim(fileName, frames);}                                            // Load image sequence from file (frames appended to image.data)
+void LoadImageAnimFromMemoryRetPtr(Image *ret, const char *fileType,  const unsigned char *fileData,  int *dataSize,  int *frames){*ret=LoadImageAnimFromMemory(fileType, fileData, *dataSize, frames);} // Load image sequence from memory buffer
 void LoadImageFromMemoryRetPtr(Image *ret, const char *fileType,  const unsigned char *fileData,  int *dataSize){*ret=LoadImageFromMemory(fileType, fileData, *dataSize);}      // Load image from memory buffer, fileType refers to extension: i.e. '.png'
 void LoadImageFromTextureRetPtr(Image *ret, Texture2D *texture){*ret=LoadImageFromTexture(*texture);}                                                     // Load image from GPU texture data
 void LoadImageFromScreenRetPtr(Image *ret){*ret=LoadImageFromScreen();}                                                                   // Load image from screen buffer and (screenshot)
-void IsImageReadyRetPtr(bool *ret, Image *image){*ret=IsImageReady(*image);}                                                                    // Check if an image is ready
+void IsImageValidRetPtr(bool *ret, Image *image){*ret=IsImageValid(*image);}                                                                    // Check if an image is valid (data and parameters)
 void UnloadImageRetPtr(Image *image){UnloadImage(*image);}                                                                     // Unload image from CPU memory (RAM)
 void ExportImageRetPtr(bool *ret, Image *image,  const char *fileName){*ret=ExportImage(*image, fileName);}                                               // Export image data to file, returns true on success
 void ExportImageToMemoryRetPtr(unsigned char **ret, Image *image,  const char *fileType,  int *fileSize){*ret=ExportImageToMemory(*image, fileType, fileSize);}              // Export image to memory buffer
@@ -299,6 +311,7 @@ void GenImageCellularRetPtr(Image *ret, int *width,  int *height,  int *tileSize
 void GenImageTextRetPtr(Image *ret, int *width,  int *height,  const char *text){*ret=GenImageText(*width, *height, text);}                                       // Generate image: grayscale image from text data
 void ImageCopyRetPtr(Image *ret, Image *image){*ret=ImageCopy(*image);}                                                                      // Create an image duplicate (useful for transformations)
 void ImageFromImageRetPtr(Image *ret, Image *image,  Rectangle *rec){*ret=ImageFromImage(*image, *rec);}                                                  // Create an image from another image piece
+void ImageFromChannelRetPtr(Image *ret, Image *image,  int *selectedChannel){*ret=ImageFromChannel(*image, *selectedChannel);}                                          // Create an image from a selected channel of another image (GRAYSCALE)
 void ImageTextRetPtr(Image *ret, const char *text,  int *fontSize,  Color *color){*ret=ImageText(text, *fontSize, *color);}                                      // Create an image from text (default font)
 void ImageTextExRetPtr(Image *ret, Font *font,  const char *text,  float *fontSize,  float *spacing,  Color *tint){*ret=ImageTextEx(*font, text, *fontSize, *spacing, *tint);}         // Create an image from text (custom sprite font)
 void ImageFormatRetPtr(Image *image,  int *newFormat){ImageFormat(image, *newFormat);}                                                     // Convert image data to desired format
@@ -309,9 +322,10 @@ void ImageAlphaClearRetPtr(Image *image,  Color *color,  float *threshold){Image
 void ImageAlphaMaskRetPtr(Image *image,  Image *alphaMask){ImageAlphaMask(image, *alphaMask);}                                                // Apply alpha mask to image
 void ImageAlphaPremultiplyRetPtr(Image *image){ImageAlphaPremultiply(image);}                                                          // Premultiply alpha channel
 void ImageBlurGaussianRetPtr(Image *image,  int *blurSize){ImageBlurGaussian(image, *blurSize);}                                                // Apply Gaussian blur using a box blur approximation
+void ImageKernelConvolutionRetPtr(Image *image,  const float *kernel,  int *kernelSize){ImageKernelConvolution(image, kernel, *kernelSize);}                    // Apply custom square convolution kernel to image
 void ImageResizeRetPtr(Image *image,  int *newWidth,  int *newHeight){ImageResize(image, *newWidth, *newHeight);}                                       // Resize image (Bicubic scaling algorithm)
 void ImageResizeNNRetPtr(Image *image,  int *newWidth,  int *newHeight){ImageResizeNN(image, *newWidth, *newHeight);}                                      // Resize image (Nearest-Neighbor scaling algorithm)
-void ImageResizeCanvasRetPtr(Image *image,  int *newWidth,  int *newHeight,  int *offsetX,  int *offsetY,  Color *fill){ImageResizeCanvas(image, *newWidth, *newHeight, *offsetX, *offsetY, *fill);}  // Resize canvas and fill with color
+void ImageResizeCanvasRetPtr(Image *image,  int *newWidth,  int *newHeight,  int *offsetX,  int *offsetY,  Color *fill){ImageResizeCanvas(image, *newWidth, *newHeight, *offsetX, *offsetY, *fill);} // Resize canvas and fill with color
 void ImageMipmapsRetPtr(Image *image){ImageMipmaps(image);}                                                                   // Compute all mipmap levels for a provided image
 void ImageDitherRetPtr(Image *image,  int *rBpp,  int *gBpp,  int *bBpp,  int *aBpp){ImageDither(image, *rBpp, *gBpp, *bBpp, *aBpp);}                            // Dither image data to 16bpp or lower (Floyd-Steinberg dithering)
 void ImageFlipVerticalRetPtr(Image *image){ImageFlipVertical(image);}                                                              // Flip image vertically
@@ -336,6 +350,7 @@ void ImageDrawPixelRetPtr(Image *dst,  int *posX,  int *posY,  Color *color){Ima
 void ImageDrawPixelVRetPtr(Image *dst,  Vector2 *position,  Color *color){ImageDrawPixelV(dst, *position, *color);}                                   // Draw pixel within an image (Vector version)
 void ImageDrawLineRetPtr(Image *dst,  int *startPosX,  int *startPosY,  int *endPosX,  int *endPosY,  Color *color){ImageDrawLine(dst, *startPosX, *startPosY, *endPosX, *endPosY, *color);} // Draw line within an image
 void ImageDrawLineVRetPtr(Image *dst,  Vector2 *start,  Vector2 *end,  Color *color){ImageDrawLineV(dst, *start, *end, *color);}                          // Draw line within an image (Vector version)
+void ImageDrawLineExRetPtr(Image *dst,  Vector2 *start,  Vector2 *end,  int *thick,  Color *color){ImageDrawLineEx(dst, *start, *end, *thick, *color);}              // Draw a line defining thickness within an image
 void ImageDrawCircleRetPtr(Image *dst,  int *centerX,  int *centerY,  int *radius,  Color *color){ImageDrawCircle(dst, *centerX, *centerY, *radius, *color);}               // Draw a filled circle within an image
 void ImageDrawCircleVRetPtr(Image *dst,  Vector2 *center,  int *radius,  Color *color){ImageDrawCircleV(dst, *center, *radius, *color);}                        // Draw a filled circle within an image (Vector version)
 void ImageDrawCircleLinesRetPtr(Image *dst,  int *centerX,  int *centerY,  int *radius,  Color *color){ImageDrawCircleLines(dst, *centerX, *centerY, *radius, *color);}          // Draw circle outline within an image
@@ -344,6 +359,11 @@ void ImageDrawRectangleRetPtr(Image *dst,  int *posX,  int *posY,  int *width,  
 void ImageDrawRectangleVRetPtr(Image *dst,  Vector2 *position,  Vector2 *size,  Color *color){ImageDrawRectangleV(dst, *position, *size, *color);}                 // Draw rectangle within an image (Vector version)
 void ImageDrawRectangleRecRetPtr(Image *dst,  Rectangle *rec,  Color *color){ImageDrawRectangleRec(dst, *rec, *color);}                                // Draw rectangle within an image
 void ImageDrawRectangleLinesRetPtr(Image *dst,  Rectangle *rec,  int *thick,  Color *color){ImageDrawRectangleLines(dst, *rec, *thick, *color);}                   // Draw rectangle lines within an image
+void ImageDrawTriangleRetPtr(Image *dst,  Vector2 *v1,  Vector2 *v2,  Vector2 *v3,  Color *color){ImageDrawTriangle(dst, *v1, *v2, *v3, *color);}               // Draw triangle within an image
+void ImageDrawTriangleExRetPtr(Image *dst,  Vector2 *v1,  Vector2 *v2,  Vector2 *v3,  Color *c1,  Color *c2,  Color *c3){ImageDrawTriangleEx(dst, *v1, *v2, *v3, *c1, *c2, *c3);} // Draw triangle with interpolated colors within an image
+void ImageDrawTriangleLinesRetPtr(Image *dst,  Vector2 *v1,  Vector2 *v2,  Vector2 *v3,  Color *color){ImageDrawTriangleLines(dst, *v1, *v2, *v3, *color);}          // Draw triangle outline within an image
+void ImageDrawTriangleFanRetPtr(Image *dst,  Vector2 *points,  int *pointCount,  Color *color){ImageDrawTriangleFan(dst, points, *pointCount, *color);}               // Draw a triangle fan defined by points within an image (first vertex is the center)
+void ImageDrawTriangleStripRetPtr(Image *dst,  Vector2 *points,  int *pointCount,  Color *color){ImageDrawTriangleStrip(dst, points, *pointCount, *color);}             // Draw a triangle strip defined by points within an image
 void ImageDrawRetPtr(Image *dst,  Image *src,  Rectangle *srcRec,  Rectangle *dstRec,  Color *tint){ImageDraw(dst, *src, *srcRec, *dstRec, *tint);}             // Draw a source image within a destination image (tint applied to source)
 void ImageDrawTextRetPtr(Image *dst,  const char *text,  int *posX,  int *posY,  int *fontSize,  Color *color){ImageDrawText(dst, text, *posX, *posY, *fontSize, *color);}   // Draw text (using default font) within an image (destination)
 void ImageDrawTextExRetPtr(Image *dst,  Font *font,  const char *text,  Vector2 *position,  float *fontSize,  float *spacing,  Color *tint){ImageDrawTextEx(dst, *font, text, *position, *fontSize, *spacing, *tint);} // Draw text (custom sprite font) within an image (destination)
@@ -351,9 +371,9 @@ void LoadTextureRetPtr(Texture2D *ret, const char *fileName){*ret=LoadTexture(fi
 void LoadTextureFromImageRetPtr(Texture2D *ret, Image *image){*ret=LoadTextureFromImage(*image);}                                                       // Load texture from image data
 void LoadTextureCubemapRetPtr(TextureCubemap *ret, Image *image,  int *layout){*ret=LoadTextureCubemap(*image, *layout);}                                        // Load cubemap from image, multiple image cubemap layouts supported
 void LoadRenderTextureRetPtr(RenderTexture2D *ret, int *width,  int *height){*ret=LoadRenderTexture(*width, *height);}                                          // Load texture for rendering (framebuffer)
-void IsTextureReadyRetPtr(bool *ret, Texture2D *texture){*ret=IsTextureReady(*texture);}                                                            // Check if a texture is ready
+void IsTextureValidRetPtr(bool *ret, Texture2D *texture){*ret=IsTextureValid(*texture);}                                                            // Check if a texture is valid (loaded in GPU)
 void UnloadTextureRetPtr(Texture2D *texture){UnloadTexture(*texture);}                                                             // Unload texture from GPU memory (VRAM)
-void IsRenderTextureReadyRetPtr(bool *ret, RenderTexture2D *target){*ret=IsRenderTextureReady(*target);}                                                 // Check if a render texture is ready
+void IsRenderTextureValidRetPtr(bool *ret, RenderTexture2D *target){*ret=IsRenderTextureValid(*target);}                                                 // Check if a render texture is valid (loaded in GPU)
 void UnloadRenderTextureRetPtr(RenderTexture2D *target){UnloadRenderTexture(*target);}                                                  // Unload render texture from GPU memory (VRAM)
 void UpdateTextureRetPtr(Texture2D *texture,  const void *pixels){UpdateTexture(*texture, pixels);}                                         // Update GPU texture with new data
 void UpdateTextureRecRetPtr(Texture2D *texture,  Rectangle *rec,  const void *pixels){UpdateTextureRec(*texture, *rec, pixels);}                       // Update GPU texture rectangle with new data
@@ -366,8 +386,9 @@ void DrawTextureExRetPtr(Texture2D *texture,  Vector2 *position,  float *rotatio
 void DrawTextureRecRetPtr(Texture2D *texture,  Rectangle *source,  Vector2 *position,  Color *tint){DrawTextureRec(*texture, *source, *position, *tint);}            // Draw a part of a texture defined by a rectangle
 void DrawTextureProRetPtr(Texture2D *texture,  Rectangle *source,  Rectangle *dest,  Vector2 *origin,  float *rotation,  Color *tint){DrawTexturePro(*texture, *source, *dest, *origin, *rotation, *tint);} // Draw a part of a texture defined by a rectangle with 'pro' parameters
 void DrawTextureNPatchRetPtr(Texture2D *texture,  NPatchInfo *nPatchInfo,  Rectangle *dest,  Vector2 *origin,  float *rotation,  Color *tint){DrawTextureNPatch(*texture, *nPatchInfo, *dest, *origin, *rotation, *tint);} // Draws a texture (or part of it) that stretches or shrinks nicely
+void ColorIsEqualRetPtr(bool *ret, Color *col1,  Color *col2){*ret=ColorIsEqual(*col1, *col2);}                            // Check if two colors are equal
 void FadeRetPtr(Color *ret, Color *color,  float *alpha){*ret=Fade(*color, *alpha);}                                 // Get color with alpha applied, alpha goes from 0.0f to 1.0f
-void ColorToIntRetPtr(int *ret, Color *color){*ret=ColorToInt(*color);}                                          // Get hexadecimal value for a Color
+void ColorToIntRetPtr(int *ret, Color *color){*ret=ColorToInt(*color);}                                          // Get hexadecimal value for a Color (0xRRGGBBAA)
 void ColorNormalizeRetPtr(Vector4 *ret, Color *color){*ret=ColorNormalize(*color);}                                  // Get Color normalized as float [0..1]
 void ColorFromNormalizedRetPtr(Color *ret, Vector4 *normalized){*ret=ColorFromNormalized(*normalized);}                        // Get Color from normalized values [0..1]
 void ColorToHSVRetPtr(Vector3 *ret, Color *color){*ret=ColorToHSV(*color);}                                      // Get HSV values for a Color, hue [0..360], saturation/value [0..1]
@@ -377,16 +398,17 @@ void ColorBrightnessRetPtr(Color *ret, Color *color,  float *factor){*ret=ColorB
 void ColorContrastRetPtr(Color *ret, Color *color,  float *contrast){*ret=ColorContrast(*color, *contrast);}                     // Get color with contrast correction, contrast values between -1.0f and 1.0f
 void ColorAlphaRetPtr(Color *ret, Color *color,  float *alpha){*ret=ColorAlpha(*color, *alpha);}                           // Get color with alpha applied, alpha goes from 0.0f to 1.0f
 void ColorAlphaBlendRetPtr(Color *ret, Color *dst,  Color *src,  Color *tint){*ret=ColorAlphaBlend(*dst, *src, *tint);}              // Get src alpha-blended into dst color with tint
+void ColorLerpRetPtr(Color *ret, Color *color1,  Color *color2,  float *factor){*ret=ColorLerp(*color1, *color2, *factor);}            // Get color lerp interpolation between two colors, factor [0.0f..1.0f]
 void GetColorRetPtr(Color *ret, unsigned int *hexValue){*ret=GetColor(*hexValue);}                                // Get Color structure from hexadecimal value
 void GetPixelColorRetPtr(Color *ret, void *srcPtr,  int *format){*ret=GetPixelColor(srcPtr, *format);}                        // Get Color from a source pixel pointer of certain format
 void SetPixelColorRetPtr(void *dstPtr,  Color *color,  int *format){SetPixelColor(dstPtr, *color, *format);}            // Set color formatted into destination pixel pointer
 void GetPixelDataSizeRetPtr(int *ret, int *width,  int *height,  int *format){*ret=GetPixelDataSize(*width, *height, *format);}              // Get pixel data size in bytes for certain format
 void GetFontDefaultRetPtr(Font *ret){*ret=GetFontDefault();}                                                            // Get the default Font
 void LoadFontRetPtr(Font *ret, const char *fileName){*ret=LoadFont(fileName);}                                                  // Load font from file into GPU memory (VRAM)
-void LoadFontExRetPtr(Font *ret, const char *fileName,  int *fontSize,  int *codepoints,  int *codepointCount){*ret=LoadFontEx(fileName, *fontSize, codepoints, *codepointCount);}  // Load font from file with extended parameters, use NULL for codepoints and 0 for codepointCount to load the default character set
+void LoadFontExRetPtr(Font *ret, const char *fileName,  int *fontSize,  int *codepoints,  int *codepointCount){*ret=LoadFontEx(fileName, *fontSize, codepoints, *codepointCount);} // Load font from file with extended parameters, use NULL for codepoints and 0 for codepointCount to load the default character set, font size is provided in pixels height
 void LoadFontFromImageRetPtr(Font *ret, Image *image,  Color *key,  int *firstChar){*ret=LoadFontFromImage(*image, *key, *firstChar);}                        // Load font from Image (XNA style)
 void LoadFontFromMemoryRetPtr(Font *ret, const char *fileType,  const unsigned char *fileData,  int *dataSize,  int *fontSize,  int *codepoints,  int *codepointCount){*ret=LoadFontFromMemory(fileType, fileData, *dataSize, *fontSize, codepoints, *codepointCount);} // Load font from memory buffer, fileType refers to extension: i.e. '.ttf'
-void IsFontReadyRetPtr(bool *ret, Font *font){*ret=IsFontReady(*font);}                                                          // Check if a font is ready
+void IsFontValidRetPtr(bool *ret, Font *font){*ret=IsFontValid(*font);}                                                          // Check if a font is valid (font data loaded, WARNING: GPU texture not checked)
 void LoadFontDataRetPtr(GlyphInfo **ret, const unsigned char *fileData,  int *dataSize,  int *fontSize,  int *codepoints,  int *codepointCount,  int *type){*ret=LoadFontData(fileData, *dataSize, *fontSize, codepoints, *codepointCount, *type);} // Load font data for further use
 void GenImageFontAtlasRetPtr(Image *ret, const GlyphInfo *glyphs,  Rectangle **glyphRecs,  int *glyphCount,  int *fontSize,  int *padding,  int *packMethod){*ret=GenImageFontAtlas(glyphs, glyphRecs, *glyphCount, *fontSize, *padding, *packMethod);} // Generate image font atlas using chars info
 void UnloadFontDataRetPtr(GlyphInfo *glyphs,  int *glyphCount){UnloadFontData(glyphs, *glyphCount);}                               // Unload font chars info data (RAM)
@@ -417,7 +439,7 @@ void TextCopyRetPtr(int *ret, char *dst,  const char *src){*ret=TextCopy(dst, sr
 void TextIsEqualRetPtr(bool *ret, const char *text1,  const char *text2){*ret=TextIsEqual(text1, text2);}                               // Check if two text string are equal
 void TextLengthRetPtr(unsigned int *ret, const char *text){*ret=TextLength(text);}                                            // Get text length, checks for '\0' ending
 void TextSubtextRetPtr(const char **ret, const char *text,  int *position,  int *length){*ret=TextSubtext(text, *position, *length);}                  // Get a piece of a text string
-void TextReplaceRetPtr(char **ret, char *text,  const char *replace,  const char *by){*ret=TextReplace(text, replace, by);}                   // Replace text string (WARNING: memory must be freed!)
+void TextReplaceRetPtr(char **ret, const char *text,  const char *replace,  const char *by){*ret=TextReplace(text, replace, by);}             // Replace text string (WARNING: memory must be freed!)
 void TextInsertRetPtr(char **ret, const char *text,  const char *insert,  int *position){*ret=TextInsert(text, insert, *position);}                 // Insert text in a position (WARNING: memory must be freed!)
 void TextJoinRetPtr(const char **ret, const char **textList,  int *count,  const char *delimiter){*ret=TextJoin(textList, *count, delimiter);}        // Join text strings with delimiter
 void TextSplitRetPtr(const char ***ret, const char *text,  char *delimiter,  int *count){*ret=TextSplit(text, *delimiter, count);}                 // Split text into multiple strings
@@ -426,12 +448,15 @@ void TextFindIndexRetPtr(int *ret, const char *text,  const char *find){*ret=Tex
 void TextToUpperRetPtr(const char **ret, const char *text){*ret=TextToUpper(text);}                      // Get upper case version of provided string
 void TextToLowerRetPtr(const char **ret, const char *text){*ret=TextToLower(text);}                      // Get lower case version of provided string
 void TextToPascalRetPtr(const char **ret, const char *text){*ret=TextToPascal(text);}                     // Get Pascal case notation version of provided string
+void TextToSnakeRetPtr(const char **ret, const char *text){*ret=TextToSnake(text);}                      // Get Snake case notation version of provided string
+void TextToCamelRetPtr(const char **ret, const char *text){*ret=TextToCamel(text);}                      // Get Camel case notation version of provided string
 void TextToIntegerRetPtr(int *ret, const char *text){*ret=TextToInteger(text);}                            // Get integer value from text (negative values not supported)
+void TextToFloatRetPtr(float *ret, const char *text){*ret=TextToFloat(text);}                            // Get float value from text (negative values not supported)
 void DrawLine3DRetPtr(Vector3 *startPos,  Vector3 *endPos,  Color *color){DrawLine3D(*startPos, *endPos, *color);}                                    // Draw a line in 3D world space
 void DrawPoint3DRetPtr(Vector3 *position,  Color *color){DrawPoint3D(*position, *color);}                                                   // Draw a point in 3D space, actually a small line
 void DrawCircle3DRetPtr(Vector3 *center,  float *radius,  Vector3 *rotationAxis,  float *rotationAngle,  Color *color){DrawCircle3D(*center, *radius, *rotationAxis, *rotationAngle, *color);} // Draw a circle in 3D world space
 void DrawTriangle3DRetPtr(Vector3 *v1,  Vector3 *v2,  Vector3 *v3,  Color *color){DrawTriangle3D(*v1, *v2, *v3, *color);}                              // Draw a color-filled triangle (vertex in counter-clockwise order!)
-void DrawTriangleStrip3DRetPtr(Vector3 *points,  int *pointCount,  Color *color){DrawTriangleStrip3D(points, *pointCount, *color);}                            // Draw a triangle strip defined by points
+void DrawTriangleStrip3DRetPtr(const Vector3 *points,  int *pointCount,  Color *color){DrawTriangleStrip3D(points, *pointCount, *color);}                      // Draw a triangle strip defined by points
 void DrawCubeRetPtr(Vector3 *position,  float *width,  float *height,  float *length,  Color *color){DrawCube(*position, *width, *height, *length, *color);}             // Draw cube
 void DrawCubeVRetPtr(Vector3 *position,  Vector3 *size,  Color *color){DrawCubeV(*position, *size, *color);}                                       // Draw cube (Vector version)
 void DrawCubeWiresRetPtr(Vector3 *position,  float *width,  float *height,  float *length,  Color *color){DrawCubeWires(*position, *width, *height, *length, *color);}        // Draw cube wires
@@ -450,15 +475,17 @@ void DrawRayRetPtr(Ray *ray,  Color *color){DrawRay(*ray, *color);}             
 void DrawGridRetPtr(int *slices,  float *spacing){DrawGrid(*slices, *spacing);}                                                          // Draw a grid (centered at (0, 0, 0))
 void LoadModelRetPtr(Model *ret, const char *fileName){*ret=LoadModel(fileName);}                                                // Load model from files (meshes and materials)
 void LoadModelFromMeshRetPtr(Model *ret, Mesh *mesh){*ret=LoadModelFromMesh(*mesh);}                                                   // Load model from generated mesh (default material)
-void IsModelReadyRetPtr(bool *ret, Model *model){*ret=IsModelReady(*model);}                                                       // Check if a model is ready
+void IsModelValidRetPtr(bool *ret, Model *model){*ret=IsModelValid(*model);}                                                       // Check if a model is valid (loaded in GPU, VAO/VBOs)
 void UnloadModelRetPtr(Model *model){UnloadModel(*model);}                                                        // Unload model (including meshes) from memory (RAM and/or VRAM)
 void GetModelBoundingBoxRetPtr(BoundingBox *ret, Model *model){*ret=GetModelBoundingBox(*model);}                                         // Compute model bounding box limits (considers all meshes)
 void DrawModelRetPtr(Model *model,  Vector3 *position,  float *scale,  Color *tint){DrawModel(*model, *position, *scale, *tint);}               // Draw a model (with texture if set)
 void DrawModelExRetPtr(Model *model,  Vector3 *position,  Vector3 *rotationAxis,  float *rotationAngle,  Vector3 *scale,  Color *tint){DrawModelEx(*model, *position, *rotationAxis, *rotationAngle, *scale, *tint);} // Draw a model with extended parameters
 void DrawModelWiresRetPtr(Model *model,  Vector3 *position,  float *scale,  Color *tint){DrawModelWires(*model, *position, *scale, *tint);}          // Draw a model wires (with texture if set)
 void DrawModelWiresExRetPtr(Model *model,  Vector3 *position,  Vector3 *rotationAxis,  float *rotationAngle,  Vector3 *scale,  Color *tint){DrawModelWiresEx(*model, *position, *rotationAxis, *rotationAngle, *scale, *tint);} // Draw a model wires (with texture if set) with extended parameters
+void DrawModelPointsRetPtr(Model *model,  Vector3 *position,  float *scale,  Color *tint){DrawModelPoints(*model, *position, *scale, *tint);} // Draw a model as points
+void DrawModelPointsExRetPtr(Model *model,  Vector3 *position,  Vector3 *rotationAxis,  float *rotationAngle,  Vector3 *scale,  Color *tint){DrawModelPointsEx(*model, *position, *rotationAxis, *rotationAngle, *scale, *tint);} // Draw a model as points with extended parameters
 void DrawBoundingBoxRetPtr(BoundingBox *box,  Color *color){DrawBoundingBox(*box, *color);}                                   // Draw bounding box (wires)
-void DrawBillboardRetPtr(Camera *camera,  Texture2D *texture,  Vector3 *position,  float *size,  Color *tint){DrawBillboard(*camera, *texture, *position, *size, *tint);}   // Draw a billboard texture
+void DrawBillboardRetPtr(Camera *camera,  Texture2D *texture,  Vector3 *position,  float *scale,  Color *tint){DrawBillboard(*camera, *texture, *position, *scale, *tint);}   // Draw a billboard texture
 void DrawBillboardRecRetPtr(Camera *camera,  Texture2D *texture,  Rectangle *source,  Vector3 *position,  Vector2 *size,  Color *tint){DrawBillboardRec(*camera, *texture, *source, *position, *size, *tint);} // Draw a billboard texture defined by source
 void DrawBillboardProRetPtr(Camera *camera,  Texture2D *texture,  Rectangle *source,  Vector3 *position,  Vector3 *up,  Vector2 *size,  Vector2 *origin,  float *rotation,  Color *tint){DrawBillboardPro(*camera, *texture, *source, *position, *up, *size, *origin, *rotation, *tint);} // Draw a billboard texture defined by source and rotation
 void UploadMeshRetPtr(Mesh *mesh,  bool *dynamic){UploadMesh(mesh, *dynamic);}                                            // Upload mesh vertex data in GPU and provide VAO/VBO ids
@@ -466,9 +493,10 @@ void UpdateMeshBufferRetPtr(Mesh *mesh,  int *index,  const void *data,  int *da
 void UnloadMeshRetPtr(Mesh *mesh){UnloadMesh(*mesh);}                                                           // Unload mesh data from CPU and GPU
 void DrawMeshRetPtr(Mesh *mesh,  Material *material,  Matrix *transform){DrawMesh(*mesh, *material, *transform);}                        // Draw a 3d mesh with material and transform
 void DrawMeshInstancedRetPtr(Mesh *mesh,  Material *material,  const Matrix *transforms,  int *instances){DrawMeshInstanced(*mesh, *material, transforms, *instances);} // Draw multiple mesh instances with material and different transforms
-void ExportMeshRetPtr(bool *ret, Mesh *mesh,  const char *fileName){*ret=ExportMesh(*mesh, fileName);}                                     // Export mesh data to file, returns true on success
 void GetMeshBoundingBoxRetPtr(BoundingBox *ret, Mesh *mesh){*ret=GetMeshBoundingBox(*mesh);}                                            // Compute mesh bounding box limits
 void GenMeshTangentsRetPtr(Mesh *mesh){GenMeshTangents(mesh);}                                                     // Compute mesh tangents
+void ExportMeshRetPtr(bool *ret, Mesh *mesh,  const char *fileName){*ret=ExportMesh(*mesh, fileName);}                                     // Export mesh data to file, returns true on success
+void ExportMeshAsCodeRetPtr(bool *ret, Mesh *mesh,  const char *fileName){*ret=ExportMeshAsCode(*mesh, fileName);}                               // Export mesh as code file (.h) defining multiple arrays of vertex attributes
 void GenMeshPolyRetPtr(Mesh *ret, int *sides,  float *radius){*ret=GenMeshPoly(*sides, *radius);}                                            // Generate polygonal mesh
 void GenMeshPlaneRetPtr(Mesh *ret, float *width,  float *length,  int *resX,  int *resZ){*ret=GenMeshPlane(*width, *length, *resX, *resZ);}                     // Generate plane mesh (with subdivisions)
 void GenMeshCubeRetPtr(Mesh *ret, float *width,  float *height,  float *length){*ret=GenMeshCube(*width, *height, *length);}                            // Generate cuboid mesh
@@ -482,12 +510,13 @@ void GenMeshHeightmapRetPtr(Mesh *ret, Image *heightmap,  Vector3 *size){*ret=Ge
 void GenMeshCubicmapRetPtr(Mesh *ret, Image *cubicmap,  Vector3 *cubeSize){*ret=GenMeshCubicmap(*cubicmap, *cubeSize);}                               // Generate cubes-based map mesh from image data
 void LoadMaterialsRetPtr(Material **ret, const char *fileName,  int *materialCount){*ret=LoadMaterials(fileName, materialCount);}                    // Load materials from model file
 void LoadMaterialDefaultRetPtr(Material *ret){*ret=LoadMaterialDefault();}                                                   // Load default material (Supports: DIFFUSE, SPECULAR, NORMAL maps)
-void IsMaterialReadyRetPtr(bool *ret, Material *material){*ret=IsMaterialReady(*material);}                                              // Check if a material is ready
+void IsMaterialValidRetPtr(bool *ret, Material *material){*ret=IsMaterialValid(*material);}                                              // Check if a material is valid (shader assigned, map textures loaded in GPU)
 void UnloadMaterialRetPtr(Material *material){UnloadMaterial(*material);}                                               // Unload material from GPU memory (VRAM)
 void SetMaterialTextureRetPtr(Material *material,  int *mapType,  Texture2D *texture){SetMaterialTexture(material, *mapType, *texture);}          // Set texture for a material map type (MATERIAL_MAP_DIFFUSE, MATERIAL_MAP_SPECULAR...)
 void SetModelMeshMaterialRetPtr(Model *model,  int *meshId,  int *materialId){SetModelMeshMaterial(model, *meshId, *materialId);}                  // Set material for a mesh
 void LoadModelAnimationsRetPtr(ModelAnimation **ret, const char *fileName,  int *animCount){*ret=LoadModelAnimations(fileName, animCount);}            // Load model animations from file
-void UpdateModelAnimationRetPtr(Model *model,  ModelAnimation *anim,  int *frame){UpdateModelAnimation(*model, *anim, *frame);}               // Update model animation pose
+void UpdateModelAnimationRetPtr(Model *model,  ModelAnimation *anim,  int *frame){UpdateModelAnimation(*model, *anim, *frame);}               // Update model animation pose (CPU)
+void UpdateModelAnimationBonesRetPtr(Model *model,  ModelAnimation *anim,  int *frame){UpdateModelAnimationBones(*model, *anim, *frame);}          // Update model animation mesh bone matrices (GPU skinning)
 void UnloadModelAnimationRetPtr(ModelAnimation *anim){UnloadModelAnimation(*anim);}                                       // Unload animation data
 void UnloadModelAnimationsRetPtr(ModelAnimation *animations,  int *animCount){UnloadModelAnimations(animations, *animCount);}                // Unload animation array data
 void IsModelAnimationValidRetPtr(bool *ret, Model *model,  ModelAnimation *anim){*ret=IsModelAnimationValid(*model, *anim);}                         // Check model animation skeleton match
@@ -506,11 +535,11 @@ void SetMasterVolumeRetPtr(float *volume){SetMasterVolume(*volume);}            
 void GetMasterVolumeRetPtr(float *ret){*ret=GetMasterVolume();}                                    // Get master volume (listener)
 void LoadWaveRetPtr(Wave *ret, const char *fileName){*ret=LoadWave(fileName);}                            // Load wave data from file
 void LoadWaveFromMemoryRetPtr(Wave *ret, const char *fileType,  const unsigned char *fileData,  int *dataSize){*ret=LoadWaveFromMemory(fileType, fileData, *dataSize);} // Load wave from memory buffer, fileType refers to extension: i.e. '.wav'
-void IsWaveReadyRetPtr(bool *ret, Wave *wave){*ret=IsWaveReady(*wave);}                                    // Checks if wave data is ready
+void IsWaveValidRetPtr(bool *ret, Wave *wave){*ret=IsWaveValid(*wave);}                                    // Checks if wave data is valid (data loaded and parameters)
 void LoadSoundRetPtr(Sound *ret, const char *fileName){*ret=LoadSound(fileName);}                          // Load sound from file
 void LoadSoundFromWaveRetPtr(Sound *ret, Wave *wave){*ret=LoadSoundFromWave(*wave);}                             // Load sound from wave data
 void LoadSoundAliasRetPtr(Sound *ret, Sound *source){*ret=LoadSoundAlias(*source);}                             // Create a new sound that shares the same sample data as the source sound, does not own the sound data
-void IsSoundReadyRetPtr(bool *ret, Sound *sound){*ret=IsSoundReady(*sound);}                                 // Checks if a sound is ready
+void IsSoundValidRetPtr(bool *ret, Sound *sound){*ret=IsSoundValid(*sound);}                                 // Checks if a sound is valid (data loaded and buffers initialized)
 void UpdateSoundRetPtr(Sound *sound,  const void *data,  int *sampleCount){UpdateSound(*sound, data, *sampleCount);} // Update sound buffer with new data
 void UnloadWaveRetPtr(Wave *wave){UnloadWave(*wave);}                                     // Unload wave data
 void UnloadSoundRetPtr(Sound *sound){UnloadSound(*sound);}                                  // Unload sound
@@ -526,13 +555,13 @@ void SetSoundVolumeRetPtr(Sound *sound,  float *volume){SetSoundVolume(*sound, *
 void SetSoundPitchRetPtr(Sound *sound,  float *pitch){SetSoundPitch(*sound, *pitch);}                   // Set pitch for a sound (1.0 is base level)
 void SetSoundPanRetPtr(Sound *sound,  float *pan){SetSoundPan(*sound, *pan);}                       // Set pan for a sound (0.5 is center)
 void WaveCopyRetPtr(Wave *ret, Wave *wave){*ret=WaveCopy(*wave);}                                       // Copy a wave to a new wave
-void WaveCropRetPtr(Wave *wave,  int *initSample,  int *finalSample){WaveCrop(wave, *initSample, *finalSample);}     // Crop a wave to defined samples range
+void WaveCropRetPtr(Wave *wave,  int *initFrame,  int *finalFrame){WaveCrop(wave, *initFrame, *finalFrame);}       // Crop a wave to defined frames range
 void WaveFormatRetPtr(Wave *wave,  int *sampleRate,  int *sampleSize,  int *channels){WaveFormat(wave, *sampleRate, *sampleSize, *channels);} // Convert wave data to desired format
 void LoadWaveSamplesRetPtr(float **ret, Wave *wave){*ret=LoadWaveSamples(*wave);}                              // Load samples data from wave as a 32bit float data array
 void UnloadWaveSamplesRetPtr(float *samples){UnloadWaveSamples(samples);}                         // Unload samples data loaded with LoadWaveSamples()
 void LoadMusicStreamRetPtr(Music *ret, const char *fileName){*ret=LoadMusicStream(fileName);}                    // Load music stream from file
 void LoadMusicStreamFromMemoryRetPtr(Music *ret, const char *fileType,  const unsigned char *data,  int *dataSize){*ret=LoadMusicStreamFromMemory(fileType, data, *dataSize);} // Load music stream from data
-void IsMusicReadyRetPtr(bool *ret, Music *music){*ret=IsMusicReady(*music);}                                 // Checks if a music stream is ready
+void IsMusicValidRetPtr(bool *ret, Music *music){*ret=IsMusicValid(*music);}                                 // Checks if a music stream is valid (context and buffers initialized)
 void UnloadMusicStreamRetPtr(Music *music){UnloadMusicStream(*music);}                            // Unload music stream
 void PlayMusicStreamRetPtr(Music *music){PlayMusicStream(*music);}                              // Start music playing
 void IsMusicStreamPlayingRetPtr(bool *ret, Music *music){*ret=IsMusicStreamPlaying(*music);}                         // Check if music is playing
@@ -547,7 +576,7 @@ void SetMusicPanRetPtr(Music *music,  float *pan){SetMusicPan(*music, *pan);}   
 void GetMusicTimeLengthRetPtr(float *ret, Music *music){*ret=GetMusicTimeLength(*music);}                          // Get music time length (in seconds)
 void GetMusicTimePlayedRetPtr(float *ret, Music *music){*ret=GetMusicTimePlayed(*music);}                          // Get current music time played (in seconds)
 void LoadAudioStreamRetPtr(AudioStream *ret, unsigned int *sampleRate,  unsigned int *sampleSize,  unsigned int *channels){*ret=LoadAudioStream(*sampleRate, *sampleSize, *channels);} // Load audio stream (to stream raw audio pcm data)
-void IsAudioStreamReadyRetPtr(bool *ret, AudioStream *stream){*ret=IsAudioStreamReady(*stream);}                    // Checks if an audio stream is ready
+void IsAudioStreamValidRetPtr(bool *ret, AudioStream *stream){*ret=IsAudioStreamValid(*stream);}                    // Checks if an audio stream is valid (buffers initialized)
 void UnloadAudioStreamRetPtr(AudioStream *stream){UnloadAudioStream(*stream);}                     // Unload audio stream and free memory
 void UpdateAudioStreamRetPtr(AudioStream *stream,  const void *data,  int *frameCount){UpdateAudioStream(*stream, data, *frameCount);} // Update audio stream buffers with data
 void IsAudioStreamProcessedRetPtr(bool *ret, AudioStream *stream){*ret=IsAudioStreamProcessed(*stream);}                // Check if any audio stream buffers requires refill
@@ -561,9 +590,9 @@ void SetAudioStreamPitchRetPtr(AudioStream *stream,  float *pitch){SetAudioStrea
 void SetAudioStreamPanRetPtr(AudioStream *stream,  float *pan){SetAudioStreamPan(*stream, *pan);}          // Set pan for audio stream (0.5 is centered)
 void SetAudioStreamBufferSizeDefaultRetPtr(int *size){SetAudioStreamBufferSizeDefault(*size);}                 // Default size for new audio streams
 void SetAudioStreamCallbackRetPtr(AudioStream *stream,  AudioCallback *callback){SetAudioStreamCallback(*stream, *callback);} // Audio thread callback to request new data
-void AttachAudioStreamProcessorRetPtr(AudioStream *stream,  AudioCallback *processor){AttachAudioStreamProcessor(*stream, *processor);} // Attach audio stream processor to stream, receives the samples as <float>s
+void AttachAudioStreamProcessorRetPtr(AudioStream *stream,  AudioCallback *processor){AttachAudioStreamProcessor(*stream, *processor);} // Attach audio stream processor to stream, receives the samples as 'float'
 void DetachAudioStreamProcessorRetPtr(AudioStream *stream,  AudioCallback *processor){DetachAudioStreamProcessor(*stream, *processor);} // Detach audio stream processor from stream
-void AttachAudioMixedProcessorRetPtr(AudioCallback *processor){AttachAudioMixedProcessor(*processor);} // Attach audio stream processor to the entire audio pipeline, receives the samples as <float>s
+void AttachAudioMixedProcessorRetPtr(AudioCallback *processor){AttachAudioMixedProcessor(*processor);} // Attach audio stream processor to the entire audio pipeline, receives the samples as 'float'
 void DetachAudioMixedProcessorRetPtr(AudioCallback *processor){DetachAudioMixedProcessor(*processor);} // Detach audio stream processor from the entire audio pipeline
 void ClampRetPtr(float *ret, float *value,  float *min,  float *max){*ret=Clamp(*value, *min, *max);}
 void LerpRetPtr(float *ret, float *start,  float *end,  float *amount){*ret=Lerp(*start, *end, *amount);}
@@ -592,12 +621,15 @@ void Vector2NormalizeRetPtr(Vector2 *ret, Vector2 *v){*ret=Vector2Normalize(*v);
 void Vector2TransformRetPtr(Vector2 *ret, Vector2 *v,  Matrix *mat){*ret=Vector2Transform(*v, *mat);}
 void Vector2LerpRetPtr(Vector2 *ret, Vector2 *v1,  Vector2 *v2,  float *amount){*ret=Vector2Lerp(*v1, *v2, *amount);}
 void Vector2ReflectRetPtr(Vector2 *ret, Vector2 *v,  Vector2 *normal){*ret=Vector2Reflect(*v, *normal);}
+void Vector2MinRetPtr(Vector2 *ret, Vector2 *v1,  Vector2 *v2){*ret=Vector2Min(*v1, *v2);}
+void Vector2MaxRetPtr(Vector2 *ret, Vector2 *v1,  Vector2 *v2){*ret=Vector2Max(*v1, *v2);}
 void Vector2RotateRetPtr(Vector2 *ret, Vector2 *v,  float *angle){*ret=Vector2Rotate(*v, *angle);}
 void Vector2MoveTowardsRetPtr(Vector2 *ret, Vector2 *v,  Vector2 *target,  float *maxDistance){*ret=Vector2MoveTowards(*v, *target, *maxDistance);}
 void Vector2InvertRetPtr(Vector2 *ret, Vector2 *v){*ret=Vector2Invert(*v);}
 void Vector2ClampRetPtr(Vector2 *ret, Vector2 *v,  Vector2 *min,  Vector2 *max){*ret=Vector2Clamp(*v, *min, *max);}
 void Vector2ClampValueRetPtr(Vector2 *ret, Vector2 *v,  float *min,  float *max){*ret=Vector2ClampValue(*v, *min, *max);}
 void Vector2EqualsRetPtr(int *ret, Vector2 *p,  Vector2 *q){*ret=Vector2Equals(*p, *q);}
+void Vector2RefractRetPtr(Vector2 *ret, Vector2 *v,  Vector2 *n,  float *r){*ret=Vector2Refract(*v, *n, *r);}
 void Vector3ZeroRetPtr(Vector3 *ret){*ret=Vector3Zero();}
 void Vector3OneRetPtr(Vector3 *ret){*ret=Vector3One();}
 void Vector3AddRetPtr(Vector3 *ret, Vector3 *v1,  Vector3 *v2){*ret=Vector3Add(*v1, *v2);}
@@ -623,7 +655,9 @@ void Vector3OrthoNormalizeRetPtr(Vector3 *v1,  Vector3 *v2){Vector3OrthoNormaliz
 void Vector3TransformRetPtr(Vector3 *ret, Vector3 *v,  Matrix *mat){*ret=Vector3Transform(*v, *mat);}
 void Vector3RotateByQuaternionRetPtr(Vector3 *ret, Vector3 *v,  Quaternion *q){*ret=Vector3RotateByQuaternion(*v, *q);}
 void Vector3RotateByAxisAngleRetPtr(Vector3 *ret, Vector3 *v,  Vector3 *axis,  float *angle){*ret=Vector3RotateByAxisAngle(*v, *axis, *angle);}
+void Vector3MoveTowardsRetPtr(Vector3 *ret, Vector3 *v,  Vector3 *target,  float *maxDistance){*ret=Vector3MoveTowards(*v, *target, *maxDistance);}
 void Vector3LerpRetPtr(Vector3 *ret, Vector3 *v1,  Vector3 *v2,  float *amount){*ret=Vector3Lerp(*v1, *v2, *amount);}
+void Vector3CubicHermiteRetPtr(Vector3 *ret, Vector3 *v1,  Vector3 *tangent1,  Vector3 *v2,  Vector3 *tangent2,  float *amount){*ret=Vector3CubicHermite(*v1, *tangent1, *v2, *tangent2, *amount);}
 void Vector3ReflectRetPtr(Vector3 *ret, Vector3 *v,  Vector3 *normal){*ret=Vector3Reflect(*v, *normal);}
 void Vector3MinRetPtr(Vector3 *ret, Vector3 *v1,  Vector3 *v2){*ret=Vector3Min(*v1, *v2);}
 void Vector3MaxRetPtr(Vector3 *ret, Vector3 *v1,  Vector3 *v2){*ret=Vector3Max(*v1, *v2);}
@@ -635,6 +669,28 @@ void Vector3ClampRetPtr(Vector3 *ret, Vector3 *v,  Vector3 *min,  Vector3 *max){
 void Vector3ClampValueRetPtr(Vector3 *ret, Vector3 *v,  float *min,  float *max){*ret=Vector3ClampValue(*v, *min, *max);}
 void Vector3EqualsRetPtr(int *ret, Vector3 *p,  Vector3 *q){*ret=Vector3Equals(*p, *q);}
 void Vector3RefractRetPtr(Vector3 *ret, Vector3 *v,  Vector3 *n,  float *r){*ret=Vector3Refract(*v, *n, *r);}
+void Vector4ZeroRetPtr(Vector4 *ret){*ret=Vector4Zero();}
+void Vector4OneRetPtr(Vector4 *ret){*ret=Vector4One();}
+void Vector4AddRetPtr(Vector4 *ret, Vector4 *v1,  Vector4 *v2){*ret=Vector4Add(*v1, *v2);}
+void Vector4AddValueRetPtr(Vector4 *ret, Vector4 *v,  float *add){*ret=Vector4AddValue(*v, *add);}
+void Vector4SubtractRetPtr(Vector4 *ret, Vector4 *v1,  Vector4 *v2){*ret=Vector4Subtract(*v1, *v2);}
+void Vector4SubtractValueRetPtr(Vector4 *ret, Vector4 *v,  float *add){*ret=Vector4SubtractValue(*v, *add);}
+void Vector4LengthRetPtr(float *ret, Vector4 *v){*ret=Vector4Length(*v);}
+void Vector4LengthSqrRetPtr(float *ret, Vector4 *v){*ret=Vector4LengthSqr(*v);}
+void Vector4DotProductRetPtr(float *ret, Vector4 *v1,  Vector4 *v2){*ret=Vector4DotProduct(*v1, *v2);}
+void Vector4DistanceRetPtr(float *ret, Vector4 *v1,  Vector4 *v2){*ret=Vector4Distance(*v1, *v2);}
+void Vector4DistanceSqrRetPtr(float *ret, Vector4 *v1,  Vector4 *v2){*ret=Vector4DistanceSqr(*v1, *v2);}
+void Vector4ScaleRetPtr(Vector4 *ret, Vector4 *v,  float *scale){*ret=Vector4Scale(*v, *scale);}
+void Vector4MultiplyRetPtr(Vector4 *ret, Vector4 *v1,  Vector4 *v2){*ret=Vector4Multiply(*v1, *v2);}
+void Vector4NegateRetPtr(Vector4 *ret, Vector4 *v){*ret=Vector4Negate(*v);}
+void Vector4DivideRetPtr(Vector4 *ret, Vector4 *v1,  Vector4 *v2){*ret=Vector4Divide(*v1, *v2);}
+void Vector4NormalizeRetPtr(Vector4 *ret, Vector4 *v){*ret=Vector4Normalize(*v);}
+void Vector4MinRetPtr(Vector4 *ret, Vector4 *v1,  Vector4 *v2){*ret=Vector4Min(*v1, *v2);}
+void Vector4MaxRetPtr(Vector4 *ret, Vector4 *v1,  Vector4 *v2){*ret=Vector4Max(*v1, *v2);}
+void Vector4LerpRetPtr(Vector4 *ret, Vector4 *v1,  Vector4 *v2,  float *amount){*ret=Vector4Lerp(*v1, *v2, *amount);}
+void Vector4MoveTowardsRetPtr(Vector4 *ret, Vector4 *v,  Vector4 *target,  float *maxDistance){*ret=Vector4MoveTowards(*v, *target, *maxDistance);}
+void Vector4InvertRetPtr(Vector4 *ret, Vector4 *v){*ret=Vector4Invert(*v);}
+void Vector4EqualsRetPtr(int *ret, Vector4 *p,  Vector4 *q){*ret=Vector4Equals(*p, *q);}
 void MatrixDeterminantRetPtr(float *ret, Matrix *mat){*ret=MatrixDeterminant(*mat);}
 void MatrixTraceRetPtr(float *ret, Matrix *mat){*ret=MatrixTrace(*mat);}
 void MatrixTransposeRetPtr(Matrix *ret, Matrix *mat){*ret=MatrixTranspose(*mat);}
@@ -651,7 +707,7 @@ void MatrixRotateZRetPtr(Matrix *ret, float *angle){*ret=MatrixRotateZ(*angle);}
 void MatrixRotateXYZRetPtr(Matrix *ret, Vector3 *angle){*ret=MatrixRotateXYZ(*angle);}
 void MatrixRotateZYXRetPtr(Matrix *ret, Vector3 *angle){*ret=MatrixRotateZYX(*angle);}
 void MatrixScaleRetPtr(Matrix *ret, float *x,  float *y,  float *z){*ret=MatrixScale(*x, *y, *z);}
-void MatrixFrustumRetPtr(Matrix *ret, double *left,  double *right,  double *bottom,  double *top,  double *near,  double *far){*ret=MatrixFrustum(*left, *right, *bottom, *top, *near, *far);}
+void MatrixFrustumRetPtr(Matrix *ret, double *left,  double *right,  double *bottom,  double *top,  double *nearPlane,  double *farPlane){*ret=MatrixFrustum(*left, *right, *bottom, *top, *nearPlane, *farPlane);}
 void MatrixPerspectiveRetPtr(Matrix *ret, double *fovY,  double *aspect,  double *nearPlane,  double *farPlane){*ret=MatrixPerspective(*fovY, *aspect, *nearPlane, *farPlane);}
 void MatrixOrthoRetPtr(Matrix *ret, double *left,  double *right,  double *bottom,  double *top,  double *nearPlane,  double *farPlane){*ret=MatrixOrtho(*left, *right, *bottom, *top, *nearPlane, *farPlane);}
 void MatrixLookAtRetPtr(Matrix *ret, Vector3 *eye,  Vector3 *target,  Vector3 *up){*ret=MatrixLookAt(*eye, *target, *up);}
@@ -670,6 +726,7 @@ void QuaternionDivideRetPtr(Quaternion *ret, Quaternion *q1,  Quaternion *q2){*r
 void QuaternionLerpRetPtr(Quaternion *ret, Quaternion *q1,  Quaternion *q2,  float *amount){*ret=QuaternionLerp(*q1, *q2, *amount);}
 void QuaternionNlerpRetPtr(Quaternion *ret, Quaternion *q1,  Quaternion *q2,  float *amount){*ret=QuaternionNlerp(*q1, *q2, *amount);}
 void QuaternionSlerpRetPtr(Quaternion *ret, Quaternion *q1,  Quaternion *q2,  float *amount){*ret=QuaternionSlerp(*q1, *q2, *amount);}
+void QuaternionCubicHermiteSplineRetPtr(Quaternion *ret, Quaternion *q1,  Quaternion *outTangent1,  Quaternion *q2,  Quaternion *inTangent2,  float *t){*ret=QuaternionCubicHermiteSpline(*q1, *outTangent1, *q2, *inTangent2, *t);}
 void QuaternionFromVector3ToVector3RetPtr(Quaternion *ret, Vector3 *from,  Vector3 *to){*ret=QuaternionFromVector3ToVector3(*from, *to);}
 void QuaternionFromMatrixRetPtr(Quaternion *ret, Matrix *mat){*ret=QuaternionFromMatrix(*mat);}
 void QuaternionToMatrixRetPtr(Matrix *ret, Quaternion *q){*ret=QuaternionToMatrix(*q);}
@@ -679,35 +736,39 @@ void QuaternionFromEulerRetPtr(Quaternion *ret, float *pitch,  float *yaw,  floa
 void QuaternionToEulerRetPtr(Vector3 *ret, Quaternion *q){*ret=QuaternionToEuler(*q);}
 void QuaternionTransformRetPtr(Quaternion *ret, Quaternion *q,  Matrix *mat){*ret=QuaternionTransform(*q, *mat);}
 void QuaternionEqualsRetPtr(int *ret, Quaternion *p,  Quaternion *q){*ret=QuaternionEquals(*p, *q);}
-void rlMatrixModeRetPtr(int *mode){rlMatrixMode(*mode);}                    // Choose the current matrix to be transformed
-void rlPushMatrixRetPtr(){rlPushMatrix();}                        // Push the current matrix to stack
-void rlPopMatrixRetPtr(){rlPopMatrix();}                         // Pop latest inserted matrix from stack
-void rlLoadIdentityRetPtr(){rlLoadIdentity();}                      // Reset current matrix to identity matrix
-void rlTranslatefRetPtr(float *x,  float *y,  float *z){rlTranslatef(*x, *y, *z);}   // Multiply the current matrix by a translation matrix
-void rlRotatefRetPtr(float *angle,  float *x,  float *y,  float *z){rlRotatef(*angle, *x, *y, *z);}  // Multiply the current matrix by a rotation matrix
-void rlScalefRetPtr(float *x,  float *y,  float *z){rlScalef(*x, *y, *z);}       // Multiply the current matrix by a scaling matrix
-void rlMultMatrixfRetPtr(const float *matf){rlMultMatrixf(matf);}                // Multiply the current matrix by another matrix
+void MatrixDecomposeRetPtr(Matrix *mat,  Vector3 *translation,  Quaternion *rotation,  Vector3 *scale){MatrixDecompose(*mat, translation, rotation, scale);}
+void rlMatrixModeRetPtr(int *mode){rlMatrixMode(*mode);}                      // Choose the current matrix to be transformed
+void rlPushMatrixRetPtr(){rlPushMatrix();}                          // Push the current matrix to stack
+void rlPopMatrixRetPtr(){rlPopMatrix();}                           // Pop latest inserted matrix from stack
+void rlLoadIdentityRetPtr(){rlLoadIdentity();}                        // Reset current matrix to identity matrix
+void rlTranslatefRetPtr(float *x,  float *y,  float *z){rlTranslatef(*x, *y, *z);}     // Multiply the current matrix by a translation matrix
+void rlRotatefRetPtr(float *angle,  float *x,  float *y,  float *z){rlRotatef(*angle, *x, *y, *z);} // Multiply the current matrix by a rotation matrix
+void rlScalefRetPtr(float *x,  float *y,  float *z){rlScalef(*x, *y, *z);}         // Multiply the current matrix by a scaling matrix
+void rlMultMatrixfRetPtr(const float *matf){rlMultMatrixf(matf);}            // Multiply the current matrix by another matrix
 void rlFrustumRetPtr(double *left,  double *right,  double *bottom,  double *top,  double *znear,  double *zfar){rlFrustum(*left, *right, *bottom, *top, *znear, *zfar);}
 void rlOrthoRetPtr(double *left,  double *right,  double *bottom,  double *top,  double *znear,  double *zfar){rlOrtho(*left, *right, *bottom, *top, *znear, *zfar);}
 void rlViewportRetPtr(int *x,  int *y,  int *width,  int *height){rlViewport(*x, *y, *width, *height);} // Set the viewport area
-void rlBeginRetPtr(int *mode){rlBegin(*mode);}                         // Initialize drawing mode (how to organize vertex)
-void rlEndRetPtr(){rlEnd();}                               // Finish vertex providing
-void rlVertex2iRetPtr(int *x,  int *y){rlVertex2i(*x, *y);}                  // Define one vertex (position) - 2 int
-void rlVertex2fRetPtr(float *x,  float *y){rlVertex2f(*x, *y);}              // Define one vertex (position) - 2 float
-void rlVertex3fRetPtr(float *x,  float *y,  float *z){rlVertex3f(*x, *y, *z);}     // Define one vertex (position) - 3 float
-void rlTexCoord2fRetPtr(float *x,  float *y){rlTexCoord2f(*x, *y);}            // Define one vertex (texture coordinate) - 2 float
-void rlNormal3fRetPtr(float *x,  float *y,  float *z){rlNormal3f(*x, *y, *z);}     // Define one vertex (normal) - 3 float
-void rlColor4ubRetPtr(unsigned char *r,  unsigned char *g,  unsigned char *b,  unsigned char *a){rlColor4ub(*r, *g, *b, *a);}  // Define one vertex (color) - 4 byte
-void rlColor3fRetPtr(float *x,  float *y,  float *z){rlColor3f(*x, *y, *z);}          // Define one vertex (color) - 3 float
+void rlSetClipPlanesRetPtr(double *nearPlane,  double *farPlane){rlSetClipPlanes(*nearPlane, *farPlane);}    // Set clip planes distances
+void rlGetCullDistanceNearRetPtr(double *ret){*ret=rlGetCullDistanceNear();}               // Get cull plane distance near
+void rlGetCullDistanceFarRetPtr(double *ret){*ret=rlGetCullDistanceFar();}                // Get cull plane distance far
+void rlBeginRetPtr(int *mode){rlBegin(*mode);}                           // Initialize drawing mode (how to organize vertex)
+void rlEndRetPtr(){rlEnd();}                                 // Finish vertex providing
+void rlVertex2iRetPtr(int *x,  int *y){rlVertex2i(*x, *y);}                    // Define one vertex (position) - 2 int
+void rlVertex2fRetPtr(float *x,  float *y){rlVertex2f(*x, *y);}                // Define one vertex (position) - 2 float
+void rlVertex3fRetPtr(float *x,  float *y,  float *z){rlVertex3f(*x, *y, *z);}       // Define one vertex (position) - 3 float
+void rlTexCoord2fRetPtr(float *x,  float *y){rlTexCoord2f(*x, *y);}              // Define one vertex (texture coordinate) - 2 float
+void rlNormal3fRetPtr(float *x,  float *y,  float *z){rlNormal3f(*x, *y, *z);}       // Define one vertex (normal) - 3 float
+void rlColor4ubRetPtr(unsigned char *r,  unsigned char *g,  unsigned char *b,  unsigned char *a){rlColor4ub(*r, *g, *b, *a);} // Define one vertex (color) - 4 byte
+void rlColor3fRetPtr(float *x,  float *y,  float *z){rlColor3f(*x, *y, *z);}        // Define one vertex (color) - 3 float
 void rlColor4fRetPtr(float *x,  float *y,  float *z,  float *w){rlColor4f(*x, *y, *z, *w);} // Define one vertex (color) - 4 float
 void rlEnableVertexArrayRetPtr(bool *ret, unsigned int *vaoId){*ret=rlEnableVertexArray(*vaoId);}     // Enable vertex array (VAO, if supported)
 void rlDisableVertexArrayRetPtr(){rlDisableVertexArray();}                  // Disable vertex array (VAO, if supported)
 void rlEnableVertexBufferRetPtr(unsigned int *id){rlEnableVertexBuffer(*id);}       // Enable vertex buffer (VBO)
 void rlDisableVertexBufferRetPtr(){rlDisableVertexBuffer();}                 // Disable vertex buffer (VBO)
-void rlEnableVertexBufferElementRetPtr(unsigned int *id){rlEnableVertexBufferElement(*id);}// Enable vertex buffer element (VBO element)
+void rlEnableVertexBufferElementRetPtr(unsigned int *id){rlEnableVertexBufferElement(*id);} // Enable vertex buffer element (VBO element)
 void rlDisableVertexBufferElementRetPtr(){rlDisableVertexBufferElement();}          // Disable vertex buffer element (VBO element)
 void rlEnableVertexAttributeRetPtr(unsigned int *index){rlEnableVertexAttribute(*index);} // Enable vertex attribute index
-void rlDisableVertexAttributeRetPtr(unsigned int *index){rlDisableVertexAttribute(*index);}// Disable vertex attribute index
+void rlDisableVertexAttributeRetPtr(unsigned int *index){rlDisableVertexAttribute(*index);} // Disable vertex attribute index
 void rlActiveTextureSlotRetPtr(int *slot){rlActiveTextureSlot(*slot);}               // Select and active a texture slot
 void rlEnableTextureRetPtr(unsigned int *id){rlEnableTexture(*id);}            // Enable texture
 void rlDisableTextureRetPtr(){rlDisableTexture();}                      // Disable texture
@@ -719,9 +780,11 @@ void rlEnableShaderRetPtr(unsigned int *id){rlEnableShader(*id);}             //
 void rlDisableShaderRetPtr(){rlDisableShader();}                       // Disable shader program
 void rlEnableFramebufferRetPtr(unsigned int *id){rlEnableFramebuffer(*id);}        // Enable render texture (fbo)
 void rlDisableFramebufferRetPtr(){rlDisableFramebuffer();}                  // Disable render texture (fbo), return to default framebuffer
+void rlGetActiveFramebufferRetPtr(unsigned int *ret){*ret=rlGetActiveFramebuffer();}        // Get the currently active render texture (fbo), 0 for default framebuffer
 void rlActiveDrawBuffersRetPtr(int *count){rlActiveDrawBuffers(*count);}              // Activate multiple draw color buffers
 void rlBlitFramebufferRetPtr(int *srcX,  int *srcY,  int *srcWidth,  int *srcHeight,  int *dstX,  int *dstY,  int *dstWidth,  int *dstHeight,  int *bufferMask){rlBlitFramebuffer(*srcX, *srcY, *srcWidth, *srcHeight, *dstX, *dstY, *dstWidth, *dstHeight, *bufferMask);} // Blit active framebuffer to main framebuffer
-void rlEnableColorBlendRetPtr(){rlEnableColorBlend();}                     // Enable color blending
+void rlBindFramebufferRetPtr(unsigned int *target,  unsigned int *framebuffer){rlBindFramebuffer(*target, *framebuffer);} // Bind framebuffer (FBO)
+void rlEnableColorBlendRetPtr(){rlEnableColorBlend();}                    // Enable color blending
 void rlDisableColorBlendRetPtr(){rlDisableColorBlend();}                   // Disable color blending
 void rlEnableDepthTestRetPtr(){rlEnableDepthTest();}                     // Enable depth test
 void rlDisableDepthTestRetPtr(){rlDisableDepthTest();}                    // Disable depth test
@@ -729,13 +792,14 @@ void rlEnableDepthMaskRetPtr(){rlEnableDepthMask();}                     // Enab
 void rlDisableDepthMaskRetPtr(){rlDisableDepthMask();}                    // Disable depth write
 void rlEnableBackfaceCullingRetPtr(){rlEnableBackfaceCulling();}               // Enable backface culling
 void rlDisableBackfaceCullingRetPtr(){rlDisableBackfaceCulling();}              // Disable backface culling
+void rlColorMaskRetPtr(bool *r,  bool *g,  bool *b,  bool *a){rlColorMask(*r, *g, *b, *a);} // Color mask control
 void rlSetCullFaceRetPtr(int *mode){rlSetCullFace(*mode);}                     // Set face culling mode
 void rlEnableScissorTestRetPtr(){rlEnableScissorTest();}                   // Enable scissor test
 void rlDisableScissorTestRetPtr(){rlDisableScissorTest();}                  // Disable scissor test
 void rlScissorRetPtr(int *x,  int *y,  int *width,  int *height){rlScissor(*x, *y, *width, *height);} // Scissor test
 void rlEnableWireModeRetPtr(){rlEnableWireMode();}                      // Enable wire mode
-void rlEnablePointModeRetPtr(){rlEnablePointMode();}                     //  Enable point mode
-void rlDisableWireModeRetPtr(){rlDisableWireMode();}                     // Disable wire mode ( and point ) maybe rename
+void rlEnablePointModeRetPtr(){rlEnablePointMode();}                     // Enable point mode
+void rlDisableWireModeRetPtr(){rlDisableWireMode();}                     // Disable wire (and point) mode
 void rlSetLineWidthRetPtr(float *width){rlSetLineWidth(*width);}                 // Set the line drawing width
 void rlGetLineWidthRetPtr(float *ret){*ret=rlGetLineWidth();}                       // Get the line drawing width
 void rlEnableSmoothLinesRetPtr(){rlEnableSmoothLines();}                   // Enable line aliasing
@@ -760,39 +824,39 @@ void rlGetFramebufferHeightRetPtr(int *ret){*ret=rlGetFramebufferHeight();}     
 void rlGetTextureIdDefaultRetPtr(unsigned int *ret){*ret=rlGetTextureIdDefault();}         // Get default texture id
 void rlGetShaderIdDefaultRetPtr(unsigned int *ret){*ret=rlGetShaderIdDefault();}          // Get default shader id
 void rlGetShaderLocsDefaultRetPtr(int **ret){*ret=rlGetShaderLocsDefault();}                // Get default shader locations
-void rlLoadRenderBatchRetPtr(rlRenderBatch *ret, int *numBuffers,  int *bufferElements){*ret=rlLoadRenderBatch(*numBuffers, *bufferElements);}  // Load a render batch system
-void rlUnloadRenderBatchRetPtr(rlRenderBatch *batch){rlUnloadRenderBatch(*batch);}                        // Unload render batch system
-void rlDrawRenderBatchRetPtr(rlRenderBatch *batch){rlDrawRenderBatch(batch);}                         // Draw render batch data (Update->Draw->Reset)
-void rlSetRenderBatchActiveRetPtr(rlRenderBatch *batch){rlSetRenderBatchActive(batch);}                    // Set the active render batch for rlgl (NULL for default internal)
-void rlDrawRenderBatchActiveRetPtr(){rlDrawRenderBatchActive();}                                   // Update and draw internal render batch
-void rlCheckRenderBatchLimitRetPtr(bool *ret, int *vCount){*ret=rlCheckRenderBatchLimit(*vCount);}                             // Check internal buffer overflow for a given number of vertex
+void rlLoadRenderBatchRetPtr(rlRenderBatch *ret, int *numBuffers,  int *bufferElements){*ret=rlLoadRenderBatch(*numBuffers, *bufferElements);} // Load a render batch system
+void rlUnloadRenderBatchRetPtr(rlRenderBatch *batch){rlUnloadRenderBatch(*batch);}    // Unload render batch system
+void rlDrawRenderBatchRetPtr(rlRenderBatch *batch){rlDrawRenderBatch(batch);}     // Draw render batch data (Update->Draw->Reset)
+void rlSetRenderBatchActiveRetPtr(rlRenderBatch *batch){rlSetRenderBatchActive(batch);} // Set the active render batch for rlgl (NULL for default internal)
+void rlDrawRenderBatchActiveRetPtr(){rlDrawRenderBatchActive();}               // Update and draw internal render batch
+void rlCheckRenderBatchLimitRetPtr(bool *ret, int *vCount){*ret=rlCheckRenderBatchLimit(*vCount);}         // Check internal buffer overflow for a given number of vertex
 void rlSetTextureRetPtr(unsigned int *id){rlSetTexture(*id);}               // Set current texture for render batch and check buffers limits
-void rlLoadVertexArrayRetPtr(unsigned int *ret){*ret=rlLoadVertexArray();}                               // Load vertex array (vao) if supported
-void rlLoadVertexBufferRetPtr(unsigned int *ret, const void *buffer,  int *size,  bool *dynamic){*ret=rlLoadVertexBuffer(buffer, *size, *dynamic);}            // Load a vertex buffer attribute
-void rlLoadVertexBufferElementRetPtr(unsigned int *ret, const void *buffer,  int *size,  bool *dynamic){*ret=rlLoadVertexBufferElement(buffer, *size, *dynamic);}     // Load a new attributes element buffer
-void rlUpdateVertexBufferRetPtr(unsigned int *bufferId,  const void *data,  int *dataSize,  int *offset){rlUpdateVertexBuffer(*bufferId, data, *dataSize, *offset);}     // Update GPU buffer with new data
-void rlUpdateVertexBufferElementsRetPtr(unsigned int *id,  const void *data,  int *dataSize,  int *offset){rlUpdateVertexBufferElements(*id, data, *dataSize, *offset);}   // Update vertex buffer elements with new data
-void rlUnloadVertexArrayRetPtr(unsigned int *vaoId){rlUnloadVertexArray(*vaoId);}
-void rlUnloadVertexBufferRetPtr(unsigned int *vboId){rlUnloadVertexBuffer(*vboId);}
-void rlSetVertexAttributeRetPtr(unsigned int *index,  int *compSize,  int *type,  bool *normalized,  int *stride,  const void *pointer){rlSetVertexAttribute(*index, *compSize, *type, *normalized, *stride, pointer);}
-void rlSetVertexAttributeDivisorRetPtr(unsigned int *index,  int *divisor){rlSetVertexAttributeDivisor(*index, *divisor);}
-void rlSetVertexAttributeDefaultRetPtr(int *locIndex,  const void *value,  int *attribType,  int *count){rlSetVertexAttributeDefault(*locIndex, value, *attribType, *count);} // Set vertex attribute default value
-void rlDrawVertexArrayRetPtr(int *offset,  int *count){rlDrawVertexArray(*offset, *count);}
-void rlDrawVertexArrayElementsRetPtr(int *offset,  int *count,  const void *buffer){rlDrawVertexArrayElements(*offset, *count, buffer);}
-void rlDrawVertexArrayInstancedRetPtr(int *offset,  int *count,  int *instances){rlDrawVertexArrayInstanced(*offset, *count, *instances);}
-void rlDrawVertexArrayElementsInstancedRetPtr(int *offset,  int *count,  const void *buffer,  int *instances){rlDrawVertexArrayElementsInstanced(*offset, *count, buffer, *instances);}
-void rlLoadTextureRetPtr(unsigned int *ret, const void *data,  int *width,  int *height,  int *format,  int *mipmapCount){*ret=rlLoadTexture(data, *width, *height, *format, *mipmapCount);} // Load texture in GPU
-void rlLoadTextureDepthRetPtr(unsigned int *ret, int *width,  int *height,  bool *useRenderBuffer){*ret=rlLoadTextureDepth(*width, *height, *useRenderBuffer);}               // Load depth texture/renderbuffer (to be attached to fbo)
-void rlLoadTextureCubemapRetPtr(unsigned int *ret, const void *data,  int *size,  int *format){*ret=rlLoadTextureCubemap(data, *size, *format);}                        // Load texture cubemap
-void rlUpdateTextureRetPtr(unsigned int *id,  int *offsetX,  int *offsetY,  int *width,  int *height,  int *format,  const void *data){rlUpdateTexture(*id, *offsetX, *offsetY, *width, *height, *format, data);}  // Update GPU texture with new data
-void rlGetGlTextureFormatsRetPtr(int *format,  unsigned int *glInternalFormat,  unsigned int *glFormat,  unsigned int *glType){rlGetGlTextureFormats(*format, glInternalFormat, glFormat, glType);}  // Get OpenGL internal formats
+void rlLoadVertexArrayRetPtr(unsigned int *ret){*ret=rlLoadVertexArray();}             // Load vertex array (vao) if supported
+void rlLoadVertexBufferRetPtr(unsigned int *ret, const void *buffer,  int *size,  bool *dynamic){*ret=rlLoadVertexBuffer(buffer, *size, *dynamic);} // Load a vertex buffer object
+void rlLoadVertexBufferElementRetPtr(unsigned int *ret, const void *buffer,  int *size,  bool *dynamic){*ret=rlLoadVertexBufferElement(buffer, *size, *dynamic);} // Load vertex buffer elements object
+void rlUpdateVertexBufferRetPtr(unsigned int *bufferId,  const void *data,  int *dataSize,  int *offset){rlUpdateVertexBuffer(*bufferId, data, *dataSize, *offset);} // Update vertex buffer object data on GPU buffer
+void rlUpdateVertexBufferElementsRetPtr(unsigned int *id,  const void *data,  int *dataSize,  int *offset){rlUpdateVertexBufferElements(*id, data, *dataSize, *offset);} // Update vertex buffer elements data on GPU buffer
+void rlUnloadVertexArrayRetPtr(unsigned int *vaoId){rlUnloadVertexArray(*vaoId);}     // Unload vertex array (vao)
+void rlUnloadVertexBufferRetPtr(unsigned int *vboId){rlUnloadVertexBuffer(*vboId);}    // Unload vertex buffer object
+void rlSetVertexAttributeRetPtr(unsigned int *index,  int *compSize,  int *type,  bool *normalized,  int *stride,  int *offset){rlSetVertexAttribute(*index, *compSize, *type, *normalized, *stride, *offset);} // Set vertex attribute data configuration
+void rlSetVertexAttributeDivisorRetPtr(unsigned int *index,  int *divisor){rlSetVertexAttributeDivisor(*index, *divisor);} // Set vertex attribute data divisor
+void rlSetVertexAttributeDefaultRetPtr(int *locIndex,  const void *value,  int *attribType,  int *count){rlSetVertexAttributeDefault(*locIndex, value, *attribType, *count);} // Set vertex attribute default value, when attribute to provided
+void rlDrawVertexArrayRetPtr(int *offset,  int *count){rlDrawVertexArray(*offset, *count);}    // Draw vertex array (currently active vao)
+void rlDrawVertexArrayElementsRetPtr(int *offset,  int *count,  const void *buffer){rlDrawVertexArrayElements(*offset, *count, buffer);} // Draw vertex array elements
+void rlDrawVertexArrayInstancedRetPtr(int *offset,  int *count,  int *instances){rlDrawVertexArrayInstanced(*offset, *count, *instances);} // Draw vertex array (currently active vao) with instancing
+void rlDrawVertexArrayElementsInstancedRetPtr(int *offset,  int *count,  const void *buffer,  int *instances){rlDrawVertexArrayElementsInstanced(*offset, *count, buffer, *instances);} // Draw vertex array elements with instancing
+void rlLoadTextureRetPtr(unsigned int *ret, const void *data,  int *width,  int *height,  int *format,  int *mipmapCount){*ret=rlLoadTexture(data, *width, *height, *format, *mipmapCount);} // Load texture data
+void rlLoadTextureDepthRetPtr(unsigned int *ret, int *width,  int *height,  bool *useRenderBuffer){*ret=rlLoadTextureDepth(*width, *height, *useRenderBuffer);} // Load depth texture/renderbuffer (to be attached to fbo)
+void rlLoadTextureCubemapRetPtr(unsigned int *ret, const void *data,  int *size,  int *format,  int *mipmapCount){*ret=rlLoadTextureCubemap(data, *size, *format, *mipmapCount);} // Load texture cubemap data
+void rlUpdateTextureRetPtr(unsigned int *id,  int *offsetX,  int *offsetY,  int *width,  int *height,  int *format,  const void *data){rlUpdateTexture(*id, *offsetX, *offsetY, *width, *height, *format, data);} // Update texture with new data on GPU
+void rlGetGlTextureFormatsRetPtr(int *format,  unsigned int *glInternalFormat,  unsigned int *glFormat,  unsigned int *glType){rlGetGlTextureFormats(*format, glInternalFormat, glFormat, glType);} // Get OpenGL internal formats
 void rlGetPixelFormatNameRetPtr(const char **ret, unsigned int *format){*ret=rlGetPixelFormatName(*format);}              // Get name string for pixel format
 void rlUnloadTextureRetPtr(unsigned int *id){rlUnloadTexture(*id);}                              // Unload texture from GPU memory
 void rlGenTextureMipmapsRetPtr(unsigned int *id,  int *width,  int *height,  int *format,  int *mipmaps){rlGenTextureMipmaps(*id, *width, *height, *format, mipmaps);} // Generate mipmap data for selected texture
-void rlReadTexturePixelsRetPtr(void **ret, unsigned int *id,  int *width,  int *height,  int *format){*ret=rlReadTexturePixels(*id, *width, *height, *format);}              // Read texture pixel data
+void rlReadTexturePixelsRetPtr(void **ret, unsigned int *id,  int *width,  int *height,  int *format){*ret=rlReadTexturePixels(*id, *width, *height, *format);} // Read texture pixel data
 void rlReadScreenPixelsRetPtr(unsigned char **ret, int *width,  int *height){*ret=rlReadScreenPixels(*width, *height);}           // Read screen pixel data (color buffer)
-void rlLoadFramebufferRetPtr(unsigned int *ret, int *width,  int *height){*ret=rlLoadFramebuffer(*width, *height);}              // Load an empty framebuffer
-void rlFramebufferAttachRetPtr(unsigned int *fboId,  unsigned int *texId,  int *attachType,  int *texType,  int *mipLevel){rlFramebufferAttach(*fboId, *texId, *attachType, *texType, *mipLevel);}  // Attach texture/renderbuffer to a framebuffer
+void rlLoadFramebufferRetPtr(unsigned int *ret){*ret=rlLoadFramebuffer();}                               // Load an empty framebuffer
+void rlFramebufferAttachRetPtr(unsigned int *fboId,  unsigned int *texId,  int *attachType,  int *texType,  int *mipLevel){rlFramebufferAttach(*fboId, *texId, *attachType, *texType, *mipLevel);} // Attach texture/renderbuffer to a framebuffer
 void rlFramebufferCompleteRetPtr(bool *ret, unsigned int *id){*ret=rlFramebufferComplete(*id);}                        // Verify framebuffer is complete
 void rlUnloadFramebufferRetPtr(unsigned int *id){rlUnloadFramebuffer(*id);}                          // Delete framebuffer from GPU
 void rlLoadShaderCodeRetPtr(unsigned int *ret, const char *vsCode,  const char *fsCode){*ret=rlLoadShaderCode(vsCode, fsCode);}    // Load shader from code strings
@@ -801,12 +865,13 @@ void rlLoadShaderProgramRetPtr(unsigned int *ret, unsigned int *vShaderId,  unsi
 void rlUnloadShaderProgramRetPtr(unsigned int *id){rlUnloadShaderProgram(*id);}                              // Unload shader program
 void rlGetLocationUniformRetPtr(int *ret, unsigned int *shaderId,  const char *uniformName){*ret=rlGetLocationUniform(*shaderId, uniformName);} // Get shader location uniform
 void rlGetLocationAttribRetPtr(int *ret, unsigned int *shaderId,  const char *attribName){*ret=rlGetLocationAttrib(*shaderId, attribName);}   // Get shader location attribute
-void rlSetUniformRetPtr(int *locIndex,  const void *value,  int *uniformType,  int *count){rlSetUniform(*locIndex, value, *uniformType, *count);}   // Set shader value uniform
+void rlSetUniformRetPtr(int *locIndex,  const void *value,  int *uniformType,  int *count){rlSetUniform(*locIndex, value, *uniformType, *count);} // Set shader value uniform
 void rlSetUniformMatrixRetPtr(int *locIndex,  Matrix *mat){rlSetUniformMatrix(*locIndex, *mat);}                        // Set shader value matrix
+void rlSetUniformMatricesRetPtr(int *locIndex,  const Matrix *mat,  int *count){rlSetUniformMatrices(*locIndex, mat, *count);}    // Set shader value matrices
 void rlSetUniformSamplerRetPtr(int *locIndex,  unsigned int *textureId){rlSetUniformSampler(*locIndex, *textureId);}           // Set shader value sampler
 void rlSetShaderRetPtr(unsigned int *id,  int *locs){rlSetShader(*id, locs);}                             // Set shader currently active (id and locations)
 void rlLoadComputeShaderProgramRetPtr(unsigned int *ret, unsigned int *shaderId){*ret=rlLoadComputeShaderProgram(*shaderId);}           // Load compute shader program
-void rlComputeShaderDispatchRetPtr(unsigned int *groupX,  unsigned int *groupY,  unsigned int *groupZ){rlComputeShaderDispatch(*groupX, *groupY, *groupZ);}  // Dispatch compute shader (equivalent to *draw* for graphics pipeline)
+void rlComputeShaderDispatchRetPtr(unsigned int *groupX,  unsigned int *groupY,  unsigned int *groupZ){rlComputeShaderDispatch(*groupX, *groupY, *groupZ);} // Dispatch compute shader (equivalent to *draw* for graphics pipeline)
 void rlLoadShaderBufferRetPtr(unsigned int *ret, unsigned int *size,  const void *data,  int *usageHint){*ret=rlLoadShaderBuffer(*size, data, *usageHint);} // Load shader storage buffer object (SSBO)
 void rlUnloadShaderBufferRetPtr(unsigned int *ssboId){rlUnloadShaderBuffer(*ssboId);}                           // Unload shader storage buffer object (SSBO)
 void rlUpdateShaderBufferRetPtr(unsigned int *id,  const void *data,  unsigned int *dataSize,  unsigned int *offset){rlUpdateShaderBuffer(*id, data, *dataSize, *offset);} // Update SSBO buffer data

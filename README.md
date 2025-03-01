@@ -2,24 +2,13 @@
 Temp-c-raylib is for temporary raylib changes to be able to use ⎕NA with less issues in Dyalog APL. Currently only targets raylib 5.0, though with some modifications can target other versions.
 
 # Compile
-First time you want to compile you need run `./init.sh` to set cmake up.
-Then every time you compile after that, you just run `./compile.sh`.
-
-## To fix ninja not found error
-```
-cd build
-rm -rf .cache
-cmake -DCMAKE_C_COMPILER=clang ..
-cd ../build
-```
+Run `./compile.sh`. It assumes you're using `zig cc` as your compiler. If you want to use another one, look in the script and copy the args given to `zig cc` and give it to `Clang`, since `zig cc` is pretty much clang. I have no idea about gcc.
 
 ## Convoluted building process right now
-first go to `build/_deps/raylib-build/raylib/include/raylib.h` and add space after comma at ImageResizeNN.
-Then run `src/convert.apls`.
-then fix output by deleting the lines `rlEnableStatePointer` and `rlDisableStatePointer` in `src/temp-c-raylib.c`.
-Then compile via `./compile.sh` and it should work.
 
-Output is at `/home/brian/Persinal/Scripts/APL/temp-c-raylib/build/src`.
+First go to [raylib 5.5 release](https://github.com/raysan5/raylib/releases/tag/5.5), download your version, add it to this repo. Rename the extracted folder to `raylib`. Inside `raylib/include/raylib.h`, add space after comma at one of the arguments of the function `ImageResizeNN`.
+Then run `cd src && dyalogscript convert_pointerArgs.dyalog`.
+Then compile (See the `Compile` section above) and it should work.
 
 # Todo
 ## add struct-to-same-struct for each struct type:
@@ -30,7 +19,6 @@ It would be a function that has one arg for return-value and one for pointer to 
 
 Return ReturnerFunc(Color);
 void ReturnerFuncNew(NewReturn *ret, NewColor *color) {*ret=(NewReturn)ReturnerFunc((Color)*color);}
-
 
 ## Compile by linking raylib as static lib instead of recompiling
 Link static lib in c code to avoid having to build raylib.
