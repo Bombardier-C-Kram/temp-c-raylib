@@ -93,10 +93,7 @@ filterMacros ← {
   ⍵/⍨~depth
 }
 
-(rl rm rlgl) ← filterMacros¨ (⊃⍤⎕NGET 1,⍨⊂)¨ '../build/_deps/raylib-build/raylib/include/'∘,¨'raylib.h' 'raymath.h' 'rlgl.h'
-rgui         ← filterMacros  (⊃⍤⎕NGET 1,⍨⊂) 'raygui.h'
-physac       ← filterMacros  (⊃⍤⎕NGET 1,⍨⊂) 'physac.h'
-
+(rgui physac rl rm rlgl) ← filterMacros¨ (⊃⍤⎕NGET 1,⍨⊂)¨'raygui.h' 'physac.h','../raylib/include/'∘,¨'raylib.h' 'raymath.h' 'rlgl.h'
 
 ⍝ Get list of structs
 vec ← 'Vector2' 'Vector3' 'Vector4' 'Matrix' 'Color' 'Rectangle' 'Image' 'Texture' 'RenderTexture' 'NPatchInfo' 'GlyphInfo' 'Font' 'Camera3D' 'Camera2D' 'Mesh' 'Shader' 'MaterialMap' 'Material' 'Transform' 'BoneInfo' 'Model' 'ModelAnimation' 'Ray' 'RayCollision' 'BoundingBox' 'Wave' 'rAudioBuffer' 'rAudioProcessor' 'AudioStream' 'Sound' 'Music' 'VrDeviceInfo' 'VrStereoConfig' 'FilePathList' 'AutomationEvent' 'AutomationEventList'
