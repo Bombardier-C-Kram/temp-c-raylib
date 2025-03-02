@@ -22,11 +22,11 @@ fixDecleration ← {
 
   (argTypes newArgTypes) ← {⍵/⍨⌽∨\⌽¯1⌽');'⍷⍵}¨(argTypesAndOnwards newArgTypesAndOnwards)
   onwards ← argTypes CI argTypesAndOnwards
-  argsNames ← ');',⍨ 2↓⊃,/', '∘,¨ {⍵/⍨⌽∧\⌽(1⎕C⍵)∊⎕A,⎕D}¨ ', '(~⍤⍷⊆⊢) ({⍵↓⍨-';'=⊃⌽⍵}argTypes) CTI ,')'
+  argsNames ← ');',⍨ 2↓⊃,/', '∘,¨ {⍵/⍨⌽∧\⌽(1⎕C⍵)∊⎕A,⎕D}¨ ', '(~⍤⍷⊆⊢) (,')')CTI {⍵↓⍨-';'=⊃⌽⍵}argTypes
 
   funcDefAndOnwards ← '{*ret=',name,'(',argsNames,'}',onwards
 
-  'void ',name,'RetPtr(',(newArgTypes CTI ,';'), funcDefAndOnwards
+  'void ',name,'RetPtr(',funcDefAndOnwards,⍨(,';')CTI newArgTypes
 }
 
 fixed ← {⍵/⍨0≠≢¨⍵} fixDecleration¨ declorations

@@ -21,10 +21,10 @@ fixDecleration ← {
 
   args ← {⍵/⍨⌽∨\⌽¯1⌽');'⍷⍵}argTypesAndOnwards
   onwards ← args CI argTypesAndOnwards
-  argsList ← ', '(~⍤⍷⊆⊢) args CTI ');'
+  argsList ← ', '(~⍤⍷⊆⊢) ');' CTI args
   namesList ← {⍵/⍨⌽∧\⌽(1⎕C⍵)∊⎕A,⎕D}¨argsList
 
-  typesList ← argsList CTI¨ namesList
+  typesList ← namesList CTI¨ argsList
   argsWereNotPointers ← ~'*'∊¨typesList
 
   argNamesPtrAdded ← (argsWereNotPointers⍴¨'*'),¨namesList

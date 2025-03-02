@@ -7,12 +7,12 @@ CI ← { ⍝ ,⍣¯1 but better. CI = Concatinate Inverse
   _←Assert ⍺≡⍵↑⍨≢⍺
   ⍵↓⍨≢⍺
 }
-CTI ← {⍺{ ⍝ ,⍨⍣¯1 but better. CTI = Concatinate Tilda Inverse
+CTI ← { ⍝ ,⍨⍣¯1 but better. CTI = Concatinate Tilda Inverse
   _←Assert 1 1≡≢∘⍴¨⍺⍵
   _←Assert ⍺≤⍥≢⍵
   _←Assert ⍺≡⍵↑⍨-≢⍺
   ⍵↓⍨-≢⍺
-}⍨⍵}
+}
 
 includes ← ⍬
 includes ,←⊂ '#include <raylib.h>'
@@ -43,25 +43,12 @@ filterMacros ← {
 
 (rgui physac rl rm rlgl) ← filterMacros¨ (⊃⍤⎕NGET 1,⍨⊂)¨'raygui.h' 'physac.h','../raylib/include/'∘,¨'raylib.h' 'raymath.h' 'rlgl.h'
 
-
-⍝ Get list of structs
-vec ← 'Vector2' 'Vector3' 'Vector4' 'Matrix' 'Color' 'Rectangle' 'Image' 'Texture' 'RenderTexture' 'NPatchInfo' 'GlyphInfo' 'Font' 'Camera3D' 'Camera2D' 'Mesh' 'Shader' 'MaterialMap' 'Material' 'Transform' 'BoneInfo' 'Model' 'ModelAnimation' 'Ray' 'RayCollision' 'BoundingBox' 'Wave' 'rAudioBuffer' 'rAudioProcessor' 'AudioStream' 'Sound' 'Music' 'VrDeviceInfo' 'VrStereoConfig' 'FilePathList' 'AutomationEvent' 'AutomationEventList'
-nl ← ⎕UCS 10
-SP ← 'typedef struct ' ⍝ Struct prefix
+⍝ All struct names
+sp ← 'typedef struct ' ⍝ Struct prefix
 I ← {⍺←⊢⋄⍺ ⍺⍺⍣¯1⊢⍵}
 
-structsAndMore ← rl ⊆⍨ +\(' {'∘≡¨¯2↑¨rl) ∧ SP∘≡¨(≢SP)∘↑¨rl
-names ← ,∘' {'I¨ SP∘,I¨ ⊃¨structsAndMore
-
-structs ← structsAndMore {⍺/⍨⌽∨\⌽⍵∘≡¨⍺}¨ '} '∘,¨names,¨';'
-
-
-⍝ redefine new structs with __attribute__((packed))
-
-
-
-⍝ Use new structs for args in and 
-
+structsAndMore ← rl ⊆⍨ +\(' {'∘≡¨¯2↑¨rl) ∧ sp∘≡¨(≢sp)∘↑¨rl
+names ← ' {'∘CTI¨ sp∘CI¨ ⊃¨structsAndMore
 
 ⍝ Sizeofs
 
