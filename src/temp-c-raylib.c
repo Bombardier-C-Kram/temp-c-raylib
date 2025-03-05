@@ -121,6 +121,7 @@ void UnloadRandomSequenceRetPtr(int *sequence){UnloadRandomSequence(sequence);} 
 void TakeScreenshotRetPtr(const char *fileName){TakeScreenshot(fileName);}                  // Takes a screenshot of current screen (filename extension defines format)
 void SetConfigFlagsRetPtr(unsigned int *flags){SetConfigFlags(*flags);}                    // Setup init configuration flags (view FLAGS)
 void OpenURLRetPtr(const char *url){OpenURL(url);}                              // Open URL with default system browser (if available)
+void TraceLogRetPtr(int *logLevel,  const char *text,  void *args){TraceLog(*logLevel, text, args);}         // Show trace log messages (LOG_DEBUG, LOG_INFO, LOG_WARNING, LOG_ERROR...)
 void SetTraceLogLevelRetPtr(int *logLevel){SetTraceLogLevel(*logLevel);}                        // Set the current threshold (minimum) log level
 void MemAllocRetPtr(void **ret, unsigned int *size){*ret=MemAlloc(*size);}                          // Internal memory allocator
 void MemReallocRetPtr(void **ret, void *ptr,  unsigned int *size){*ret=MemRealloc(ptr, *size);}             // Internal memory reallocator
@@ -438,6 +439,7 @@ void CodepointToUTF8RetPtr(const char **ret, int *codepoint,  int *utf8Size){*re
 void TextCopyRetPtr(int *ret, char *dst,  const char *src){*ret=TextCopy(dst, src);}                                             // Copy one string to another, returns bytes copied
 void TextIsEqualRetPtr(bool *ret, const char *text1,  const char *text2){*ret=TextIsEqual(text1, text2);}                               // Check if two text string are equal
 void TextLengthRetPtr(unsigned int *ret, const char *text){*ret=TextLength(text);}                                            // Get text length, checks for '\0' ending
+void TextFormatRetPtr(const char **ret, const char *text,  void *args){*ret=TextFormat(text, args);}                                        // Text formatting with variables (sprintf() style)
 void TextSubtextRetPtr(const char **ret, const char *text,  int *position,  int *length){*ret=TextSubtext(text, *position, *length);}                  // Get a piece of a text string
 void TextReplaceRetPtr(char **ret, const char *text,  const char *replace,  const char *by){*ret=TextReplace(text, replace, by);}             // Replace text string (WARNING: memory must be freed!)
 void TextInsertRetPtr(char **ret, const char *text,  const char *insert,  int *position){*ret=TextInsert(text, insert, *position);}                 // Insert text in a position (WARNING: memory must be freed!)

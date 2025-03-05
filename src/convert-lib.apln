@@ -72,5 +72,5 @@ raymathFuncs ← ';',⍨¨rm {⍵CI¨⍺/⍨⍵≡¨ 6↑¨⍺} ⊂'RMAPI '
 rlglFuncs   ← (  rlgl/⍨~∨\functionsEnd⍷  rlgl) {⍵CI¨⍺/⍨⍵≡¨ 6↑¨⍺} ⊂'RLAPI '
 physacFuncs ← (physac/⍨~∨\functionsEnd⍷physac) {⍵CI¨⍺/⍨⍵≡¨10↑¨⍺} ⊂'PHYSACDEF '
 
-declorations ← {⍵/⍨∧/3∨/'.'≠↑(⊃¨⍸¨'//'∘⍷¨⍵)↑¨⍵} ⊃,/(raylibFuncs raymathFuncs rlglFuncs rayguiFuncs)
+declorations ← (', \.\.\.\);'⎕R', void *args);')¨ ⊃,/(raylibFuncs raymathFuncs rlglFuncs rayguiFuncs)
 :EndNamespace
