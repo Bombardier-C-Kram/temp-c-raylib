@@ -1,3 +1,4 @@
+#!/usr/local/bin/dyalogscript
 ⎕io←0
 c ← 0⎕Fix 'convert-lib.apln',⍨⊃1⎕NPARTS''
 CI ← c.CI
