@@ -6,6 +6,11 @@
 *.so
 *.so.*
 *.dylib
+*.lib
+*.pdb
 
 # raylib
 /raylib
+
+# Cache
+.zig-cache
