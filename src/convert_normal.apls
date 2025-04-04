@@ -1,4 +1,4 @@
-#!/usr/local/bin/dyalogscript
+#!/usr/bin/dyalogscript
 ⎕io←0
 c ← 0⎕Fix 'convert-lib.apln',⍨⊃1⎕NPARTS''
 CI ← c.CI
@@ -7,6 +7,7 @@ Assert ← c.Assert
 declorations ← c.declorations
 sizeofCode ← c.sizeofCode
 includes ← c.includes
+AddDecl ← c.AddDecl
 
 ⍝ validTypes ← ⍬
 ⍝ validTypes ,←⊂ 'bool '
@@ -30,5 +31,5 @@ fixDecleration ← {
   'void ',name,'RetPtr(',funcDefAndOnwards,⍨(,';')CTI newArgTypes
 }
 
-fixed ← {⍵/⍨0≠≢¨⍵} fixDecleration¨ declorations
-'temp-c-raylib.c'1⎕NPUT⍨⊂includes, sizeofCode,fixed
+fixed ← AddDecl {⍵/⍨0≠≢¨⍵} fixDecleration¨ declorations
+'temp-c-raylib.c'1⎕NPUT⍨⊂includes,sizeofCode,fixed
