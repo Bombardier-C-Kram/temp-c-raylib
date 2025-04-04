@@ -15,13 +15,12 @@ CTI ← { ⍝ ,⍨⍣¯1 but better. CTI = Concatinate Tilda Inverse
 }
 
 includes ← ⍬
-includes ,←⊂ '#include <raylib.h>'
-includes ,←⊂ '#include <raymath.h>'
-includes ,←⊂ '#include <rlgl.h>'
 includes ,←⊂ '#define RAYGUI_IMPLEMENTATION'
 includes ,←⊂ '#include "raygui.h"'
 includes ,←⊂ '#define PHYSAC_IMPLEMENTATION'
+includes ,←⊂ '#define InitTimer InitTimerPhysac'
 includes ,←⊂ '#include "physac.h"'
+includes ,←⊂ '#define InitTimer InitTimer'
 
 functionsStart ← ⍬
 functionsStart ,←⊂ '#if defined(__cplusplus)'

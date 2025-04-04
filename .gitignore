@@ -10,6 +10,7 @@
 *.pdb
 
 # raylib
+/raylib-5.5
 /raylib
 
 # Cache

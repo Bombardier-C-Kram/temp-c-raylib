@@ -1,10 +1,9 @@
-#include <raylib.h>
-#include <raymath.h>
-#include <rlgl.h>
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
 #define PHYSAC_IMPLEMENTATION
+#define InitTimer InitTimerPhysac
 #include "physac.h"
+#define InitTimer InitTimer
 char *structNames[] = {"Vector2","Vector3","Vector4","Matrix","Color","Rectangle","Image","Texture","RenderTexture","NPatchInfo","GlyphInfo","Font","Camera3D","Camera2D","Mesh","Shader","MaterialMap","Material","Transform","BoneInfo","Model","ModelAnimation","Ray","RayCollision","BoundingBox","Wave","AudioStream","Sound","Music","VrDeviceInfo","VrStereoConfig","FilePathList","AutomationEvent","AutomationEventList",};
 int structSizes[] = {sizeof(Vector2),sizeof(Vector3),sizeof(Vector4),sizeof(Matrix),sizeof(Color),sizeof(Rectangle),sizeof(Image),sizeof(Texture),sizeof(RenderTexture),sizeof(NPatchInfo),sizeof(GlyphInfo),sizeof(Font),sizeof(Camera3D),sizeof(Camera2D),sizeof(Mesh),sizeof(Shader),sizeof(MaterialMap),sizeof(Material),sizeof(Transform),sizeof(BoneInfo),sizeof(Model),sizeof(ModelAnimation),sizeof(Ray),sizeof(RayCollision),sizeof(BoundingBox),sizeof(Wave),sizeof(AudioStream),sizeof(Sound),sizeof(Music),sizeof(VrDeviceInfo),sizeof(VrStereoConfig),sizeof(FilePathList),sizeof(AutomationEvent),sizeof(AutomationEventList),};
 
@@ -327,7 +326,7 @@ DECLARE(void ImageAlphaPremultiplyRetPtr(Image *image)){ImageAlphaPremultiply(im
 DECLARE(void ImageBlurGaussianRetPtr(Image *image,  int *blurSize)){ImageBlurGaussian(image, *blurSize);}                                                // Apply Gaussian blur using a box blur approximation
 DECLARE(void ImageKernelConvolutionRetPtr(Image *image,  const float *kernel,  int *kernelSize)){ImageKernelConvolution(image, kernel, *kernelSize);}                    // Apply custom square convolution kernel to image
 DECLARE(void ImageResizeRetPtr(Image *image,  int *newWidth,  int *newHeight)){ImageResize(image, *newWidth, *newHeight);}                                       // Resize image (Bicubic scaling algorithm)
-DECLARE(void ImageResizeNNRetPtr(Image *image,  int newWidth,int *newHeight)){ImageResizeNN(image, *newHeight);}                                      // Resize image (Nearest-Neighbor scaling algorithm)
+DECLARE(void ImageResizeNNRetPtr(Image *image,  int *newWidth,  int *newHeight)){ImageResizeNN(image, *newWidth, *newHeight);}                                      // Resize image (Nearest-Neighbor scaling algorithm)
 DECLARE(void ImageResizeCanvasRetPtr(Image *image,  int *newWidth,  int *newHeight,  int *offsetX,  int *offsetY,  Color *fill)){ImageResizeCanvas(image, *newWidth, *newHeight, *offsetX, *offsetY, *fill);} // Resize canvas and fill with color
 DECLARE(void ImageMipmapsRetPtr(Image *image)){ImageMipmaps(image);}                                                                   // Compute all mipmap levels for a provided image
 DECLARE(void ImageDitherRetPtr(Image *image,  int *rBpp,  int *gBpp,  int *bBpp,  int *aBpp)){ImageDither(image, *rBpp, *gBpp, *bBpp, *aBpp);}                            // Dither image data to 16bpp or lower (Floyd-Steinberg dithering)
