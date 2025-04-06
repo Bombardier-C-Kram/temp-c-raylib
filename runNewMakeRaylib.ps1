@@ -5,7 +5,7 @@
 cd raylib-5.5/src
 make clean
 Add-Content -Path "rcore.c" -Value '#include "../../src/temp-c-raylib.c"'
-make CC="zig cc -target x86_64-windows" CMAKE_C_OUTPUT_EXTENSION=".o" RAYLIB_LIBTYPE=SHARED
+make CC="zig cc -target x86_64-windows" RAYLIB_LIBTYPE=SHARED
 
 # Sadly I am moving files manually, i don't understand why the linker wants .o files and make produces .obj
 Move-Item -Path "rcore.obj" -Destination "rcore.o"
