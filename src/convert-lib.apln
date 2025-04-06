@@ -18,6 +18,7 @@ includes ← ⍬
 includes ,←⊂ '#define RAYGUI_IMPLEMENTATION'
 includes ,←⊂ '#include "raygui.h"'
 includes ,←⊂ '#define PHYSAC_IMPLEMENTATION'
+includes ,←⊂ '#define PHYSAC_NO_THREADS'
 includes ,←⊂ '#define InitTimer InitTimerPhysac'
 includes ,←⊂ '#include "physac.h"'
 includes ,←⊂ '#define InitTimer InitTimer'
