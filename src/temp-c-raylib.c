@@ -1,6 +1,7 @@
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
 #define PHYSAC_IMPLEMENTATION
+#define PHYSAC_NO_THREADS
 #define InitTimer InitTimerPhysac
 #include "physac.h"
 #define InitTimer InitTimer
