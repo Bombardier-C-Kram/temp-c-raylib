@@ -17,6 +17,14 @@ DECLARE(void GetStructName(char *retName, int strlen, int index)){
     retName[i] = structNames[index][i];
   }
 }
+DECLARE(int GetStructNameLength(int index)){
+  char *name = structNames[index];
+  int acc=0;
+  while (name[acc] != '\0') {
+    acc++;
+  }
+  return acc;
+}
 DECLARE(void InitWindowRetPtr(int *width,  int *height,  const char *title)){InitWindow(*width, *height, title);}  // Initialize window and OpenGL context
 DECLARE(void CloseWindowRetPtr()){CloseWindow();}                                     // Close window and unload OpenGL context
 DECLARE(void WindowShouldCloseRetPtr(bool *ret)){*ret=WindowShouldClose();}                               // Check if application should close (KEY_ESCAPE pressed or windows close icon clicked)
