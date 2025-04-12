@@ -12,6 +12,7 @@
 # raylib
 /raylib-5.5
 /raylib
+raylib-source.tar.gz
 
 # Cache
 .zig-cache
