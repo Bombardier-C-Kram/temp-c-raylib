@@ -1,5 +1,6 @@
 
-# Replace this step with manually pasting into dyalog session
+# Optional step, re-runs the parser. Useful if you've modified the parser code.
+# Replace this step with manually pasting the script at the bellow path into a dyalog session
 # /usr/bin/dyalogscript "/home/brian/Persinal/Scripts/APL/temp-c-raylib/src/convert_pointerArgs.apls"
 
 cd raylib-5.5/src
