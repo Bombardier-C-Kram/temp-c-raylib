@@ -468,7 +468,7 @@ DECLARE(void Camera2DFROM(
   unsigned int vaoId;
   unsigned int *vboId;
 } Mesh; */
-DECLARE(void MeshDINTO(
+DECLARE(void MeshINTO(
   Mesh *R,
   int *vertexCount,
   int *triangleCount,
