@@ -1,3 +1,8 @@
+# Untested
+#if ! ( [ -e "raylib-source.tar.gz" ] || [ -e "raylib-5.5" ] ); then
+#  curl -L https://github.com/raysan5/raylib/archive/refs/tags/5.5.tar.gz --output raylib-source.tar.gz
+#  tar -xzf raylib-source.tar.gz
+#fi
 
 # Optional step, re-runs the parser. Useful if you've modified the parser code.
 # Replace this step with manually pasting the script at the bellow path into a dyalog session
@@ -21,4 +26,6 @@ Move-Item -Path "raudio.obj" -Destination "raudio.o"
 make CC="zig cc -target x86_64-windows" RAYLIB_LIBTYPE=SHARED
 $content = Get-Content "rcore.c"
 $content[0..($content.Length-2)] | Set-Content "rcore.c"
+# Untested
+#cp -f libraylib.so ../../libtemp-c-raylib.so
 cd ../../
