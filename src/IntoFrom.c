@@ -2,13 +2,12 @@
   #define RLAPI
 #endif
 #define DECLARE(x) RLAPI x; x
-typedef unsigned char bool;
 
 
-typedef struct Vector2 {
+/* typedef struct Vector2 {
   float x;
   float y;
-} Vector2;
+} Vector2; */
 DECLARE(void Vector2INTO(
   Vector2 *R,
   float *x,
@@ -25,11 +24,11 @@ DECLARE(void Vector2FROM(
 }
 
 
-typedef struct Vector3 {
+/* typedef struct Vector3 {
   float x;
   float y;
   float z;
-} Vector3;
+} Vector3; */
 DECLARE(void Vector3INTO(
   Vector3 *R,
   float *x,
@@ -50,12 +49,12 @@ DECLARE(void Vector3FROM(
 }
 
 
-typedef struct Vector4 {
+/* typedef struct Vector4 {
   float x;
   float y;
   float z;
   float w;
-} Vector4;
+} Vector4; */
 typedef Vector4 Quaternion;
 DECLARE(void Vector4INTO(
   Vector4 *R,
@@ -81,12 +80,12 @@ DECLARE(void Vector4FROM(
 }
 
 
-typedef struct Matrix {
+/* typedef struct Matrix {
   float m0, m4, m8, m12;
   float m1, m5, m9, m13;
   float m2, m6, m10, m14;
   float m3, m7, m11, m15;
-} Matrix;
+} Matrix; */
 DECLARE(void MatrixFROM(
   Matrix *R,
   float *m0, float *m4, float *m8 , float *m12,
@@ -111,12 +110,12 @@ DECLARE(void MatrixINTO(
 }
 
 
-typedef struct Color {
+/* typedef struct Color {
   unsigned char r;
   unsigned char g;
   unsigned char b;
   unsigned char a;
-} Color;
+} Color; */
 DECLARE(void ColorINTO(
   Color *R,
   unsigned char *r,
@@ -141,12 +140,12 @@ DECLARE(void ColorFROM(
 }
 
 
-typedef struct Rectangle {
+/* typedef struct Rectangle {
   float x;
   float y;
   float width;
   float height;
-} Rectangle;
+} Rectangle; */
 DECLARE(void RectangleINTO(
   Rectangle *R,
   float *x,
@@ -171,13 +170,13 @@ DECLARE(void RectangleFROM(
 }
 
 
-typedef struct Image {
+/* typedef struct Image {
   void *data;
   int width;
   int height;
   int mipmaps;
   int format;
-} Image;
+} Image; */
 DECLARE(void ImageINTO(
   Image *R,
   void **data,
@@ -206,13 +205,13 @@ DECLARE(void ImageFROM(
 }
 
 
-typedef struct Texture {
+/* typedef struct Texture {
   unsigned int id;
   int width;
   int height;
   int mipmaps;
   int format;
-} Texture;
+} Texture; */
 typedef Texture Texture2D;
 typedef Texture TextureCubemap;
 DECLARE(void TextureINTO(
@@ -243,11 +242,11 @@ DECLARE(void TextureFROM(
 }
 
 
-typedef struct RenderTexture {
+/* typedef struct RenderTexture {
   unsigned int id;
   Texture texture;
   Texture depth;
-} RenderTexture;
+} RenderTexture; */
 typedef RenderTexture RenderTexture2D;
 void RenderTextureINTO(
   RenderTexture *R,
@@ -269,14 +268,14 @@ void RenderTextureFROM(
 }
 
 
-typedef struct NPatchInfo {
+/* typedef struct NPatchInfo {
   Rectangle source;
   int left;
   int top;
   int right;
   int bottom;
   int layout;
-} NPatchInfo;
+} NPatchInfo; */
 DECLARE(void NPatchInfoINTO(
   NPatchInfo *R,
   Rectangle *source,
@@ -309,13 +308,13 @@ DECLARE(void NPatchInfoFROM(
 }
 
 
-typedef struct GlyphInfo {
+/* typedef struct GlyphInfo {
   int value;
   int offsetX;
   int offsetY;
   int advanceX;
   Image image;
-} GlyphInfo;
+} GlyphInfo; */
 DECLARE(void GlyphInfoINTO(
   GlyphInfo *R,
   int *value,
@@ -344,14 +343,14 @@ DECLARE(void GlyphInfoFROM(
 }
 
 
-typedef struct Font {
+/* typedef struct Font {
   int baseSize;
   int glyphCount;
   int glyphPadding;
   Texture2D texture;
   Rectangle *recs;
   GlyphInfo *glyphs;
-} Font;
+} Font; */
 DECLARE(void FontINTO(
   Font *R,
   int *baseSize,
@@ -384,13 +383,13 @@ void FontFROM(
 }
 
 
-typedef struct Camera3D {
+/* typedef struct Camera3D {
   Vector3 position;
   Vector3 target;
   Vector3 up;
   float fovy;
   int projection;
-} Camera3D;
+} Camera3D; */
 typedef Camera3D Camera;
 DECLARE(void Camera3DINTO(
   Camera3D *R,
@@ -420,12 +419,12 @@ DECLARE(void Camera3DFROM(
 }
 
 
-typedef struct Camera2D {
+/* typedef struct Camera2D {
   Vector2 offset;
   Vector2 target;
   float rotation;
   float zoom;
-} Camera2D;
+} Camera2D; */
 DECLARE(void Camera2DINTO(
   Camera2D *R,
   Vector2 *offset,
@@ -450,7 +449,7 @@ DECLARE(void Camera2DFROM(
 }
 
 
-typedef struct Mesh {
+/* typedef struct Mesh {
   int vertexCount;
   int triangleCount;
   float *vertices;
@@ -468,7 +467,7 @@ typedef struct Mesh {
   int boneCount;
   unsigned int vaoId;
   unsigned int *vboId;
-} Mesh;
+} Mesh; */
 DECLARE(void MeshDINTO(
   Mesh *R,
   int *vertexCount,
@@ -544,10 +543,10 @@ DECLARE(void MeshFROM(
   *vboId = R->vboId;
 }
 
-typedef struct Shader {
+/* typedef struct Shader {
   unsigned int id;
   int *locs;
-} Shader;
+} Shader; */
 DECLARE(void ShaderINTO(
   Shader *R,
   unsigned int *id,
@@ -563,11 +562,11 @@ DECLARE(void ShaderFROM(
   *locs = R->locs;
 }
 
-typedef struct MaterialMap {
+/* typedef struct MaterialMap {
   Texture2D texture;
   Color color;
   float value;
-} MaterialMap;
+} MaterialMap; */
 DECLARE(void MaterialMapINTO(
   MaterialMap *R,
   Texture2D *texture,
@@ -588,11 +587,11 @@ DECLARE(void MaterialMapFROM(
 }
 
 
-typedef struct Material {
+/* typedef struct Material {
   Shader shader;
   MaterialMap *maps;
   float params[4];
-} Material;
+} Material; */
 DECLARE(void MaterialINTO(
   Material *R,
   Shader *shader,
@@ -613,11 +612,11 @@ DECLARE(void MaterialFROM(
 }
 
 
-typedef struct Transform {
+/* typedef struct Transform {
   Vector3 translation;
   Quaternion rotation;
   Vector3 scale;
-} Transform;
+} Transform; */
 DECLARE(void TransformINTO(
   Transform *R,
   Vector3 *translation,
@@ -638,10 +637,10 @@ DECLARE(void TransformFROM(
 }
 
 
-typedef struct BoneInfo {
+/* typedef struct BoneInfo {
   char name[32];
   int parent;
-} BoneInfo;
+} BoneInfo; */
 DECLARE(void BoneInfoINTO(
   BoneInfo *R,
   char (*name)[32],
@@ -658,7 +657,7 @@ DECLARE(void BoneInfoFROM(
 }
 
 
-typedef struct Model {
+/* typedef struct Model {
   Matrix transform;
   int meshCount;
   int materialCount;
@@ -668,7 +667,7 @@ typedef struct Model {
   int boneCount;
   BoneInfo *bones;
   Transform *bindPose;
-} Model;
+} Model; */
 DECLARE(void ModelINTO(
   Model *R,
   Matrix *transform,
@@ -712,13 +711,13 @@ DECLARE(void ModelFROM(
   *bindPose = R->bindPose;
 }
 
-typedef struct ModelAnimation {
+/* typedef struct ModelAnimation {
   int boneCount;
   int frameCount;
   BoneInfo *bones;
   Transform **framePoses;
   char name[32];
-} ModelAnimation;
+} ModelAnimation; */
 DECLARE(void ModelAnimationINTO(
   ModelAnimation *R,
   int *boneCount,
@@ -748,10 +747,10 @@ DECLARE(void ModelAnimationFROM(
 }
 
 
-typedef struct Ray {
+/* typedef struct Ray {
   Vector3 position;
   Vector3 direction;
-} Ray;
+} Ray; */
 DECLARE(void RayINTO(
   Ray *R,
   Vector3 *position,
@@ -768,12 +767,12 @@ DECLARE(void RayFROM(
 }
 
 
-typedef struct RayCollision {
+/* typedef struct RayCollision {
   bool hit;
   float distance;
   Vector3 point;
   Vector3 normal;
-} RayCollision;
+} RayCollision; */
 DECLARE(void RayCollisionINTO(
   RayCollision *R,
   bool *hit,
@@ -798,10 +797,10 @@ DECLARE(void RayCollisionFROM(
 }
 
 
-typedef struct BoundingBox {
+/* typedef struct BoundingBox {
   Vector3 min;
   Vector3 max;
-} BoundingBox;
+} BoundingBox; */
 DECLARE(void BoundingBoxINTO(
   BoundingBox *R,
   Vector3 *min,
@@ -817,13 +816,13 @@ DECLARE(void BoundingBoxFROM(
   *max = R->max;
 }
 
-typedef struct Wave {
+/* typedef struct Wave {
   unsigned int frameCount;
   unsigned int sampleRate;
   unsigned int sampleSize;
   unsigned int channels;
   void *data;
-} Wave;
+} Wave; */
 DECLARE(void WaveINTO(
   Wave *R,
   unsigned int *frameCount,
@@ -856,13 +855,13 @@ typedef struct rAudioBuffer rAudioBuffer;
 typedef struct rAudioProcessor rAudioProcessor;
 
 
-typedef struct AudioStream {
+/* typedef struct AudioStream {
   rAudioBuffer *buffer;
   rAudioProcessor *processor;
   unsigned int sampleRate;
   unsigned int sampleSize;
   unsigned int channels;
-} AudioStream;
+} AudioStream; */
 DECLARE(void AudioStreamINTO(
   AudioStream *R,
   rAudioBuffer **buffer,
@@ -891,10 +890,10 @@ DECLARE(void AudioStreamFROM(
 }
 
 
-typedef struct Sound {
+/* typedef struct Sound {
   AudioStream stream;
   unsigned int frameCount;
-} Sound;
+} Sound; */
 DECLARE(void SoundINTO(
   Sound *R,
   AudioStream *stream,
@@ -910,13 +909,13 @@ DECLARE(void SoundFROM(
   *frameCount = R->frameCount;
 }
 
-typedef struct Music {
+/* typedef struct Music {
   AudioStream stream;
   unsigned int frameCount;
   bool looping;
   int ctxType;
   void *ctxData;
-} Music;
+} Music; */
 DECLARE(void MusicINTO(
   Music *R,
   AudioStream *stream,
@@ -945,7 +944,7 @@ DECLARE(void MusicFROM(
 }
 
 
-typedef struct VrDeviceInfo {
+/* typedef struct VrDeviceInfo {
   int hResolution;
   int vResolution;
   float hScreenSize;
@@ -955,7 +954,7 @@ typedef struct VrDeviceInfo {
   float interpupillaryDistance;
   float lensDistortionValues[4];
   float chromaAbCorrection[4];
-} VrDeviceInfo;
+} VrDeviceInfo; */
 DECLARE(void VrDeviceInfoINTO(
   VrDeviceInfo *R,
   int *hResolution,
@@ -999,7 +998,7 @@ DECLARE(void VrDeviceInfoFROM(
   for(int i=0;i<4;i++) (*chromaAbCorrection)[i] = R->chromaAbCorrection[i];
 }
 
-typedef struct VrStereoConfig {
+/* typedef struct VrStereoConfig {
   Matrix projection[2];
   Matrix viewOffset[2];
   float leftLensCenter[2];
@@ -1008,7 +1007,7 @@ typedef struct VrStereoConfig {
   float rightScreenCenter[2];
   float scale[2];
   float scaleIn[2];
-} VrStereoConfig;
+} VrStereoConfig; */
 DECLARE(void VrStereoConfigINTO(
   VrStereoConfig *R,
   Matrix (*projection)[2],
@@ -1049,11 +1048,11 @@ DECLARE(void VrStereoConfigFROM(
 }
 
 
-typedef struct FilePathList {
+/* typedef struct FilePathList {
   unsigned int capacity;
   unsigned int count;
   char **paths;
-} FilePathList;
+} FilePathList; */
 DECLARE(void FilePathListINTO(
   FilePathList *R,
   unsigned int *capacity,
@@ -1074,11 +1073,11 @@ DECLARE(void FilePathListFROM(
 }
 
 
-typedef struct AutomationEvent {
+/* typedef struct AutomationEvent {
   unsigned int frame;
   unsigned int type;
   int params[4];
-} AutomationEvent;
+} AutomationEvent; */
 DECLARE(void AutomationEventINTO(
   AutomationEvent *R,
   unsigned int *frame,
@@ -1099,11 +1098,11 @@ DECLARE(void AutomationEventFROM(
 }
 
 
-typedef struct AutomationEventList {
+/* typedef struct AutomationEventList {
   unsigned int capacity;
   unsigned int count;
   AutomationEvent *events;
-} AutomationEventList;
+} AutomationEventList; */
 DECLARE(void AutomationEventListINTO(
   AutomationEventList *R,
   unsigned int *capacity,

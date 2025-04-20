@@ -8,6 +8,7 @@
 char *structNames[] = {"Vector2","Vector3","Vector4","Matrix","Color","Rectangle","Image","Texture","RenderTexture","NPatchInfo","GlyphInfo","Font","Camera3D","Camera2D","Mesh","Shader","MaterialMap","Material","Transform","BoneInfo","Model","ModelAnimation","Ray","RayCollision","BoundingBox","Wave","AudioStream","Sound","Music","VrDeviceInfo","VrStereoConfig","FilePathList","AutomationEvent","AutomationEventList",};
 int structSizes[] = {sizeof(Vector2),sizeof(Vector3),sizeof(Vector4),sizeof(Matrix),sizeof(Color),sizeof(Rectangle),sizeof(Image),sizeof(Texture),sizeof(RenderTexture),sizeof(NPatchInfo),sizeof(GlyphInfo),sizeof(Font),sizeof(Camera3D),sizeof(Camera2D),sizeof(Mesh),sizeof(Shader),sizeof(MaterialMap),sizeof(Material),sizeof(Transform),sizeof(BoneInfo),sizeof(Model),sizeof(ModelAnimation),sizeof(Ray),sizeof(RayCollision),sizeof(BoundingBox),sizeof(Wave),sizeof(AudioStream),sizeof(Sound),sizeof(Music),sizeof(VrDeviceInfo),sizeof(VrStereoConfig),sizeof(FilePathList),sizeof(AutomationEvent),sizeof(AutomationEventList),};
 
+#include "IntoFrom.c"
 #define DECLARE(x) RLAPI x; x
 
 DECLARE(int StructCount()){return 34;}
@@ -20,9 +21,7 @@ DECLARE(void GetStructName(char *retName, int strlen, int index)){
 DECLARE(int GetStructNameLength(int index)){
   char *name = structNames[index];
   int acc=0;
-  while (name[acc] != '\0') {
-    acc++;
-  }
+  while (name[acc] != '\0') acc++;
   return acc;
 }
 DECLARE(void InitWindowRetPtr(int *width,  int *height,  const char *title)){InitWindow(*width, *height, title);}  // Initialize window and OpenGL context
