@@ -1,19 +1,25 @@
-# Untested
-#if ! ( [ -e "raylib-source.tar.gz" ] || [ -e "raylib-5.5" ] ); then
-#  curl -L https://github.com/raysan5/raylib/archive/refs/tags/5.5.tar.gz --output raylib-source.tar.gz
-#  tar -xzf raylib-source.tar.gz
-#fi
+if (!((Test-Path "raylib-source.zip") -or (Test-Path "raylib-5.5"))) {
+  Write-Output "Downloading raylib-source.zip"
+  $ProgressPreference = 'SilentlyContinue'
+  Invoke-WebRequest "https://github.com/raysan5/raylib/archive/refs/tags/5.5.zip" -OutFile "raylib-source.zip"
+  tar -xf "raylib-source.zip" -o "raylib-5.5"
+}
+if (!(Test-Path "raylib-5.5")) {
+  Write-Output "Re-unpacking already downloaded raylib-source.zip"
+  tar -xf "raylib-source.zip" -o "raylib-5.5"
+}
 
-# Optional step, re-runs the parser. Useful if you've modified the parser code.
-# Replace this step with manually pasting the script at the bellow path into a dyalog session
-# /usr/bin/dyalogscript "/home/brian/Persinal/Scripts/APL/temp-c-raylib/src/convert_pointerArgs.apls"
+cd src
+# Assumes dyalog is installed
+./convert_pointerArgs.apls
+cd ..
 
 cd raylib-5.5/src
 make clean
 Add-Content -Path "rcore.c" -Value '#include "../../src/temp-c-raylib.c"'
 make CC="zig cc -target x86_64-windows" RAYLIB_LIBTYPE=SHARED -Erroraction # -Erroraction disables error messages, Since this erroring is intentional.
 
-# Sadly I am moving files manually, i don't understand why the linker wants .o files and make produces .obj
+# Sadly I am copying files, i don't understand why the linker wants .o files and make produces .obj
 Copy-Item -Path "rcore.obj" -Destination "rcore.o"
 Copy-Item -Path "rshapes.obj" -Destination "rshapes.o"
 Copy-Item -Path "rtextures.obj" -Destination "rtextures.o"
@@ -27,5 +33,4 @@ make CC="zig cc -target x86_64-windows" RAYLIB_LIBTYPE=SHARED
 $content = Get-Content "rcore.c"
 $content[0..($content.Length-2)] | Set-Content "rcore.c"
 Copy-Item -Force raylib.dll ../../temp-c-raylib.dll
-Copy-Item -Force raylib.pdb ../../temp-c-raylib.pdb
 cd ../../
