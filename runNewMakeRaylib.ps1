@@ -14,14 +14,14 @@ Add-Content -Path "rcore.c" -Value '#include "../../src/temp-c-raylib.c"'
 make CC="zig cc -target x86_64-windows" RAYLIB_LIBTYPE=SHARED
 
 # Sadly I am moving files manually, i don't understand why the linker wants .o files and make produces .obj
-Move-Item -Path "rcore.obj" -Destination "rcore.o"
-Move-Item -Path "rshapes.obj" -Destination "rshapes.o"
-Move-Item -Path "rtextures.obj" -Destination "rtextures.o"
-Move-Item -Path "rtext.obj" -Destination "rtext.o"
-Move-Item -Path "utils.obj" -Destination "utils.o"
-Move-Item -Path "rglfw.obj" -Destination "rglfw.o"
-Move-Item -Path "rmodels.obj" -Destination "rmodels.o"
-Move-Item -Path "raudio.obj" -Destination "raudio.o"
+Copy-Item -Path "rcore.obj" -Destination "rcore.o"
+Copy-Item -Path "rshapes.obj" -Destination "rshapes.o"
+Copy-Item -Path "rtextures.obj" -Destination "rtextures.o"
+Copy-Item -Path "rtext.obj" -Destination "rtext.o"
+Copy-Item -Path "utils.obj" -Destination "utils.o"
+Copy-Item -Path "rglfw.obj" -Destination "rglfw.o"
+Copy-Item -Path "rmodels.obj" -Destination "rmodels.o"
+Copy-Item -Path "raudio.obj" -Destination "raudio.o"
 
 make CC="zig cc -target x86_64-windows" RAYLIB_LIBTYPE=SHARED
 $content = Get-Content "rcore.c"
