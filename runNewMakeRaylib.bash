@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-if ! ( [ -e "raylib-source.tar.gz" ] || [ -e "raylib-5.5" ] ); then
+if ! ( [ -e "raylib-source.tar.gz" ] || [ -e "raylib-5.5" ] ); then
   curl -L https://github.com/raysan5/raylib/archive/refs/tags/5.5.tar.gz --output raylib-source.tar.gz
   tar -xzf raylib-source.tar.gz
 fi
