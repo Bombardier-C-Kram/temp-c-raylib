@@ -11,7 +11,7 @@
 cd raylib-5.5/src
 make clean
 Add-Content -Path "rcore.c" -Value '#include "../../src/temp-c-raylib.c"'
-make CC="zig cc -target x86_64-windows" RAYLIB_LIBTYPE=SHARED
+make CC="zig cc -target x86_64-windows" RAYLIB_LIBTYPE=SHARED -Erroraction # -Erroraction disables error messages, Since this erroring is intentional.
 
 # Sadly I am moving files manually, i don't understand why the linker wants .o files and make produces .obj
 Copy-Item -Path "rcore.obj" -Destination "rcore.o"
@@ -26,6 +26,6 @@ Copy-Item -Path "raudio.obj" -Destination "raudio.o"
 make CC="zig cc -target x86_64-windows" RAYLIB_LIBTYPE=SHARED
 $content = Get-Content "rcore.c"
 $content[0..($content.Length-2)] | Set-Content "rcore.c"
-# Untested
-#cp -f libraylib.so ../../libtemp-c-raylib.so
+Copy-Item -Force raylib.dll ../../temp-c-raylib.dll
+Copy-Item -Force raylib.pdb ../../temp-c-raylib.pdb
 cd ../../
