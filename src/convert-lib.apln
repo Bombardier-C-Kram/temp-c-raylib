@@ -52,25 +52,25 @@ names ← ' {'∘CTI¨ sp∘CI¨ ⊃¨structsAndMore
 
 ⍝ Sizeofs
 
-sizeofCode ←,⊂'char *structNames[] = {','};',⍨ ⊃,/'"'∘,¨,∘'",'¨names
-sizeofCode,← ⊂'int structSizes[] = {','};',⍨ ⊃,/'sizeof('∘,¨,∘'),'¨names
-sizeofCode,← ⊂''
-sizeofCode,← ⊂'#include "IntoFrom.c"'
-sizeofCode,← ⊂'#define DECLARE(x) RLAPI x; x'
-sizeofCode,← ⊂''
-sizeofCode,← ⊂'DECLARE(int StructCount()){return ',';}',⍨⍕≢names
-sizeofCode,← ⊂'DECLARE(int GetStructSize(int index)){return structSizes[index];}'
-sizeofCode,← ⊂'DECLARE(void GetStructName(char *retName, int strlen, int index)){'
-sizeofCode,← ⊂'  for (int i=0;i<strlen;i++) {'
-sizeofCode,← ⊂'    retName[i] = structNames[index][i];'
-sizeofCode,← ⊂'  }'
-sizeofCode,← ⊂,'}'
-sizeofCode,← ⊂'DECLARE(int GetStructNameLength(int index)){'
-sizeofCode,← ⊂'  char *name = structNames[index];'
-sizeofCode,← ⊂'  int acc=0;'
-sizeofCode,← ⊂'  while (name[acc] != ''\0'') acc++;'
-sizeofCode,← ⊂'  return acc;'
-sizeofCode,← ⊂,'}'
+topCode ←,⊂'char *structNames[] = {','};',⍨ ⊃,/'"'∘,¨,∘'",'¨names
+topCode,← ⊂'int structSizes[] = {','};',⍨ ⊃,/'sizeof('∘,¨,∘'),'¨names
+topCode,← ⊂''
+topCode,← ⊂'#include "IntoFrom.c"'
+topCode,← ⊂'#define DECLARE(x) RLAPI x; x'
+topCode,← ⊂''
+topCode,← ⊂'DECLARE(int StructCount()){return ',';}',⍨⍕≢names
+topCode,← ⊂'DECLARE(int GetStructSize(int index)){return structSizes[index];}'
+topCode,← ⊂'DECLARE(void GetStructName(char *retName, int strlen, int index)){'
+topCode,← ⊂'  for (int i=0;i<strlen;i++) {'
+topCode,← ⊂'    retName[i] = structNames[index][i];'
+topCode,← ⊂'  }'
+topCode,← ⊂,'}'
+topCode,← ⊂'DECLARE(int GetStructNameLength(int index)){'
+topCode,← ⊂'  char *name = structNames[index];'
+topCode,← ⊂'  int acc=0;'
+topCode,← ⊂'  while (name[acc] != ''\0'') acc++;'
+topCode,← ⊂'  return acc;'
+topCode,← ⊂,'}'
 
 physacFuncs  ←   physac {⍵CI¨⍺/⍨⍵≡¨10↑¨⍺} ⊂'PHYSACDEF '
 rayguiFuncs  ←     rgui {⍵CI¨⍺/⍨⍵≡¨10↑¨⍺} ⊂'RAYGUIAPI '

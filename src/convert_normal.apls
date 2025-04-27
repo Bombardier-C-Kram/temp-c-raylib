@@ -1,12 +1,12 @@
 #!/usr/bin/dyalogscript
 ⎕io←0
 Assert ← {⍺←'assertion failure' ⋄ 0∊⍵:⍺ ⎕SIGNAL 8 ⋄ shy←0}
-'Neccessary files missing' Assert ∧/⎕NEXISTS¨ 'raygui.h' 'physac.h','../raylib/include/'∘,¨'raylib.h' 'raymath.h' 'rlgl.h'
+'Neccessary files missing' Assert ∧/⎕NEXISTS¨ 'raygui.h' 'physac.h','../raylib-5.5/src/'∘,¨'raylib.h' 'raymath.h' 'rlgl.h'
 c ← 0⎕Fix 'convert-lib.apln',⍨⊃1⎕NPARTS''
 CI ← c.CI
 CTI ← c.CTI
 declorations ← c.declorations
-sizeofCode ← c.sizeofCode
+topCode ← c.topCode
 includes ← c.includes
 AddDecl ← c.AddDecl
 
@@ -33,4 +33,4 @@ fixDecleration ← {
 }
 
 fixed ← AddDecl {⍵/⍨0≠≢¨⍵} fixDecleration¨ declorations
-'temp-c-raylib.c'1⎕NPUT⍨⊂includes,sizeofCode,fixed
+'temp-c-raylib.c'1⎕NPUT⍨⊂includes,topCode,fixed

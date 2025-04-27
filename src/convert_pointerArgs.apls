@@ -6,7 +6,7 @@ c ← 0⎕Fix 'convert-lib.apln',⍨⊃1⎕NPARTS''
 CI ← c.CI
 CTI ← c.CTI
 declorations ← c.declorations
-sizeofCode ← c.sizeofCode
+topCode ← c.topCode
 includes ← c.includes
 AddDecl ← c.AddDecl
 
@@ -39,4 +39,4 @@ fixDecleration ← {
 }
 
 fixed ← AddDecl fixDecleration¨declorations
-'temp-c-raylib.c'1⎕NPUT⍨⊂includes,sizeofCode,fixed
+'temp-c-raylib.c'1⎕NPUT⍨⊂includes,topCode,fixed
