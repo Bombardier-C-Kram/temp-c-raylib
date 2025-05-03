@@ -10,6 +10,16 @@ topCode ← c.topCode
 includes ← c.includes
 AddDecl ← c.AddDecl
 
+
+⍝ predefined C types
+atomTypes ← ⍬
+atomTypes ,←⊂ bool ← 'bool'
+atomTypes ,←⊂ c    ← 'char'
+atomTypes ,←⊂ i    ← 'int'
+atomTypes ,←⊂ f    ← 'float'
+atomTypes ,←⊂ u    ← 'unsigned int'
+atomTypes ,←⊂ ptr  ← 'void *'
+
 ⍝ validTypes ← ⍬
 ⍝ validTypes ,←⊂ 'bool '
 ⍝ validTypes ,←⊂ 'int '
@@ -27,9 +37,8 @@ fixDecleration ← {
   namesList ← {⍵/⍨⌽∧\⌽(1⎕C⍵)∊⎕A,⎕D}¨argsList
 
   typesList ← namesList CTI¨ argsList
-  argsWereNotPointers ← ~'*'∊¨typesList
-
-  argNamesPtrAdded ← (argsWereNotPointers⍴¨'*'),¨namesList
+  structArgs ← ~(∊∘atomTypes∨'*'∘∊¨) ~∘' '¨ typesList
+  argNamesPtrAdded ← (structArgs⍴¨'*'),¨namesList
   argsInCall ← 2↓⊃,/', '∘,¨ argNamesPtrAdded
   argsInDecl ← 2↓⊃,/', '∘,¨ typesList,¨argNamesPtrAdded
 
