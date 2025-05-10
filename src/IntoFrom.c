@@ -247,21 +247,21 @@ DECLARE(void TextureFROM(
   Texture texture;
   Texture depth;
 } RenderTexture; */
-typedef RenderTexture RenderTexture2D;
-void RenderTextureINTO(
+// typedef RenderTexture RenderTexture2D;
+DECLARE(void RenderTextureINTO(
   RenderTexture *R,
   unsigned int *id,
   Texture *texture,
-  Texture *depth){
+  Texture *depth)){
   R->id      = *id;
   R->texture = *texture;
   R->depth   = *depth;
 }
-void RenderTextureFROM(
+DECLARE(void RenderTextureFROM(
   RenderTexture *R,
   unsigned int *id,
   Texture *texture,
-  Texture *depth){
+  Texture *depth)){
   *id      = R->id;
   *texture = R->texture;
   *depth   = R->depth;
@@ -366,14 +366,14 @@ DECLARE(void FontINTO(
   R->recs = *recs;
   R->glyphs = *glyphs;
 }
-void FontFROM(
+DECLARE(void FontFROM(
   Font *R,
   int *baseSize,
   int *glyphCount,
   int *glyphPadding,
   Texture2D *texture,
   Rectangle **recs,
-  GlyphInfo **glyphs){
+  GlyphInfo **glyphs)){
   *baseSize = R->baseSize;
   *glyphCount = R->glyphCount;
   *glyphPadding = R->glyphPadding;
