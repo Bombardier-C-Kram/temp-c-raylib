@@ -1121,3 +1121,14 @@ DECLARE(void AutomationEventListFROM(
   *count = R->count;
   *events = R->events;
 }
+
+DECLARE(void Float4INTO(
+  float *f4,
+  double *f8)){
+  *f4 = (float)(*f8);
+}
+DECLARE(void Float4FROM(
+  float *f4,
+  double *f8)){
+  *f8 = (double)(*f4);
+}
