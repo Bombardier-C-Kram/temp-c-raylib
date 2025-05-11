@@ -38,7 +38,7 @@ fixDecleration ← {
 
   typesList ← namesList CTI¨ argsList
   structArgs ← ~(∊∘atomTypes∨'*'∘∊¨) ~∘' '¨ typesList
-  argNamesPtrAdded ← (structArgs⍴¨'*'),¨namesList
+  argNamesPtrAdded ← (1⍴¨'*'),¨namesList
   argsInCall ← 2↓⊃,/', '∘,¨ argNamesPtrAdded
   argsInDecl ← 2↓⊃,/', '∘,¨ typesList,¨argNamesPtrAdded
 
