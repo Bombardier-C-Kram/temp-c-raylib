@@ -29,7 +29,7 @@ Copy-Item -Path "rglfw.obj" -Destination "rglfw.o"
 Copy-Item -Path "rmodels.obj" -Destination "rmodels.o"
 Copy-Item -Path "raudio.obj" -Destination "raudio.o"
 
-make CC="zig cc -target x86_64-windows" RAYLIB_LIBTYPE=SHARED
+make CC="zig cc -target x86_64-windows" RAYLIB_LIBTYPE=SHARED RAYLIB_RES_FILE=""
 $content = Get-Content "rcore.c"
 $content[0..($content.Length-2)] | Set-Content "rcore.c"
 Copy-Item -Force raylib.dll ../../temp-c-raylib.dll
