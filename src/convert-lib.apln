@@ -77,6 +77,8 @@ topCode,← ⊂,'}'
 topCode,← ⊂'DECLARE(void DoubleToFloat(float *n1, double *n2)){'
 topCode,← ⊂'  *n1 = *n2;'
 topCode,← ⊂,'}'
+topCode,← ⊂'DECLARE(void memcpy2(void *x, void *y, size_t z)){memcpy(x,y,z);}'
+topCode,← ⊂'DECLARE(void strcpy2(void *x, void *y)){strcpy(x,y);}'
 
 physacFuncs  ←   physac {⍵CI¨⍺/⍨⍵≡¨10↑¨⍺} ⊂'PHYSACDEF '
 rayguiFuncs  ←     rgui {⍵CI¨⍺/⍨⍵≡¨10↑¨⍺} ⊂'RAYGUIAPI '

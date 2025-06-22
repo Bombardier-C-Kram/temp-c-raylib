@@ -3,9 +3,6 @@
 #endif
 #define DECLARE(x) RLAPI x; x
 
-DECLARE(void memcpy2(void *x, void *y, size_t z)){memcpy(x,y,z);}
-DECLARE(void strcpy2(void *x, void *y)){strcpy(x,y);}
-
 /* typedef struct Vector2 {
   float x;
   float y;
