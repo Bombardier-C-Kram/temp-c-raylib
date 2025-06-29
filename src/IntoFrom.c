@@ -54,7 +54,6 @@ DECLARE(void Vector3FROM(
   float z;
   float w;
 } Vector4; */
-typedef Vector4 Quaternion;
 DECLARE(void Vector4INTO(
   Vector4 *R,
   float *x,
@@ -211,8 +210,6 @@ DECLARE(void ImageFROM(
   int mipmaps;
   int format;
 } Texture; */
-typedef Texture Texture2D;
-typedef Texture TextureCubemap;
 DECLARE(void TextureINTO(
   Texture *R,
   unsigned int *id,
@@ -389,7 +386,6 @@ DECLARE(void FontFROM(
   float fovy;
   int projection;
 } Camera3D; */
-typedef Camera3D Camera;
 DECLARE(void Camera3DINTO(
   Camera3D *R,
   Vector3 *position,
@@ -542,6 +538,7 @@ DECLARE(void MeshFROM(
   *vboId = R->vboId;
 }
 
+
 /* typedef struct Shader {
   unsigned int id;
   int *locs;
@@ -560,6 +557,7 @@ DECLARE(void ShaderFROM(
   *id = R->id;
   *locs = R->locs;
 }
+
 
 /* typedef struct MaterialMap {
   Texture2D texture;
@@ -710,6 +708,7 @@ DECLARE(void ModelFROM(
   *bindPose = R->bindPose;
 }
 
+
 /* typedef struct ModelAnimation {
   int boneCount;
   int frameCount;
@@ -815,6 +814,7 @@ DECLARE(void BoundingBoxFROM(
   *max = R->max;
 }
 
+
 /* typedef struct Wave {
   unsigned int frameCount;
   unsigned int sampleRate;
@@ -848,10 +848,6 @@ DECLARE(void WaveFROM(
   *channels = R->channels;
   *data = R->data;
 }
-
-
-typedef struct rAudioBuffer rAudioBuffer;
-typedef struct rAudioProcessor rAudioProcessor;
 
 
 /* typedef struct AudioStream {
@@ -907,6 +903,7 @@ DECLARE(void SoundFROM(
   *stream = R->stream;
   *frameCount = R->frameCount;
 }
+
 
 /* typedef struct Music {
   AudioStream stream;
@@ -996,6 +993,7 @@ DECLARE(void VrDeviceInfoFROM(
   for(int i=0;i<4;i++) (*lensDistortionValues)[i] = R->lensDistortionValues[i];
   for(int i=0;i<4;i++) (*chromaAbCorrection)[i] = R->chromaAbCorrection[i];
 }
+
 
 /* typedef struct VrStereoConfig {
   Matrix projection[2];
@@ -1120,6 +1118,7 @@ DECLARE(void AutomationEventListFROM(
   *count = R->count;
   *events = R->events;
 }
+
 
 DECLARE(void Float4INTO(
   float *f4,
