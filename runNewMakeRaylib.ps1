@@ -1,3 +1,7 @@
+param(
+    [switch]$SkipDyalog = $false
+)
+
 if (!((Test-Path "raylib-source.zip") -or (Test-Path "raylib-5.5"))) {
   Write-Output "Downloading raylib-source.zip"
   $ProgressPreference = 'SilentlyContinue'
@@ -9,10 +13,14 @@ if (!(Test-Path "raylib-5.5")) {
   tar -xf "raylib-source.zip" -o "raylib-5.5"
 }
 
-cd src
-# Assumes dyalog is installed
-./convert_pointerArgs.apls
-cd ..
+if (!$SkipDyalog) {
+  cd src
+  # Assumes dyalog is installed
+  ./convert_pointerArgs.apls
+  cd ..
+} else {
+  Write-Output "Skipping Dyalog script execution"
+}
 
 cd raylib-5.5/src
 make clean

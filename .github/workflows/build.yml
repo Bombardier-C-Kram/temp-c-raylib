@@ -73,9 +73,16 @@ jobs:
           raylib-5.5/
 
   build-windows:
+    needs: build-linux
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
+    
+    - name: Download Linux build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: linux-build
+        path: ./
     
     - name: Install Zig
       uses: goto-bus-stop/setup-zig@v2
@@ -87,35 +94,9 @@ jobs:
         # Windows dependencies should be available through zig
         echo "Windows dependencies check"
     
-    - name: Install Dyalog APL
-      run: |
-        # Download Dyalog APL for Windows
-        $url = "https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=19.0/windows_64_19.0.50074_unicode.zip"
-        $zipFile = "dyalog.zip"
-        $extractPath = "dyalog-temp"
-        
-        # Download the zip file
-        Invoke-WebRequest -Uri $url -OutFile $zipFile
-        
-        # Extract the zip file
-        Expand-Archive -Path $zipFile -DestinationPath $extractPath -Force
-        
-        # Find and install the MSI file
-        $msiFile = Get-ChildItem -Path $extractPath -Filter "setup_64_unicode.msi" -Recurse | Select-Object -First 1
-        if ($msiFile) {
-          Start-Process -FilePath "msiexec.exe" -ArgumentList "/i", $msiFile.FullName, "/passive", "/l*v", "dyalog-install.log" -Wait
-        } else {
-          Write-Error "MSI file not found in the extracted archive"
-        }
-        
-        # Clean up
-        Remove-Item -Path $zipFile -Force -ErrorAction SilentlyContinue
-        Remove-Item -Path $extractPath -Recurse -Force -ErrorAction SilentlyContinue
-      shell: powershell
-    
     - name: Build raylib
       run: |
-        .\runNewMakeRaylib.ps1
+        .\runNewMakeRaylib.ps1 -SkipDyalog
       shell: powershell
     
     - name: Upload build artifacts
