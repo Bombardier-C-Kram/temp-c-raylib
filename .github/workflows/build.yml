@@ -3,6 +3,7 @@ name: Build temp-c-raylib
 on:
   push:
     branches: [ master ]
+    tags: [ '*' ]
   pull_request:
     branches: [ master ]
 
@@ -107,21 +108,21 @@ jobs:
           temp-c-raylib.dll
           raylib-5.5/
 
-#   create-release:
-#     needs: [build-linux, build-macos, build-windows]
-#     runs-on: ubuntu-latest
-#     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
-#     steps:
-#     - name: Download all artifacts
-#       uses: actions/download-artifact@v4
-      
-#     - name: Create Release
-#       uses: softprops/action-gh-release@v1
-#       if: startsWith(github.ref, 'refs/tags/')
-#       with:
-#         files: |
-#           linux-build/libtemp-c-raylib.so
-#           macos-build/libtemp-c-raylib.dylib
-#           windows-build/temp-c-raylib.dll
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  create-release:
+    needs: [build-linux, build-macos, build-windows]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+    
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: ${{ github.ref_name }}
+        files: |
+          linux-build/libtemp-c-raylib.so
+          macos-build/libtemp-c-raylib.dylib
+          windows-build/temp-c-raylib.dll
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
