@@ -21,7 +21,7 @@ jobs:
       run: |
         # Download Dyalog APL for Linux
         curl -L "https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=19.0/linux_64_19.0.50027_unicode.x86_64.deb" -o dyalog.deb
-        sudo apt-get install -f -y dyalog.deb
+        sudo apt-get install -y ./dyalog.deb
 
     - name: Build raylib
       run: |
@@ -103,15 +103,9 @@ jobs:
         # Find and install the MSI file
         $msiFile = Get-ChildItem -Path $extractPath -Filter "setup_64_unicode.msi" -Recurse | Select-Object -First 1
         if ($msiFile) {
-          Start-Process -FilePath "msiexec.exe" -ArgumentList "/i", $msiFile.FullName, "/quiet", "/norestart" -Wait
+          Start-Process -FilePath "msiexec.exe" -ArgumentList "/i", $msiFile.FullName, "/passive", "/l*v", "dyalog-install.log" -Wait
         } else {
           Write-Error "MSI file not found in the extracted archive"
-        }
-        
-        # Add Dyalog to PATH
-        $dyalogPath = "C:\Program Files\Dyalog\Dyalog APL-64 19.0 Unicode"
-        if (Test-Path $dyalogPath) {
-          echo $dyalogPath | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
         }
         
         # Clean up
