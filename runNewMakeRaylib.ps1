@@ -25,7 +25,7 @@ if (!$SkipDyalog) {
 cd raylib-5.5/src
 make clean
 Add-Content -Path "rcore.c" -Value '#include "../../src/temp-c-raylib.c"'
-make CC="zig cc -target x86_64-windows" RAYLIB_LIBTYPE=SHARED -Erroraction # -Erroraction disables error messages, Since this erroring is intentional.
+make CC="zig cc -target x86_64-windows" RAYLIB_LIBTYPE=SHARED -s # -Erroraction disables error messages, Since this erroring is intentional.
 
 # Sadly I am copying files, i don't understand why the linker wants .o files and make produces .obj
 Copy-Item -Path "rcore.obj" -Destination "rcore.o"
