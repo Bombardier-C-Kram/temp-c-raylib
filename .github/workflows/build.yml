@@ -1,0 +1,152 @@
+name: Build temp-c-raylib
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev
+    
+    - name: Install Dyalog APL
+      run: |
+        # Download Dyalog APL for Linux
+        curl -L "https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=19.0/linux_64_19.0.50027_unicode.x86_64.deb" -o dyalog.deb
+        sudo apt-get install -f -y dyalog.deb
+
+    - name: Build raylib
+      run: |
+        chmod +x runNewMakeRaylib.bash
+        ./runNewMakeRaylib.bash
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: linux-build
+        path: |
+          libtemp-c-raylib.so
+          raylib-5.5/
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install dependencies
+      run: |
+        # macOS should have the necessary frameworks built-in
+        echo "macOS dependencies check"
+    
+    - name: Install Dyalog APL
+      run: |
+        # Detect architecture
+        if [[ $(uname -m) == "arm64" ]]; then
+          DYALOG_URL="https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=19.0/macarm_64_19.0.50027_unicode.pkg"
+        else
+          DYALOG_URL="https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=19.0/mac_64_19.0.50027_unicode.pkg"
+        fi
+        
+        # Download and install Dyalog APL
+        curl -L "$DYALOG_URL" -o dyalog.pkg
+        sudo installer -pkg dyalog.pkg -target /
+    
+    - name: Build raylib
+      run: |
+        chmod +x runNewMakeRaylibMac.bash
+        ./runNewMakeRaylibMac.bash
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: macos-build
+        path: |
+          libtemp-c-raylib.dylib
+          raylib-5.5/
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install Zig
+      uses: goto-bus-stop/setup-zig@v2
+      with:
+        version: 0.11.0
+    
+    - name: Install dependencies
+      run: |
+        # Windows dependencies should be available through zig
+        echo "Windows dependencies check"
+    
+    - name: Install Dyalog APL
+      run: |
+        # Download Dyalog APL for Windows
+        $url = "https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=19.0/windows_64_19.0.50074_unicode.zip"
+        $zipFile = "dyalog.zip"
+        $extractPath = "dyalog-temp"
+        
+        # Download the zip file
+        Invoke-WebRequest -Uri $url -OutFile $zipFile
+        
+        # Extract the zip file
+        Expand-Archive -Path $zipFile -DestinationPath $extractPath -Force
+        
+        # Find and install the MSI file
+        $msiFile = Get-ChildItem -Path $extractPath -Filter "setup_64_unicode.msi" -Recurse | Select-Object -First 1
+        if ($msiFile) {
+          Start-Process -FilePath "msiexec.exe" -ArgumentList "/i", $msiFile.FullName, "/quiet", "/norestart" -Wait
+        } else {
+          Write-Error "MSI file not found in the extracted archive"
+        }
+        
+        # Add Dyalog to PATH
+        $dyalogPath = "C:\Program Files\Dyalog\Dyalog APL-64 19.0 Unicode"
+        if (Test-Path $dyalogPath) {
+          echo $dyalogPath | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        }
+        
+        # Clean up
+        Remove-Item -Path $zipFile -Force -ErrorAction SilentlyContinue
+        Remove-Item -Path $extractPath -Recurse -Force -ErrorAction SilentlyContinue
+      shell: powershell
+    
+    - name: Build raylib
+      run: |
+        .\runNewMakeRaylib.ps1
+      shell: powershell
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-build
+        path: |
+          temp-c-raylib.dll
+          raylib-5.5/
+
+#   create-release:
+#     needs: [build-linux, build-macos, build-windows]
+#     runs-on: ubuntu-latest
+#     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+#     steps:
+#     - name: Download all artifacts
+#       uses: actions/download-artifact@v4
+      
+#     - name: Create Release
+#       uses: softprops/action-gh-release@v1
+#       if: startsWith(github.ref, 'refs/tags/')
+#       with:
+#         files: |
+#           linux-build/libtemp-c-raylib.so
+#           macos-build/libtemp-c-raylib.dylib
+#           windows-build/temp-c-raylib.dll
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
