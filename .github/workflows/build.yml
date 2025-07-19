@@ -80,16 +80,10 @@ jobs:
           raylib-5.5/
 
   build-windows:
-    needs: build-linux
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
-    
-    - name: Download Linux build artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: linux-build
-        path: ./
+  
     
     - name: Install Zig
       uses: goto-bus-stop/setup-zig@v2
@@ -101,9 +95,27 @@ jobs:
         # Windows dependencies should be available through zig
         echo "Windows dependencies check"
     
+    - name: Install Dyalog APL
+      run: |
+        # Download Dyalog APL for Windows
+        curl https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=19.0/windows_64_19.0.50074_unicode.zip -o dyalog.zip
+        
+        # Extract the archive
+        powershell -c "Expand-Archive -Path 'dyalog.zip' -DestinationPath 'dyalog' -Force"
+        
+        # Install Visual C++ Redistributable
+        .\dyalog\vc_redist.x64.exe /quiet /norestart
+        
+        # Install Dyalog APL
+        msiexec /i .\dyalog\setup_64_unicode.msi /quiet /norestart ACCEPT_LICENSE=YES
+        
+        # Fix dyalogscript.ps1 (remove last 2 lines)
+        powershell -c "Get-Content 'C:\Program Files\Dyalog\Dyalog APL-64 19.0 Unicode\scriptbin\dyalogscript.ps1' | Select-Object -SkipLast 2 | Set-Content 'C:\Program Files\Dyalog\Dyalog APL-64 19.0 Unicode\scriptbin\dyalogscript.ps1'"
+      shell: cmd
+    
     - name: Build raylib
       run: |
-        .\runNewMakeRaylib.ps1 -SkipDyalog
+        .\runNewMakeRaylib.ps1
       shell: powershell
     
     - name: Upload build artifacts

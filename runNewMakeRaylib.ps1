@@ -16,7 +16,7 @@ if (!(Test-Path "raylib-5.5")) {
 if (!$SkipDyalog) {
   cd src
   # Assumes dyalog is installed
-  ./convert_pointerArgs.apls
+  & "C:\Program Files\Dyalog\Dyalog APL-64 19.0 Unicode\scriptbin\dyalogscript.ps1" "convert_pointerArgs.apls"
   cd ..
 } else {
   Write-Output "Skipping Dyalog script execution"
