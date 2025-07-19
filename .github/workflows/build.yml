@@ -97,19 +97,19 @@ jobs:
     
     - name: Install Dyalog APL
       run: |
-        # Download Dyalog APL for Windows
+        REM Download Dyalog APL for Windows
         curl https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=19.0/windows_64_19.0.50074_unicode.zip -o dyalog.zip
         
-        # Extract the archive
+        REM Extract the archive
         powershell -c "Expand-Archive -Path 'dyalog.zip' -DestinationPath 'dyalog' -Force"
         
-        # Install Visual C++ Redistributable
+        REM Install Visual C++ Redistributable
         .\dyalog\vc_redist.x64.exe /quiet /norestart
         
-        # Install Dyalog APL
+        REM Install Dyalog APL
         msiexec /i .\dyalog\setup_64_unicode.msi /quiet /norestart ACCEPT_LICENSE=YES
         
-        # Fix dyalogscript.ps1 (remove last 2 lines)
+        REM Fix dyalogscript.ps1 (remove last 2 lines)
         powershell -c "Get-Content 'C:\Program Files\Dyalog\Dyalog APL-64 19.0 Unicode\scriptbin\dyalogscript.ps1' | Select-Object -SkipLast 2 | Set-Content 'C:\Program Files\Dyalog\Dyalog APL-64 19.0 Unicode\scriptbin\dyalogscript.ps1'"
       shell: cmd
     
