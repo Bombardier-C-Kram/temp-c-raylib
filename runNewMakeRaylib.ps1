@@ -1,5 +1,5 @@
 param(
-    [switch]$SkipDyalog = $false
+    [switch]$GHDyalog = $false
 )
 
 if (!((Test-Path "raylib-source.zip") -or (Test-Path "raylib-5.5"))) {
@@ -13,13 +13,14 @@ if (!(Test-Path "raylib-5.5")) {
   tar -xf "raylib-source.zip" -o "raylib-5.5"
 }
 
-if (!$SkipDyalog) {
+if (!$GHDyalog) {
   cd src
   # Assumes dyalog is installed
-  & "C:\Program Files\Dyalog\Dyalog APL-64 19.0 Unicode\scriptbin\dyalogscript.ps1" "convert_pointerArgs.apls"
+  .\convert_pointerArgs.apls
   cd ..
 } else {
-  Write-Output "Skipping Dyalog script execution"
+  & "C:\Program Files\Dyalog\Dyalog APL-64 19.0 Unicode\scriptbin\dyalogscript2.ps1" "convert_pointerArgs.apls"
+  cd ..
 }
 
 cd raylib-5.5/src
