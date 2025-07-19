@@ -112,6 +112,9 @@ jobs:
         REM Install Dyalog APL
         msiexec /i setup_64_unicode.msi /quiet /norestart ACCEPT_LICENSE=YES
         
+        REM Wait for installation to complete using PowerShell
+        powershell -c "do { Start-Sleep -Seconds 2; Write-Host 'Waiting for Dyalog installation to complete...' } while (-not (Test-Path 'C:\\Program Files\\Dyalog\\Dyalog APL-64 19.0 Unicode\\scriptbin\\dyalogscript.ps1')); Write-Host 'Dyalog installation completed!'"
+        
         REM Fix dyalogscript.ps1 (remove last 2 lines)
         powershell -c "Get-Content 'C:\Program Files\Dyalog\Dyalog APL-64 19.0 Unicode\scriptbin\dyalogscript.ps1' | Select-Object -SkipLast 2 | Set-Content 'C:\Program Files\Dyalog\Dyalog APL-64 19.0 Unicode\scriptbin\dyalogscript.ps1'"
       shell: cmd
