@@ -101,7 +101,7 @@ jobs:
         curl https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=19.0/windows_64_19.0.50074_unicode.zip -o dyalog.zip
         
         REM Extract the archive
-        powershell -c "Expand-Archive -Path 'dyalog.zip' -DestinationPath 'dyalog' -Force"
+        tar -xf dyalog.zip -C .\dyalog
         
         REM Install Visual C++ Redistributable
         .\dyalog\vc_redist.x64.exe /quiet /norestart
