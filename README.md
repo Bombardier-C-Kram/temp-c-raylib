@@ -1,6 +1,14 @@
 # Temp-c-raylib for Dyalog ⎕NA
 Temp-c-raylib is for temporary raylib changes to be able to use ⎕NA with less issues in Dyalog APL. Currently only targets raylib 5.0, though with some modifications can target other versions.
 
+This library is intended for use with [raylib-apl](https://github.com/Brian-ED/raylib-apl).
+
+# Download
+For the latest pre-built library files, visit the [Releases page](https://github.com/Brian-ED/temp-c-raylib/releases) and download the appropriate file for your platform:
+- **Linux**: `libtemp-c-raylib.so`
+- **macOS**: `libtemp-c-raylib.dylib`
+- **Windows**: `temp-c-raylib.dll`
+
 # Compile
 On Linux run `runNewMakeRaylib.bash`.
 
@@ -9,20 +17,14 @@ On Windows run `runNewMakeRaylib.ps1`. It assumes you're using `zig cc` as your 
 On macOS run `runNewMakeRaylibMac.bash`.
 
 # GitHub Actions
-This repository includes GitHub Actions workflows that automatically build the library for all three platforms (Linux, macOS, and Windows) on every push. The workflows are located in `.github/workflows/`:
+This repository includes a GitHub Actions workflow that automatically builds the library for all three platforms (Linux, macOS, and Windows) on every push and pull request. The workflow is located at `.github/workflows/build.yml`.
 
-- `build.yml` - Full-featured build with Dyalog APL installation, artifact collection and release creation
-- `build-simple.yml` - Simplified build process with Dyalog APL installation for basic CI
+The workflow includes:
+- **Automatic builds**: Builds are triggered on pushes to master, pull requests, and manual workflow dispatch
+- **Release creation**: Can create releases with build artifacts when manually triggered with the `create_release` input (requires updating the VERSION file first)
+- **Dyalog APL installation**: Automatically downloads and installs Dyalog APL 19.0 on each platform
+- **Artifact collection**: Collects and uploads build artifacts for each platform
 
-The workflows automatically download and install Dyalog APL 19.0 on each platform:
-- **Linux**: Downloads and installs the `.deb` package
-- **macOS**: Downloads and installs the `.pkg` package (with automatic ARM64/x64 detection)
-- **Windows**: Downloads the `.zip` archive and installs the MSI file
+The workflow automatically downloads and installs Dyalog APL on each platform.
 
 The APL conversion scripts (`convert_pointerArgs.apls`) run properly during the build process to generate the necessary C code.
-
-## Build Artifacts
-The GitHub Actions workflows produce the following artifacts:
-- **Linux**: `libtemp-c-raylib.so`
-- **macOS**: `libtemp-c-raylib.dylib`  
-- **Windows**: `temp-c-raylib.dll`
