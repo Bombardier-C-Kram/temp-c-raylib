@@ -19,7 +19,8 @@ if (!$GHDyalog) {
   .\convert_pointerArgs.apls
   cd ..
 } else {
-  & "C:\Program Files\Dyalog\Dyalog APL-64 19.0 Unicode\scriptbin\dyalogscript2.ps1" "convert_pointerArgs.apls"
+  cd src
+  & "C:\Program Files\Dyalog\Dyalog APL-64 19.0 Unicode\scriptbin\dyalogscript2.ps1" .\convert_pointerArgs.apls
   cd ..
 }
 
